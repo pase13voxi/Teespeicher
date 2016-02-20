@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="paseb.teeapp.teespeicher.NewTea">
+
+    <include
+        android:id="@id/tool_bar"
+        layout="@layout/tool_bar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Teesorte"
+        android:layout_alignBottom="@+id/spinnerTeeart"
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#494949"
+        android:id="@+id/textViewTeaSort" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTeeart"
+        android:transitionName="Teeart"
+        android:entries="@array/sortsOfTea"
+        android:prompt="@string/tea_sort"
+        android:spinnerMode="dialog"
+        android:layout_below="@id/tool_bar"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/textViewTeaSort" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:hint="Name"
+        android:ems="10"
+        android:id="@+id/editTextName"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/spinnerTeeart"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="Temperatur (°C)"
+        android:ems="10"
+        android:id="@+id/editTextTemperatur"
+        android:layout_below="@+id/editTextName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="Menge Tl/L"
+        android:ems="10"
+        android:id="@+id/editTextTeelamass"
+        android:layout_below="@+id/editTextTemperatur"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:hint="Ziehzeit (mm:ss) oder (mm)"
+        android:ems="10"
+        android:id="@+id/editTextZiehzeit"
+        android:layout_below="@+id/editTextTeelamass"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="anlegen"
+        android:id="@+id/buttonfertig"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_below="@+id/editTextZiehzeit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorPrimary"/>
+
+
+</RelativeLayout>

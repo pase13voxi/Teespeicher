@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Teespeicher</string>
+    <string name="main_action_settings">Einstellungen</string>
+    <string name="main_action_sort_date">Sortiere nach Ativität</string>
+    <string name="main_action_sort_sort">Sortiere nach Sorte</string>
+    <string name="showtea_action_settings">Bearbeiten</string>
+    <string name="tea_sort">Teesorte</string>
+    <string-array name="sortsOfTea">
+        <item>Schwarzer Tee</item>
+        <item>Grüner Tee</item>
+        <item>Gelber Tee</item>
+        <item>Weißer Tee</item>
+        <item>Oolong</item>
+        <item>Pu Erh Tee</item>
+        <item>Kräutertee</item>
+        <item>Früchtetee</item>
+        <item>Roibuschtee</item>
+        <item>Sonstiges</item>
+    </string-array>
+    <string-array name="itemMenu">
+        <item>Bearbeiten</item>
+        <item>Löschen</item>
+    </string-array>
+    <string-array name="itemsTimer">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+    </string-array>
+</resources>
