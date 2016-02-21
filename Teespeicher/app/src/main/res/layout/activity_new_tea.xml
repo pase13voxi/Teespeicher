@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Teesorte"
         android:layout_alignBottom="@+id/spinnerTeeart"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="4dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="#494949"
@@ -30,8 +30,8 @@
         android:prompt="@string/tea_sort"
         android:spinnerMode="dialog"
         android:layout_below="@id/tool_bar"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dip"
+        android:layout_marginLeft="5dip"
         android:layout_toRightOf="@+id/textViewTeaSort" />
 
     <EditText
@@ -41,7 +41,7 @@
         android:hint="Name"
         android:ems="10"
         android:id="@+id/editTextName"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="10dip"
         android:layout_below="@id/spinnerTeeart"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -58,7 +58,7 @@
         android:layout_below="@+id/editTextName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="10dip"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -74,7 +74,7 @@
         android:layout_below="@+id/editTextTemperatur"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="10dip"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -88,18 +88,18 @@
         android:layout_below="@+id/editTextTeelamass"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="10dip"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="50dip"
         android:text="anlegen"
         android:id="@+id/buttonfertig"
-        android:layout_marginTop="11dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginTop="11dip"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
         android:layout_below="@+id/editTextZiehzeit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
