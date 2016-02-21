@@ -12,14 +12,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/textViewTeaSort"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Teesorte"
         android:layout_alignBottom="@+id/spinnerTeeart"
-        android:layout_marginLeft="4dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#494949"
-        android:id="@+id/textViewTeaSort" />
+        android:layout_marginLeft="4dip"
+        android:textColor="#494949" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -30,9 +29,9 @@
         android:prompt="@string/tea_sort"
         android:spinnerMode="dialog"
         android:layout_below="@id/tool_bar"
+        android:layout_toRightOf="@+id/textViewTeaSort"
         android:layout_marginTop="10dip"
-        android:layout_marginLeft="5dip"
-        android:layout_toRightOf="@+id/textViewTeaSort" />
+        android:layout_marginLeft="5dip" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -41,12 +40,10 @@
         android:hint="Name"
         android:ems="10"
         android:id="@+id/editTextName"
-        android:layout_marginTop="10dip"
         android:layout_below="@id/spinnerTeeart"
+        android:layout_marginTop="10dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentRight="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,11 +53,9 @@
         android:ems="10"
         android:id="@+id/editTextTemperatur"
         android:layout_below="@+id/editTextName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="10dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
 
 
 
@@ -72,11 +67,9 @@
         android:ems="10"
         android:id="@+id/editTextTeelamass"
         android:layout_below="@+id/editTextTemperatur"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="10dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -86,25 +79,21 @@
         android:ems="10"
         android:id="@+id/editTextZiehzeit"
         android:layout_below="@+id/editTextTeelamass"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="10dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="50dip"
         android:text="anlegen"
         android:id="@+id/buttonfertig"
+        android:layout_below="@+id/editTextZiehzeit"
         android:layout_marginTop="11dip"
         android:layout_marginLeft="4dip"
         android:layout_marginRight="4dip"
-        android:layout_below="@+id/editTextZiehzeit"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:background="@color/colorPrimary"/>
 
 

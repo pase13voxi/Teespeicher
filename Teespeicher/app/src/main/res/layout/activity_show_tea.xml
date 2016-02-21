@@ -16,11 +16,9 @@
         android:text="Large Text"
         android:textSize="35dip"
         android:id="@+id/textViewShowName"
-        android:textAlignment="center"
         android:layout_below="@id/tool_bar"
         android:layout_marginTop="40dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,11 +26,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/textViewShowTeesorte"
-        android:textAlignment="center"
         android:layout_below="@+id/textViewShowName"
         android:layout_marginTop="30dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,11 +36,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/textViewShowTemperatur"
-        android:textAlignment="center"
         android:layout_below="@+id/textViewShowTeesorte"
         android:layout_marginTop="30dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,11 +46,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/textViewShowTeelamass"
-        android:textAlignment="center"
         android:layout_below="@+id/textViewShowTemperatur"
         android:layout_marginTop="30dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_centerHorizontal="true" />
 
     <Spinner
         android:layout_width="wrap_content"

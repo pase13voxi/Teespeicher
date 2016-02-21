@@ -19,7 +19,6 @@
         android:layout_marginTop="63dip"
         android:layout_marginLeft="10dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColor="#010101" />
 
     <Button
@@ -32,7 +31,8 @@
         android:layout_marginRight="10dip"
         android:layout_marginLeft="10dip"
         android:layout_below="@id/tool_bar"
-        android:layout_toRightOf="@+id/textViewMusic" />
+        android:layout_toRightOf="@+id/textViewMusic"
+        android:layout_alignParentRight="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -42,12 +42,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/buttonMusicChoice"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="50dip"
         android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginRight="10dip" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -57,12 +55,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/checkBoxVibration"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="50dip"
         android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginRight="10dip" />
 
     <Button
         android:layout_width="wrap_content"
@@ -75,9 +71,7 @@
         android:layout_marginRight="10dip"
         android:layout_marginLeft="10dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentRight="true" />
 
 
 
