@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        //TestToast
         Toast toast1 = Toast.makeText(getApplicationContext(), "Kurz vor dem Laden.", Toast.LENGTH_SHORT);
         toast1.show();
         //Settings holen
