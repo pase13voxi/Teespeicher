@@ -4,6 +4,8 @@
     <string name="main_action_sort_date">Sortiere nach Ativität</string>
     <string name="main_action_sort_sort">Sortiere nach Sorte</string>
     <string name="showtea_action_settings">Bearbeiten</string>
+    <string name="showtea_action_vibrate">Vibration</string>
+    <string name="showtea_action_notification">Benachrichtigung</string>
     <string name="tea_sort">Teesorte</string>
     <string-array name="sortsOfTea">
         <item>Schwarzer Tee</item>

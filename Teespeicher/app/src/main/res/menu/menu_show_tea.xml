@@ -9,5 +9,16 @@
         android:orderInCategory="100"
         android:title="@string/showtea_action_settings"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/action_vibrate"
+        android:orderInCategory="100"
+        android:title="@string/showtea_action_vibrate"
+        app:showAsAction="never"
+        android:checkable="true" />
+    <item
+        android:id="@+id/action_notification"
+        android:orderInCategory="100"
+        android:title="@string/showtea_action_notification"
+        app:showAsAction="never"
+        android:checkable="true" />
 </menu>

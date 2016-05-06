@@ -142,6 +142,18 @@ public class ShowTea extends AppCompatActivity {
         return true;
     }
 
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        for(int i=0; i<menu.size(); i++){
+            MenuItem mi = menu.getItem(i);
+            if(mi.getItemId() == R.id.action_vibrate){
+                mi.setChecked(MainActivity.settings.isVibration());
+            }else if(mi.getItemId() == R.id.action_notification){
+                mi.setChecked(MainActivity.settings.isNotification());
+            }
+        }
+        return true;
+    }
+
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
@@ -155,6 +167,12 @@ public class ShowTea extends AppCompatActivity {
             startActivity(newteaScreen);
             finish();
             return true;
+        }else if(id == R.id.action_vibrate){
+            MainActivity.settings.setVibration(!MainActivity.settings.isVibration());
+            MainActivity.settings.saveSettings(getApplicationContext());
+        }else if(id == R.id.action_notification){
+            MainActivity.settings.setNotification(!MainActivity.settings.isNotification());
+            MainActivity.settings.saveSettings(getApplicationContext());
         }
 
         if(id == R.id.home){

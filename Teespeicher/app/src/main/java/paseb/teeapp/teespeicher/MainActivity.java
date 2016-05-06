@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        Toast toast1 = Toast.makeText(getApplicationContext(), "Kurz vor dem Laden.", Toast.LENGTH_SHORT);
+        toast1.show();
         //Settings holen
         settings = new ActualSetting();
         if(!settings.loadSettings(getApplicationContext())){
@@ -86,6 +89,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        for(int i=0; i<menu.size(); i++){
+            MenuItem mi = menu.getItem(i);
+            if(mi.getItemId() == R.id.action_sort_date){
+                mi.setChecked(!settings.isSort());
+            }else if(mi.getItemId() == R.id.action_sort_sort){
+                mi.setChecked(settings.isSort());
+            }
+        }
+        return true;
+    }
+
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
@@ -110,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             teaItems.saveCollection(getApplicationContext());
             adapter.notifyDataSetChanged();
         }
+
         return super.onOptionsItemSelected(item);
     }
 

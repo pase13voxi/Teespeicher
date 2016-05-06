@@ -2,9 +2,12 @@ package paseb.teeapp.teespeicher;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.IBinder;
+
+import java.io.IOException;
 
 /**
  * Created by paseb on 10.02.2016.
@@ -21,8 +24,17 @@ public class MediaService extends Service {
         super.onCreate();
         //Musikstück initialisieren
         if(MainActivity.settings.getMusicChoice()!=null) {
+            mediaPlayer = new MediaPlayer();
             Uri uri = Uri.parse(MainActivity.settings.getMusicChoice());
-            mediaPlayer = MediaPlayer.create(this, uri);
+            try {
+                //synchronisiere Musikstreams
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+                mediaPlayer.setDataSource(getApplicationContext(), uri);
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //mediaPlayer = MediaPlayer.create(this, uri);
         }
     }
 
