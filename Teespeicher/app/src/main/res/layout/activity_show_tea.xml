@@ -15,10 +15,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:textSize="35dip"
+        android:maxLines="2"
         android:id="@+id/textViewShowName"
         android:layout_below="@id/tool_bar"
         android:layout_marginTop="40dip"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="wrap_content"

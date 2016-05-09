@@ -113,7 +113,7 @@ public class ShowTea extends AppCompatActivity {
                     long millisec = TimeUnit.MINUTES.toMillis(min) + TimeUnit.SECONDS.toMillis(sec);
                     //Counter erstellen
                     Intent counter = new Intent(getBaseContext(), CountDownService.class);
-                    counter.putExtra("elementAt", elementAt);
+                    counter.putExtra("elementAt", name);
                     counter.putExtra("millisec", millisec);
                     startService(counter);
                 }else if(buttonStartTimer.getText().equals("reset")){

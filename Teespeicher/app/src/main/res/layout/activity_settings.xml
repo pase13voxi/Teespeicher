@@ -50,7 +50,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="40dip"
-        android:text="Notification"
+        android:text="Benachrichtigung"
         android:id="@+id/checkBoxNotification"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/checkBoxVibration"
