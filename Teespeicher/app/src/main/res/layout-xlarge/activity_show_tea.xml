@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="paseb.teeapp.teespeicher.ShowTea">
+
+    <include
+        android:id="@id/tool_bar"
+        layout="@layout/tool_bar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:textSize="55sp"
+        android:maxLines="2"
+        android:id="@+id/textViewShowName"
+        android:layout_below="@id/tool_bar"
+        android:layout_marginTop="50dip"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:background="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:textSize="40sp"
+        android:id="@+id/textViewShowTeesorte"
+        android:layout_below="@+id/textViewShowName"
+        android:layout_marginTop="10dip"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerMinutes"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="125dip"
+        android:layout_toStartOf="@+id/textViewDoppelPunkt"
+        android:layout_toLeftOf="@+id/textViewDoppelPunkt" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerSeconds"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="125dip"
+        android:layout_toRightOf="@+id/textViewDoppelPunkt"
+        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="  :  "
+        android:textSize="50sp"
+        android:id="@+id/textViewDoppelPunkt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="135dip"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff" />
+
+    <TextView
+        android:layout_width="200dip"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large"
+        android:textSize="40sp"
+        android:drawableLeft="@drawable/temperature"
+        android:id="@+id/textViewShowTemperatur"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="130dip"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dip" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large"
+        android:textSize="40sp"
+        android:drawableLeft="@drawable/spoon"
+        android:id="@+id/textViewShowTeelamass"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="40dip"
+        android:layout_alignLeft="@+id/textViewShowTemperatur" />
+
+    <Button
+       style="?android:attr/buttonStyleSmall"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Start"
+       android:textSize="40sp"
+       android:id="@+id/buttonStartTimer"
+       android:background="@color/colorPrimary"
+       android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+       android:layout_alignParentBottom="true"
+       android:layout_marginBottom="80dip"
+       android:layout_alignLeft="@id/spinnerMinutes"
+       android:layout_alignRight="@+id/spinnerSeconds"/>
+
+    <Button
+        android:layout_width="110dip"
+        android:layout_height="110dip"
+        android:id="@+id/buttonExchange"
+        android:visibility="invisible"
+        android:background="@drawable/exchange"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="90dip"
+        android:layout_marginRight="120dip"/>
+
+    <Button
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:id="@+id/buttonInfo"
+        android:visibility="invisible"
+        android:background="@drawable/info"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="90dip"
+        android:layout_marginRight="50dip"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Min"
+        android:id="@+id/textViewMin"
+        android:layout_above="@id/buttonStartTimer"
+        android:layout_marginBottom="65dip"
+        android:layout_toLeftOf="@+id/textViewDoppelPunkt"
+        android:layout_alignLeft="@id/spinnerMinutes"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sec"
+        android:id="@+id/textViewSec"
+        android:layout_above="@id/buttonStartTimer"
+        android:layout_marginBottom="65dip"
+        android:layout_toRightOf="@+id/textViewDoppelPunkt"
+        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="65sp"
+        android:id="@+id/textViewTimer"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="135dip"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageViewSteam"
+        android:layout_width="230dip"
+        android:layout_height="130dip"
+        android:src="@drawable/steam"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200dip"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageViewCup"
+        android:layout_width="230dip"
+        android:layout_height="230dip"
+        android:src="@drawable/cup_new"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dip"
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/imageViewFill"
+        android:layout_width="230dip"
+        android:layout_height="230dip"
+        android:src="@drawable/fill0pr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dip"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

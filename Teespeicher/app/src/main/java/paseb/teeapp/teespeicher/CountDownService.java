@@ -58,7 +58,6 @@ public class CountDownService extends Service {
                     Intent intent = new Intent(getBaseContext(), ShowTea.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-
                     PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
                     // Build notification

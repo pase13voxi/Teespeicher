@@ -8,15 +8,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class NewTea extends AppCompatActivity {
 
+    TextView textViewTeeArt;
     Spinner spinnerTeeArt;
+    CheckBox checkboxTeeArt;
+    EditText editTextTeeArt;
     EditText editTextName;
     EditText editTextTemperatur;
     EditText editTextZiehzeit;
@@ -31,18 +39,30 @@ public class NewTea extends AppCompatActivity {
 
         //Toolbar definieren und erstellen
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarCustomTitle.setText("Tee erstellen/bearbeiten");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Eingabefelder bestimmen
+        textViewTeeArt = (TextView) findViewById(R.id.textViewTeaSort);
         spinnerTeeArt = (Spinner) findViewById(R.id.spinnerTeeart);
+        checkboxTeeArt = (CheckBox) findViewById(R.id.checkBoxSelfInput);
+        editTextTeeArt = (EditText) findViewById(R.id.editTextSelfInput);
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextTemperatur = (EditText) findViewById(R.id.editTextTemperatur);
         editTextZiehzeit = (EditText) findViewById(R.id.editTextZiehzeit);
         editTextTeelamass = (EditText) findViewById(R.id.editTextTeelamass);
         Button addTea = (Button) findViewById(R.id.buttonfertig);
+
+        //Setzte Spinner Groß
+        ArrayAdapter<CharSequence> spinnerTimeAdapter = ArrayAdapter.createFromResource(
+                this, R.array.sortsOfTea, R.layout.spinner_item_sortoftea);
+        spinnerTimeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_sortoftea);
+        spinnerTeeArt.setAdapter(spinnerTimeAdapter);
 
         //showTea wird übergeben, falls die Navigation von showTea erfolgt
         showTea = this.getIntent().getBooleanExtra("showTea", false);
@@ -51,7 +71,7 @@ public class NewTea extends AppCompatActivity {
         if(elementAt!=-1){
             Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
             //richtige SpinnerId bekommen
-            int spinnerId = 0;
+            int spinnerId = -1;
             String[] spinnerElements = getResources().getStringArray(R.array.sortsOfTea);
             for(int i=0; i<spinnerElements.length; i++){
                 if(spinnerElements[i].equals(selectedTea.getSortOfTea())){
@@ -60,13 +80,57 @@ public class NewTea extends AppCompatActivity {
                 }
             }
             //Werte werden für Änderungen gefüllt
-            spinnerTeeArt.setSelection(spinnerId);
+            //wenn Spinner manuell gefüllt wurde
+            if(spinnerId==-1){
+                spinnerTeeArt.setVisibility(View.INVISIBLE);
+                spinnerTeeArt.setSelection(spinnerElements.length-1);
+                textViewTeeArt.setVisibility(View.INVISIBLE);
+                checkboxTeeArt.setVisibility(View.VISIBLE);
+                checkboxTeeArt.setChecked(true);
+                editTextTeeArt.setVisibility(View.VISIBLE);
+                editTextTeeArt.setText(selectedTea.getSortOfTea());
+            }else {
+                spinnerTeeArt.setSelection(spinnerId);
+            }
             editTextName.setText(selectedTea.getName());
             if(selectedTea.getTemperature()!=-500) editTextTemperatur.setText(String.valueOf(selectedTea.getTemperature()));
             if(!selectedTea.getTime().equals("-")) editTextZiehzeit.setText(selectedTea.getTime());
             if(selectedTea.getTeelamass()!=-500) editTextTeelamass.setText(String.valueOf(selectedTea.getTeelamass()));
             addTea.setText("Ändern");
         }
+
+        //Spinner Teeart hat sich verändert
+        spinnerTeeArt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(spinnerTeeArt.getSelectedItem().equals("Sonstiges")){
+                    checkboxTeeArt.setVisibility(View.VISIBLE);
+                }else{
+                    checkboxTeeArt.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Checkbox Teeart wurde angeklickt
+        checkboxTeeArt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    textViewTeeArt.setVisibility(View.INVISIBLE);
+                    spinnerTeeArt.setVisibility(View.INVISIBLE);
+                    editTextTeeArt.setVisibility(View.VISIBLE);
+                }else{
+                    textViewTeeArt.setVisibility(View.VISIBLE);
+                    spinnerTeeArt.setVisibility(View.VISIBLE);
+                    editTextTeeArt.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
         //Alles wurde Eingeben und die Werte werden aufgenommen
         addTea.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +139,17 @@ public class NewTea extends AppCompatActivity {
                 //Der Name muss eingegeben werden
                 if(!editTextName.getText().toString().equals("")) {
                     //Attribute auslesen
-                    String sortOfTea = (String) spinnerTeeArt.getSelectedItem();
+                    boolean sortValid = true;
+                    String sortOfTea = "";
+                    if(checkboxTeeArt.isChecked()){
+                        sortOfTea = editTextTeeArt.getText().toString();
+                        sortValid = !(sortOfTea.length()>30);
+                        if(sortOfTea.length()==0){
+                            sortOfTea = "-";
+                        }
+                    }else {
+                        sortOfTea = (String) spinnerTeeArt.getSelectedItem();
+                    }
                     String name = editTextName.getText().toString();
                     boolean nameValid = true;
                     for(int i=0; i<MainActivity.teaItems.getTeaItems().size(); i++){
@@ -132,14 +206,17 @@ public class NewTea extends AppCompatActivity {
                     }
 
                     //Temperatur muss zwischen 100 und 0 sein und die Zeit braucht das richtige Format
-                    if (!nameValid) {
+                    if(!sortValid) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Die Teesorte überschreitet die Grenzanzahl von 30 Zeichen.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else if (!nameValid) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Diesen Namen gibt es schon.", Toast.LENGTH_SHORT);
                         toast.show();
                     } else if (pointExist) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Bitte kein Punkt.", Toast.LENGTH_SHORT);
                         toast.show();
                     } else if ((temperature > 100 || temperature < 0) && (temperature != -500 || tempbiggerThanInt)) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Die Temperatur sollte zwischen 0 °C und 100 °C liegen", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Die Temperatur sollte zwischen 0 °C und 100 °C liegen.", Toast.LENGTH_SHORT);
                         toast.show();
                     } else if (!timeValid) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Bitte halten Sie das Format bei der Ziehzeit ein.", Toast.LENGTH_SHORT);

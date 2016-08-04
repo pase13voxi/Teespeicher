@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -29,13 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Toolbar als ActionBar festlegen
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarCustomTitle.setText("Teespeicher");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
 
         //Settings holen
         settings = new ActualSetting();
         if(!settings.loadSettings(getApplicationContext())){
-            Toast toast = Toast.makeText(getApplicationContext(), "Fehler beim Laden. Settings werden auf Standard eingestellt.", Toast.LENGTH_SHORT);
-            toast.show();
+            //Toast toast = Toast.makeText(getApplicationContext(), "Fehler beim Laden. Settings werden auf Standard eingestellt.", Toast.LENGTH_SHORT);
+            //toast.show();
             settings.saveSettings(getApplicationContext());
         }
 
@@ -44,8 +48,18 @@ public class MainActivity extends AppCompatActivity {
         //Liste aller Tees
         teaItems = new TeaCollection();
         if(!teaItems.loadCollection(getApplicationContext())){
-            Toast toast = Toast.makeText(getApplicationContext(), "Fehler beim Laden. Liste wurde neu erstellt.", Toast.LENGTH_SHORT);
-            toast.show();
+            //Toast toast = Toast.makeText(getApplicationContext(), "Fehler beim Laden. Liste wurde neu erstellt.", Toast.LENGTH_SHORT);
+            //toast.show();
+            Tea teaExample1 = new Tea("Earl Grey","Schwarzer Tee",100,"3:30",5);
+            teaExample1.setCurrentDate();
+            teaItems.getTeaItems().add(teaExample1);
+            Tea teaExample2 = new Tea("Kamillentee","Kräutertee",100,"5",7);
+            teaExample2.setCurrentDate();
+            teaItems.getTeaItems().add(teaExample2);
+            Tea teaExample3 = new Tea("Rote Grütze","Früchtetee",100,"8",6);
+            teaExample3.setCurrentDate();
+            teaItems.getTeaItems().add(teaExample3);
+
             teaItems.saveCollection(getApplicationContext());
         }
 

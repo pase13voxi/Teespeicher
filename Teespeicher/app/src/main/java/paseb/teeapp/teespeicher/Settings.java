@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 public class Settings extends AppCompatActivity {
 
@@ -31,7 +32,10 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarCustomTitle.setText("Einstellungen");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -141,5 +145,6 @@ public class Settings extends AppCompatActivity {
             }
             MainActivity.settings.saveSettings(getApplicationContext());
         }
+
     }
 }

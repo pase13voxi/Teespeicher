@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="paseb.teeapp.teespeicher.ShowTea">
 
     <include
@@ -14,13 +15,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:textSize="35dip"
+        android:textSize="35sp"
         android:maxLines="2"
         android:id="@+id/textViewShowName"
         android:layout_below="@id/tool_bar"
-        android:layout_marginTop="40dip"
+        android:layout_marginTop="30dip"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:background="#ffffff" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,46 +31,27 @@
         android:text="Large Text"
         android:id="@+id/textViewShowTeesorte"
         android:layout_below="@+id/textViewShowName"
-        android:layout_marginTop="30dip"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textViewShowTemperatur"
-        android:layout_below="@+id/textViewShowTeesorte"
-        android:layout_marginTop="30dip"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textViewShowTeelamass"
-        android:layout_below="@+id/textViewShowTemperatur"
-        android:layout_marginTop="30dip"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="10dip"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerMinutes"
-        android:layout_marginTop="80dip"
-        android:layout_below="@+id/textViewShowTeelamass"
         android:layout_toStartOf="@+id/textViewDoppelPunkt"
-        android:layout_toLeftOf="@+id/textViewDoppelPunkt" />
+        android:layout_toLeftOf="@+id/textViewDoppelPunkt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dip"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerSeconds"
-        android:layout_marginTop="80dip"
-        android:layout_below="@+id/textViewShowTeelamass"
         android:layout_toRightOf="@+id/textViewDoppelPunkt"
-        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
+        android:layout_toEndOf="@+id/textViewDoppelPunkt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dip"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -76,44 +59,91 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="  :  "
         android:id="@+id/textViewDoppelPunkt"
-        android:layout_marginTop="80dip"
-        android:layout_below="@+id/textViewShowTeelamass"
         android:layout_centerHorizontal="true"
-        android:textSize="30dip"/>
+        android:textSize="30sp"
+        android:background="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="95dip"/>
+
+    <TextView
+        android:layout_width="120dip"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large"
+        android:drawableLeft="@drawable/temperature"
+        android:id="@+id/textViewShowTemperatur"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="55dip"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dip" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Min"
-        android:id="@+id/textViewMin"
-        android:layout_marginTop="70dip"
-        android:layout_below="@+id/textViewShowTeelamass"
-        android:layout_toLeftOf="@+id/textViewDoppelPunkt"
-        android:layout_alignLeft="@id/spinnerMinutes"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Sec"
-        android:id="@+id/textViewSec"
-        android:layout_marginTop="70dip"
-        android:layout_below="@+id/textViewShowTeelamass"
-        android:layout_toRightOf="@+id/textViewDoppelPunkt"
-        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large"
+        android:drawableLeft="@drawable/spoon"
+        android:id="@+id/textViewShowTeelamass"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="5dip"
+        android:layout_alignLeft="@+id/textViewShowTemperatur" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="start"
+        android:text="Start"
         android:id="@+id/buttonStartTimer"
         android:background="@color/colorPrimary"
-        android:layout_below="@+id/spinnerMinutes"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textSize="17sp"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="45dip"
         android:layout_alignLeft="@id/spinnerMinutes"
         android:layout_alignRight="@+id/spinnerSeconds"/>
+
+    <Button
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:id="@+id/buttonExchange"
+        android:visibility="invisible"
+        android:background="@drawable/exchange"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dip"
+        android:layout_marginRight="40dip"/>
+    <Button
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:id="@+id/buttonInfo"
+        android:visibility="invisible"
+        android:background="@drawable/info"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dip"
+        android:layout_marginRight="5dip"/>
+
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Min"
+        android:id="@+id/textViewMin"
+        android:layout_above="@id/buttonStartTimer"
+        android:layout_marginBottom="40dip"
+        android:layout_toLeftOf="@+id/textViewDoppelPunkt"
+        android:layout_alignLeft="@id/spinnerMinutes"/>
+
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sec"
+        android:id="@+id/textViewSec"
+        android:layout_above="@+id/buttonStartTimer"
+        android:layout_marginBottom="40dip"
+        android:layout_toRightOf="@+id/textViewDoppelPunkt"
+        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -121,9 +151,40 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="45sp"
         android:id="@+id/textViewTimer"
-        android:layout_marginTop="70dip"
-        android:layout_below="@+id/textViewShowTeelamass"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="95dip"
         android:layout_centerHorizontal="true"
+        android:background="#ffffff"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageViewSteam"
+        android:layout_width="100dip"
+        android:layout_height="60dip"
+        android:src="@drawable/steam"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="120dip"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageViewCup"
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:src="@drawable/cup_new"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dip"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageViewFill"
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:src="@drawable/fill0pr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dip"
         android:visibility="invisible"/>
 
 

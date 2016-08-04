@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Teespeicher</string>
     <string name="main_action_settings">Einstellungen</string>
-    <string name="main_action_sort_date">Sortiere nach Ativität</string>
+    <string name="main_action_sort_date">Sortiere nach Aktivität</string>
     <string name="main_action_sort_sort">Sortiere nach Sorte</string>
     <string name="showtea_action_settings">Bearbeiten</string>
     <string name="showtea_action_vibrate">Vibration</string>

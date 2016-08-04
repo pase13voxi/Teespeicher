@@ -30,6 +30,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Tee erstellen"
+        android:textSize="17sp"
+        android:textAllCaps="false"
         android:background="@color/colorPrimary"/>
 
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="paseb.teeapp.teespeicher.MainActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewTealist"
+        android:layout_below="@+id/tool_bar"
+        android:layout_above="@+id/newtea"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/newtea"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_marginTop="6dip"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginBottom="6dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Tee erstellen"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:background="@color/colorPrimary"/>
+
+
+</RelativeLayout>
