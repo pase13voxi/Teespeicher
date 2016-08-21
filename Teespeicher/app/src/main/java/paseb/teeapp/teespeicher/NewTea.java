@@ -103,10 +103,65 @@ public class NewTea extends AppCompatActivity {
         spinnerTeeArt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(spinnerTeeArt.getSelectedItem().equals("Sonstiges")){
+                String selectedItem = spinnerTeeArt.getSelectedItem().toString();
+                if(selectedItem.equals("Sonstiges")){
                     checkboxTeeArt.setVisibility(View.VISIBLE);
                 }else{
                     checkboxTeeArt.setVisibility(View.INVISIBLE);
+                }
+                //Tipps für Temperatur und Ziehzeit anhand der Teesorte
+                switch(selectedItem){
+                    case "Schwarzer Tee":
+                        editTextTemperatur.setHint("Temperatur (95 - 100°C)");
+                        editTextTeelamass.setHint("Menge  (3 - 5Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (3 - 5min)");
+                        break;
+                    case "Grüner Tee":
+                        editTextTemperatur.setHint("Temperatur (60 - 90°C)");
+                        editTextTeelamass.setHint("Menge (6 - 8Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (1 - 3min)");
+                        break;
+                    case "Gelber Tee":
+                        editTextTemperatur.setHint("Temperatur (75°C)");
+                        editTextTeelamass.setHint("Menge (4 - 5Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (1 - 3min)");
+                        break;
+                    case "Weißer Tee":
+                        editTextTemperatur.setHint("Temperatur (70 - 80°C)");
+                        editTextTeelamass.setHint("Menge (3 - 4Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (1 - 4min)");
+                        break;
+                    case "Oolong":
+                        editTextTemperatur.setHint("Temperatur (75 - 90°C)");
+                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (0:30 - 4min)");
+                        break;
+                    case "Pu Erh Tee":
+                        editTextTemperatur.setHint("Temperatur (100°C)");
+                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 15sek)");
+                        break;
+                    case "Kräutertee":
+                        editTextTemperatur.setHint("Temperatur (100°C)");
+                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 10min)");
+                        break;
+                    case "Früchtetee":
+                        editTextTemperatur.setHint("Temperatur (100°C)");
+                        editTextTeelamass.setHint("Menge (8 - 10Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 10min)");
+                        break;
+                    case "Roibuschtee":
+                        editTextTemperatur.setHint("Temperatur (100°C)");
+                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 10min)");
+                        break;
+                    case "Sonstiges" :
+                        editTextTemperatur.setHint("Temperatur (°C)");
+                        editTextTeelamass.setHint("Menge Tl/L");
+                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\"");
+                        break;
+                    default: break;
                 }
             }
 

@@ -168,7 +168,7 @@ public class ShowTea extends AppCompatActivity {
                     //Button umbenennen
                     buttonStartTimer.setText("Reset");
                     buttonExchange.setVisibility(View.INVISIBLE);
-                    buttonInfo.setEnabled(false);
+                    //buttonInfo.setEnabled(false);
                     //EingabeFelder ausblenden
                     spinnerMinutes.setVisibility(View.INVISIBLE);
                     spinnerSeconds.setVisibility(View.INVISIBLE);
@@ -232,7 +232,7 @@ public class ShowTea extends AppCompatActivity {
                     if(temperature < 100) {
                         buttonExchange.setVisibility(View.VISIBLE);
                     }
-                    buttonInfo.setEnabled(true);
+                    //buttonInfo.setEnabled(true);
                     //EingabeFelder ausblenden
                     spinnerMinutes.setVisibility(View.VISIBLE);
                     spinnerSeconds.setVisibility(View.VISIBLE);
