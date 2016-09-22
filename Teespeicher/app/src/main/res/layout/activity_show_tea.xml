@@ -75,7 +75,7 @@
         android:layout_above="@id/spinnerSeconds"
         android:layout_marginBottom="55dip"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="5dip" />
+        android:layout_marginRight="6dip" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Sec"
+        android:text="Sek"
         android:id="@+id/textViewSec"
         android:layout_above="@+id/buttonStartTimer"
         android:layout_marginBottom="40dip"

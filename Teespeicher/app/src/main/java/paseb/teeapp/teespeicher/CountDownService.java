@@ -61,14 +61,26 @@ public class CountDownService extends Service {
                     PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
                     // Build notification
-                    Notification notification = new Notification.Builder(getApplicationContext())
-                            .setTicker("Tea Time!")
-                            .setContentTitle("Ihr Tee ist fertig.")
-                            .setContentText(elementAt)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentIntent(pIntent)
-                            .setAutoCancel(true)
-                            .build();
+                    Notification notification = null;
+                    if(MainActivity.settings.getLanguage().equals("de")) {
+                        notification = new Notification.Builder(getApplicationContext())
+                                .setTicker("Tea Time!")
+                                .setContentTitle("Ihr Tee ist fertig.")
+                                .setContentText(elementAt)
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentIntent(pIntent)
+                                .setAutoCancel(true)
+                                .build();
+                    }else if(MainActivity.settings.getLanguage().equals("en")){
+                        notification = new Notification.Builder(getApplicationContext())
+                                .setTicker("Tea Time!")
+                                .setContentTitle("Your tea is ready.")
+                                .setContentText(elementAt)
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentIntent(pIntent)
+                                .setAutoCancel(true)
+                                .build();
+                    }
                     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     // hide the notification after its selected
 

@@ -65,15 +65,43 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewLanguage"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/settings_language"
+        android:gravity="center_vertical"
+        android:layout_alignBottom="@+id/spinnerLanguage"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="10dip"
+        android:textColor="#010101" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="75dip"
+        android:id="@+id/spinnerLanguage"
+        android:transitionName="Teeart"
+        android:entries="@array/settings_languages"
+        android:prompt="@string/settings_language"
+        android:spinnerMode="dialog"
+        android:layout_below="@id/checkBoxNotification"
+        android:layout_toRightOf="@+id/textViewLanguage"
+        android:layout_alignLeft="@id/buttonMusicChoice"
+        android:layout_marginTop="70dip"
+        android:layout_marginRight="10dip"
+        style="@android:style/Widget.Holo.Light.Spinner" />
+
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="70dip"
+        android:layout_height="75dip"
         android:text="Zurücksetzen auf Werkseinstellungen"
         android:textSize="25sp"
         android:textAllCaps="false"
         android:id="@+id/buttonDefaultSettings"
         android:background="@drawable/buttonshape"
-        android:layout_below="@+id/checkBoxNotification"
+        android:layout_below="@+id/spinnerLanguage"
         android:layout_marginTop="70dip"
         android:layout_marginRight="10dip"
         android:layout_marginLeft="10dip"

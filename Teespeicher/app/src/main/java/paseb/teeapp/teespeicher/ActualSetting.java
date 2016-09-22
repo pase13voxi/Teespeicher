@@ -16,6 +16,7 @@ public class ActualSetting {
     private String musicName;
     private boolean vibration;
     private boolean notification;
+    private String language;
     //false = sort by Date
     private boolean sort;
 
@@ -51,6 +52,14 @@ public class ActualSetting {
         this.notification = notification;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public boolean isSort() {
         return sort;
     }
@@ -80,6 +89,7 @@ public class ActualSetting {
             os.writeObject(musicName);
             os.writeBoolean(vibration);
             os.writeBoolean(notification);
+            os.writeObject(language);
             os.writeBoolean(sort);
             os.close();
             fos.close();
@@ -101,6 +111,7 @@ public class ActualSetting {
             musicName = (String) is.readObject();
             vibration = is.readBoolean();
             notification = is.readBoolean();
+            language = (String) is.readObject();
             sort = is.readBoolean();
             is.close();
             fis.close();

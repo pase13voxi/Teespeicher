@@ -56,7 +56,11 @@ public class ShowTea extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
-        mToolbarCustomTitle.setText("Information");
+        if(MainActivity.settings.getLanguage().equals("de")){
+            mToolbarCustomTitle.setText(R.string.showtea_heading);
+        }else if(MainActivity.settings.getLanguage().equals("en")){
+            mToolbarCustomTitle.setText(R.string.showtea_heading_en);
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
@@ -79,6 +83,15 @@ public class ShowTea extends AppCompatActivity {
         imageViewFill = (ImageView) findViewById(R.id.imageViewFill);
         imageViewSteam = (ImageView) findViewById(R.id.imageViewSteam);
 
+        //Übersetzung Englisch Deutsch
+        if(MainActivity.settings.getLanguage().equals("de")){
+            textViewMin.setText(R.string.showtea_display_min);
+            textViewSec.setText(R.string.showtea_display_sec);
+        }else if (MainActivity.settings.getLanguage().equals("en")){
+            textViewMin.setText(R.string.showtea_display_min_en);
+            textViewSec.setText(R.string.showtea_display_sec_en);
+        }
+
         //setzt Tranparenz der Textviews
         int alpha = 130;
         textViewName.getBackground().setAlpha(alpha);
@@ -97,7 +110,12 @@ public class ShowTea extends AppCompatActivity {
         //Hole Übergabeparemeter Position des Tees
         elementAt  = this.getIntent().getIntExtra("elementAt", -1);
         if(elementAt==-1){
-            Toast toast = Toast.makeText(getApplicationContext(), "Fehler beim Anzeigen des Elements", Toast.LENGTH_SHORT);
+            Toast toast = null;
+            if(MainActivity.settings.getLanguage().equals("de")) {
+                toast = Toast.makeText(getApplicationContext(), R.string.showtea_error_text, Toast.LENGTH_SHORT);
+            }else if(MainActivity.settings.getLanguage().equals("en")){
+                toast = Toast.makeText(getApplicationContext(), R.string.showtea_error_text_en, Toast.LENGTH_SHORT);
+            }
             toast.show();
         }else {
             Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
@@ -113,7 +131,11 @@ public class ShowTea extends AppCompatActivity {
             else
                 textViewTemperature.setText("- °C");
             if(selectedTea.getTeelamass()!=-500)
-                textViewTeelamass.setText(String.valueOf(selectedTea.getTeelamass())+" Tl/L");
+                if(MainActivity.settings.getLanguage().equals("de")) {
+                    textViewTeelamass.setText(String.valueOf(selectedTea.getTeelamass()) + " Tl/L");
+                }else if(MainActivity.settings.getLanguage().equals("en")){
+                    textViewTeelamass.setText(String.valueOf(selectedTea.getTeelamass()) + " Ts/L");
+                }
             else
                 textViewTeelamass.setText("- Tl/L");
             minutes = selectedTea.getMinutes();
@@ -128,9 +150,14 @@ public class ShowTea extends AppCompatActivity {
             public void onClick(View v) {
                 //Infomationen anzeigen
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Abkühlzeiten");
-                builder.setMessage("Bei Grünem oder Weißem Tee sollte man vor dem Aufguss das kochende Wasser abkühlen lassen. " +
-                        "Mit dieser Option wird die ungefähre Abkühlzeit berechnet.").setNeutralButton("OK", null).show();
+                if(MainActivity.settings.getLanguage().equals("de")){
+                    builder.setTitle(R.string.showtea_cooldown_title);
+                    builder.setMessage(R.string.showtea_cooldown_text).setNeutralButton("OK", null).show();
+                }else if(MainActivity.settings.getLanguage().equals("en")){
+                    builder.setTitle(R.string.showtea_cooldown_title_en);
+                    builder.setMessage(R.string.showtea_cooldown_text_en).setNeutralButton("OK", null).show();
+                }
+
             }
         });
         buttonExchange = (Button) findViewById(R.id.buttonExchange);
@@ -166,7 +193,7 @@ public class ShowTea extends AppCompatActivity {
                     MainActivity.teaItems.saveCollection(getApplicationContext());
                     MainActivity.adapter.notifyDataSetChanged();
                     //Button umbenennen
-                    buttonStartTimer.setText("Reset");
+                    buttonStartTimer.setText(R.string.showtea_timer_reset);
                     buttonExchange.setVisibility(View.INVISIBLE);
                     //buttonInfo.setEnabled(false);
                     //EingabeFelder ausblenden
@@ -186,28 +213,52 @@ public class ShowTea extends AppCompatActivity {
                             case "Schwarzer Tee":
                                 imageViewFill.setColorFilter(Color.argb(255, 20, 20, 80), PorterDuff.Mode.SRC_ATOP);
                                 break;
+                            case "Black tea":
+                                imageViewFill.setColorFilter(Color.argb(255, 20, 20, 80), PorterDuff.Mode.SRC_ATOP);
+                                break;
                             case "Grüner Tee":
                                 imageViewFill.setColorFilter(Color.argb(255, 154, 205, 50), PorterDuff.Mode.SRC_ATOP);
                                 break;
-                            case "Gelber Tee":
+                            case "Green tea":
+                                imageViewFill.setColorFilter(Color.argb(255, 154, 205, 50), PorterDuff.Mode.SRC_ATOP);
+                                break;
+                            case "Yellow tea":
                                 imageViewFill.setColorFilter(Color.argb(255, 255, 194, 75), PorterDuff.Mode.SRC_ATOP);
                                 break;
                             case "Weißer Tee":
                                 imageViewFill.setColorFilter(Color.argb(255, 255, 249, 150), PorterDuff.Mode.SRC_ATOP);
                                 break;
+                            case "White tea":
+                                imageViewFill.setColorFilter(Color.argb(255, 255, 249, 150), PorterDuff.Mode.SRC_ATOP);
+                                break;
                             case "Oolong":
+                                imageViewFill.setColorFilter(Color.argb(255, 255, 165, 0), PorterDuff.Mode.SRC_ATOP);
+                                break;
+                            case "Oolong tea":
                                 imageViewFill.setColorFilter(Color.argb(255, 255, 165, 0), PorterDuff.Mode.SRC_ATOP);
                                 break;
                             case "Pu Erh Tee":
                                 imageViewFill.setColorFilter(Color.argb(255, 139, 37, 0), PorterDuff.Mode.SRC_ATOP);
                                 break;
+                            case "Pu-erh tea":
+                                imageViewFill.setColorFilter(Color.argb(255, 139, 37, 0), PorterDuff.Mode.SRC_ATOP);
+                                break;
                             case "Kräutertee":
+                                imageViewFill.setColorFilter(Color.argb(255, 67, 153, 54), PorterDuff.Mode.SRC_ATOP);
+                                break;
+                            case "Herbal tea":
                                 imageViewFill.setColorFilter(Color.argb(255, 67, 153, 54), PorterDuff.Mode.SRC_ATOP);
                                 break;
                             case "Früchtetee":
                                 imageViewFill.setColorFilter(Color.argb(255, 255, 42, 22), PorterDuff.Mode.SRC_ATOP);
                                 break;
+                            case "Fruit tea":
+                                imageViewFill.setColorFilter(Color.argb(255, 255, 42, 22), PorterDuff.Mode.SRC_ATOP);
+                                break;
                             case "Roibuschtee":
+                                imageViewFill.setColorFilter(Color.argb(255, 250, 90, 0), PorterDuff.Mode.SRC_ATOP);
+                                break;
+                            case "Rooibus tea":
                                 imageViewFill.setColorFilter(Color.argb(255, 250, 90, 0), PorterDuff.Mode.SRC_ATOP);
                                 break;
                             default:
@@ -228,7 +279,7 @@ public class ShowTea extends AppCompatActivity {
                     startService(counter);
                 }else if(buttonStartTimer.getText().equals("Reset")){
                     //Button umbenennen
-                    buttonStartTimer.setText("Start");
+                    buttonStartTimer.setText(R.string.showtea_timer_start);
                     if(temperature < 100) {
                         buttonExchange.setVisibility(View.VISIBLE);
                     }
@@ -271,9 +322,25 @@ public class ShowTea extends AppCompatActivity {
     public boolean onPrepareOptionsMenu (Menu menu) {
         for(int i=0; i<menu.size(); i++){
             MenuItem mi = menu.getItem(i);
-            if(mi.getItemId() == R.id.action_vibrate){
+            if(mi.getItemId() == R.id.action_settings){
+                if(MainActivity.settings.getLanguage().equals("de")){
+                    mi.setTitle(R.string.showtea_action_settings);
+                }else if(MainActivity.settings.getLanguage().equals("en")){
+                    mi.setTitle(R.string.showtea_action_settings_en);
+                }
+            }else if(mi.getItemId() == R.id.action_vibrate){
+                if(MainActivity.settings.getLanguage().equals("de")){
+                    mi.setTitle(R.string.showtea_action_vibrate);
+                }else if(MainActivity.settings.getLanguage().equals("en")){
+                    mi.setTitle(R.string.showtea_action_vibrate_en);
+                }
                 mi.setChecked(MainActivity.settings.isVibration());
             }else if(mi.getItemId() == R.id.action_notification){
+                if(MainActivity.settings.getLanguage().equals("de")){
+                    mi.setTitle(R.string.showtea_action_notification);
+                }else if(MainActivity.settings.getLanguage().equals("en")){
+                    mi.setTitle(R.string.showtea_action_notification_en);
+                }
                 mi.setChecked(MainActivity.settings.isNotification());
             }
         }
@@ -338,7 +405,11 @@ public class ShowTea extends AppCompatActivity {
                 updateImage(millis);
             }
             if(ready){
-                textViewTimer.setText("Fertig");
+                if(MainActivity.settings.getLanguage().equals("de")) {
+                    textViewTimer.setText(R.string.showtea_tea_ready);
+                }else if(MainActivity.settings.getLanguage().equals("en")){
+                    textViewTimer.setText(R.string.showtea_tea_ready_en);
+                }
                 if(!buttonInfo.isShown()) {
                     imageViewFill.setImageResource(R.drawable.fill100pr);
                     imageViewSteam.setVisibility((View.VISIBLE));

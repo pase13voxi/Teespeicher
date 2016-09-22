@@ -94,4 +94,29 @@ public class TeaCollection {
         }
         return -1;
     }
+
+    public void translateSortOfTea(String language, Context context){
+        for(int i=0; i<teaItems.size(); i++){
+            String sortOfTea = teaItems.get(i).getSortOfTea();
+            String[] sorts_en = context.getResources().getStringArray(R.array.sortsOfTea_en);
+            String[] sorts_de = context.getResources().getStringArray(R.array.sortsOfTea);
+            if(language.equals("de")){
+                for(int a=0; a<sorts_en.length; a++){
+                    if(sortOfTea.equals(sorts_en[a])){
+                        teaItems.get(i).setSortOfTea(sorts_de[a]);
+                        break;
+                    }
+                }
+            }else if(language.equals("en")){
+
+                for(int a=0; a<sorts_de.length; a++){
+                    if(sortOfTea.equals(sorts_de[a])){
+                        teaItems.get(i).setSortOfTea(sorts_en[a]);
+                        break;
+                    }
+                }
+            }
+        }
+        saveCollection(context);
+    }
 }

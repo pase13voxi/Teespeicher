@@ -1,11 +1,29 @@
 <resources>
+    <!--German-->
     <string name="app_name">Teespeicher</string>
+    <!--main_de-->
     <string name="main_action_settings">Einstellungen</string>
     <string name="main_action_sort_date">Sortiere nach Aktivität</string>
     <string name="main_action_sort_sort">Sortiere nach Sorte</string>
+    <string-array name="itemMenu">
+        <item>Bearbeiten</item>
+        <item>Löschen</item>
+    </string-array>
+    <string name="main_create_tea">Tee erstellen</string>
+    <string name="main_error_deletion">Löschung konnte nicht durchgeführt werden.</string>
+    <!--showtea_de-->
+    <string name="showtea_heading">Information</string>
     <string name="showtea_action_settings">Bearbeiten</string>
     <string name="showtea_action_vibrate">Vibration</string>
     <string name="showtea_action_notification">Benachrichtigung</string>
+    <string name="showtea_display_min">Min</string>
+    <string name="showtea_display_sec">Sek</string>
+    <string name="showtea_cooldown_title">Abkühlzeiten</string>
+    <string name="showtea_cooldown_text">Bei Grünem oder Weißem Tee sollte man vor dem Aufguss das kochende Wasser abkühlen lassen. Mit dieser Option wird die ungefähre Abkühlzeit berechnet.</string>
+    <string name="showtea_error_text">Fehler beim Anzeigen des Elements.</string>
+    <string name="showtea_tea_ready">Fertig</string>
+    <!--newtea_de-->
+    <string name="newtea_heading">Tee erstellen/bearbeiten</string>
     <string name="tea_sort">Teesorte</string>
     <string-array name="sortsOfTea">
         <item>Schwarzer Tee</item>
@@ -19,10 +37,91 @@
         <item>Roibuschtee</item>
         <item>Sonstiges</item>
     </string-array>
-    <string-array name="itemMenu">
-        <item>Bearbeiten</item>
-        <item>Löschen</item>
+    <string name="newtea_by_hand">manuell</string>
+    <string name="newtea_button_create">Anlegen</string>
+    <string name="newtea_error_30Char">Die Teesorte überschreitet die Grenzanzahl von 30 Zeichen.</string>
+    <string name="newtea_error_name_just_exist">Diesen Namen gibt es schon.</string>
+    <string name="newtea_error_no_point">Bitte kein Punkt.</string>
+    <string name="newtea_error_wrong_temperature">Die Temperatur sollte zwischen 0 °C und 100 °C liegen.</string>
+    <string name="newtea_error_time_format">Bitte halten Sie das Format bei der Ziehzeit ein.</string>
+    <string name="newtea_error_amount">Die Tl/L sollten nicht vierstellig sein.</string>
+    <string name="newtea_error_cant_change">Änderung konnte nicht durchgeführt werden.</string>
+    <string name="newtea_error_cant_save">Speichern konnte nicht durchgeführt werden.</string>
+    <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
+    <!--setting_de-->
+    <string name="settings_heading">Einstellungen</string>
+    <string name="settings_alarm">Alarmsound</string>
+    <string name="setting_alarm_selection_title">Alarmsound auswählen</string>
+    <string name="settings_vibration">Vibration</string>
+    <string name="settings_notification">Benachrichtigung</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_factory_settings">Zurücksetzen auf Werkseinstellungen</string>
+    <string name="settings_factory_settings_text">Es werden alle Tees gelöscht und die Einstellungen zurückgesetzt.</string>
+    <!--English-->
+    <!--main_en-->
+    <string name="main_action_settings_en">Settings</string>
+    <string name="main_action_sort_date_en">Sort by last activity</string>
+    <string name="main_action_sort_sort_en">Sort by tea variety</string>
+    <string-array name="itemMenu_en">
+        <item>Edit</item>
+        <item>Delete</item>
     </string-array>
+    <string name="main_create_tea_en">Create tea</string>
+    <string name="main_error_deletion_en">Deletion could not be performed.</string>
+    <!--showtea_en-->
+    <string name="showtea_heading_en">Information</string>
+    <string name="showtea_action_settings_en">Edit</string>
+    <string name="showtea_action_vibrate_en">Vibration</string>
+    <string name="showtea_action_notification_en">Notification</string>
+    <string name="showtea_display_min_en">Min</string>
+    <string name="showtea_display_sec_en">Sec</string>
+    <string name="showtea_cooldown_title_en">Cooling period</string>
+    <string name="showtea_cooldown_text_en">For green or white tea the cooking water should be cool down before brew the tea. With this option the approximate cooling time is calculated.</string>
+    <string name="showtea_error_text_en">Error displaying elements.</string>
+    <string name="showtea_tea_ready_en">Ready</string>
+    <!--newtea_en-->
+    <string name="newtea_heading_en">Create/Edit tea</string>
+    <string name="tea_sort_en">Tea variety</string>
+    <string-array name="sortsOfTea_en">
+        <item>Black tea</item>
+        <item>Green tea</item>
+        <item>Yellow tea</item>
+        <item>White tea</item>
+        <item>Oolong tea</item>
+        <item>Pu-erh tea</item>
+        <item>Herbal tea</item>
+        <item>Fruit tea</item>
+        <item>Rooibus tea</item>
+        <item>Other</item>
+    </string-array>
+    <string name="newtea_by_hand_en">by hand</string>
+    <string name="newtea_button_create_en">Create</string>
+    <string name="newtea_error_30Char_en">The type of tea exceeds the limit number of 30 characters.</string>
+    <string name="newtea_error_name_just_exist_en">This name already exists.</string>
+    <string name="newtea_error_no_point_en">Please no point.</string>
+    <string name="newtea_error_wrong_temperature_en">The temperature should be between 0 °C and 100 °C.</string>
+    <string name="newtea_error_time_format_en">Please follow the format of the steeping time.</string>
+    <string name="newtea_error_amount_en">The Tsp/L should not be four digits.</string>
+    <string name="newtea_error_cant_change_en">Change could not be performed.</string>
+    <string name="newtea_error_cant_save_en">Store could not be performed.</string>
+    <string name="newtea_error_no_name_en">Please enter the name.</string>
+    <!--settings_en-->
+    <string name="settings_heading_en">Settings</string>
+    <string name="settings_alarm_en">Alarm sound</string>
+    <string name="setting_alarm_selection_title_en">Choose alarm sound</string>
+    <string name="settings_vibration_en">Vibration</string>
+    <string name="settings_notification_en">Notification</string>
+    <string name="settings_language_en">Language</string>
+    <string name="settings_factory_settings_en">Reset to factory setting</string>
+    <string name="settings_factory_settings_text_en">Every tea will be deleted and the settings will be reseted.</string>
+    <!--both-->
+    <string name="main_language_selection_title">Sprache / Language</string>
+    <string-array name="settings_languages">
+        <item>English</item>
+        <item>Deutsch</item>
+    </string-array>
+    <string name="showtea_timer_start">Start</string>
+    <string name="showtea_timer_reset">Reset</string>
     <string-array name="itemsTimer">
         <item>00</item>
         <item>01</item>
