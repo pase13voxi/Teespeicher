@@ -17,6 +17,7 @@ public class ActualSetting {
     private boolean vibration;
     private boolean notification;
     private String language;
+    private boolean ocrAlert;
     //false = sort by Date
     private boolean sort;
 
@@ -60,6 +61,14 @@ public class ActualSetting {
         this.language = language;
     }
 
+    public boolean isOcrAlert() {
+        return ocrAlert;
+    }
+
+    public void setOcrAlert(boolean ocrAlert){
+        this.ocrAlert = ocrAlert;
+    }
+
     public boolean isSort() {
         return sort;
     }
@@ -77,6 +86,7 @@ public class ActualSetting {
         musicName = "Sunbeam";
         vibration = false;
         notification = true;
+        ocrAlert = true;
         sort = false;
     }
 
@@ -89,6 +99,7 @@ public class ActualSetting {
             os.writeObject(musicName);
             os.writeBoolean(vibration);
             os.writeBoolean(notification);
+            os.writeBoolean(ocrAlert);
             os.writeObject(language);
             os.writeBoolean(sort);
             os.close();
@@ -111,6 +122,7 @@ public class ActualSetting {
             musicName = (String) is.readObject();
             vibration = is.readBoolean();
             notification = is.readBoolean();
+            ocrAlert = is.readBoolean();
             language = (String) is.readObject();
             sort = is.readBoolean();
             is.close();

@@ -90,6 +90,21 @@
         android:layout_marginRight="10dip"
         style="@android:style/Widget.Holo.Light.Spinner" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_show_hints"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:id="@+id/buttonShowHints"
+        android:background="@drawable/buttonshape"
+        android:layout_below="@+id/spinnerLanguage"
+        android:layout_marginTop="55dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginLeft="10dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+
 
     <Button
         android:layout_width="wrap_content"
@@ -99,7 +114,7 @@
         android:textAllCaps="false"
         android:id="@+id/buttonDefaultSettings"
         android:background="@drawable/buttonshape"
-        android:layout_below="@+id/spinnerLanguage"
+        android:layout_below="@+id/buttonShowHints"
         android:layout_marginTop="55dip"
         android:layout_marginRight="10dip"
         android:layout_marginLeft="10dip"

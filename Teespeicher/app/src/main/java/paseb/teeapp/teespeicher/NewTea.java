@@ -1,10 +1,16 @@
 package paseb.teeapp.teespeicher;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +35,7 @@ public class NewTea extends AppCompatActivity {
     EditText editTextTemperatur;
     EditText editTextZiehzeit;
     EditText editTextTeelamass;
+    CheckBox dontShowAgain;
     int elementAt;
     boolean showTea;
 
@@ -60,7 +67,9 @@ public class NewTea extends AppCompatActivity {
         editTextTemperatur = (EditText) findViewById(R.id.editTextTemperatur);
         editTextZiehzeit = (EditText) findViewById(R.id.editTextZiehzeit);
         editTextTeelamass = (EditText) findViewById(R.id.editTextTeelamass);
+        Button scanName = (Button) findViewById(R.id.buttonScan);
         Button addTea = (Button) findViewById(R.id.buttonfertig);
+
         //übersetzung englisch deutsch
         if(MainActivity.settings.getLanguage().equals("de")){
             textViewTeeArt.setText(R.string.tea_sort);
@@ -268,6 +277,19 @@ public class NewTea extends AppCompatActivity {
                     textViewTeeArt.setVisibility(View.VISIBLE);
                     spinnerTeeArt.setVisibility(View.VISIBLE);
                     editTextTeeArt.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        //Hier wird mit Texterkennung der Name des Tee's ermittelt
+        scanName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MainActivity.settings.isOcrAlert()) {
+                    dialogBeforeScan();
+                }else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Direkt die Texterkennung", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -483,5 +505,63 @@ public class NewTea extends AppCompatActivity {
             NavUtils.navigateUpFromSameTask(this);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //Show the Dialog befor using the The Scan
+    private void dialogBeforeScan(){
+
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayoutDialogBeforeScan = inflater.inflate(R.layout.dialogbeforescan, null);
+        TextView textViewDialogBeforeScan = (TextView) alertLayoutDialogBeforeScan.findViewById(R.id.textViewDialogBeforeScan);
+        dontShowAgain = (CheckBox) alertLayoutDialogBeforeScan.findViewById(R.id.checkboxDialogBeforeScan);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(alertLayoutDialogBeforeScan);
+        if(MainActivity.settings.getLanguage().equals("de")) {
+            adb.setTitle(R.string.newtea_dialog_before_scan_title);
+            textViewDialogBeforeScan.setText(R.string.newtea_dialog_before_scan_text);
+            dontShowAgain.setText(R.string.newtea_dialog_before_scan_check);
+            adb.setPositiveButton(R.string.newtea_dialog_before_scan_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dontShowAgain.isChecked()) {
+                        MainActivity.settings.setOcrAlert(false);
+                        MainActivity.settings.saveSettings(getApplicationContext());
+                        Toast toast = Toast.makeText(getApplicationContext(), "Nicht mehr zeigen.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Weiter zeigen.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+            });
+            adb.setNegativeButton(R.string.newtea_dialog_before_scan_cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        } else if(MainActivity.settings.getLanguage().equals("en")){
+            adb.setTitle(R.string.newtea_dialog_before_scan_title_en);
+            textViewDialogBeforeScan.setText(R.string.newtea_dialog_before_scan_text_en);
+            dontShowAgain.setText(R.string.newtea_dialog_before_scan_check_en);
+            adb.setPositiveButton(R.string.newtea_dialog_before_scan_ok_en, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dontShowAgain.isChecked()) {
+                        MainActivity.settings.setOcrAlert(false);
+                        MainActivity.settings.saveSettings(getApplicationContext());
+                        Toast toast = Toast.makeText(getApplicationContext(), "Nicht mehr zeigen.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Weiter zeigen.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+            });
+            adb.setNegativeButton(R.string.newtea_dialog_before_scan_cancel_en, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }
+        adb.show();
     }
 }

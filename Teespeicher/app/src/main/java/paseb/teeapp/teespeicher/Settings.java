@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class Settings extends AppCompatActivity {
     private CheckBox checkBoxNotification;
     private TextView textViewLanguage;
     private Spinner spinnerLanguage;
+    private Button buttonShowhints;
     private Button buttonDefaultSettings;
     private TextView mToolbarCustomTitle;
 
@@ -41,11 +43,7 @@ public class Settings extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
-        if(MainActivity.settings.getLanguage().equals("de")){
-            mToolbarCustomTitle.setText(R.string.settings_heading);
-        }else if(MainActivity.settings.getLanguage().equals("en")){
-            mToolbarCustomTitle.setText(R.string.settings_heading_en);
-        }
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
@@ -59,24 +57,11 @@ public class Settings extends AppCompatActivity {
         checkBoxNotification = (CheckBox) findViewById(R.id.checkBoxNotification);
         textViewLanguage = (TextView) findViewById(R.id.textViewLanguage);
         spinnerLanguage = (Spinner) findViewById(R.id.spinnerLanguage);
+        buttonShowhints = (Button) findViewById(R.id.buttonShowHints);
         buttonDefaultSettings = (Button) findViewById(R.id.buttonDefaultSettings);
 
         //Übersetzung Englisch Deutsch
-        if(MainActivity.settings.getLanguage().equals("de")){
-            textViewMusic.setText(R.string.settings_alarm);
-            checkBoxVibration.setText(R.string.settings_vibration);
-            checkBoxNotification.setText(R.string.settings_notification);
-            textViewLanguage.setText(R.string.settings_language);
-            spinnerLanguage.setPrompt("Sprache");
-            buttonDefaultSettings.setText(R.string.settings_factory_settings);
-        }else if(MainActivity.settings.getLanguage().equals("en")){
-            textViewMusic.setText(R.string.settings_alarm_en);
-            checkBoxVibration.setText(R.string.settings_vibration_en);
-            checkBoxNotification.setText(R.string.settings_notification_en);
-            textViewLanguage.setText(R.string.settings_language_en);
-            spinnerLanguage.setPrompt("Language");
-            buttonDefaultSettings.setText(R.string.settings_factory_settings_en);
-        }
+        translateActivity();
 
         //Setzte Spinner Groß
         ArrayAdapter<CharSequence> spinnerTimeAdapter = ArrayAdapter.createFromResource(
@@ -146,23 +131,7 @@ public class Settings extends AppCompatActivity {
                     MainActivity.newTea.setText(R.string.main_create_tea_en);
                 }
                 //Übersetzung Englisch Deutsch
-                if(MainActivity.settings.getLanguage().equals("de")){
-                    mToolbarCustomTitle.setText(R.string.settings_heading);
-                    textViewMusic.setText(R.string.settings_alarm);
-                    checkBoxVibration.setText(R.string.settings_vibration);
-                    checkBoxNotification.setText(R.string.settings_notification);
-                    textViewLanguage.setText(R.string.settings_language);
-                    spinnerLanguage.setPrompt("Sprache");
-                    buttonDefaultSettings.setText(R.string.settings_factory_settings);
-                }else if(MainActivity.settings.getLanguage().equals("en")){
-                    mToolbarCustomTitle.setText(R.string.settings_heading_en);
-                    textViewMusic.setText(R.string.settings_alarm_en);
-                    checkBoxVibration.setText(R.string.settings_vibration_en);
-                    checkBoxNotification.setText(R.string.settings_notification_en);
-                    textViewLanguage.setText(R.string.settings_language_en);
-                    spinnerLanguage.setPrompt("Language");
-                    buttonDefaultSettings.setText(R.string.settings_factory_settings_en);
-                }
+                translateActivity();
             }
 
             @Override
@@ -171,6 +140,20 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        buttonShowhints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.settings.setOcrAlert(true);
+                MainActivity.settings.saveSettings(getApplicationContext());
+                Toast toast = null;
+                if(MainActivity.settings.getLanguage().equals("de")) {
+                    toast = Toast.makeText(getApplicationContext(), R.string.settings_show_hints_text, Toast.LENGTH_SHORT);
+                } else if(MainActivity.settings.getLanguage().equals("en")){
+                    toast = Toast.makeText(getApplicationContext(), R.string.settings_show_hints_text_en, Toast.LENGTH_SHORT);
+                }
+                toast.show();
+            }
+        });
 
         buttonDefaultSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,6 +229,28 @@ public class Settings extends AppCompatActivity {
             }
             MainActivity.settings.saveSettings(getApplicationContext());
         }
+    }
 
+    //Übersetzte auf Englisch oder Deutsch
+    private void translateActivity(){
+        if(MainActivity.settings.getLanguage().equals("de")){
+            mToolbarCustomTitle.setText(R.string.settings_heading);
+            textViewMusic.setText(R.string.settings_alarm);
+            checkBoxVibration.setText(R.string.settings_vibration);
+            checkBoxNotification.setText(R.string.settings_notification);
+            textViewLanguage.setText(R.string.settings_language);
+            spinnerLanguage.setPrompt("Sprache");
+            buttonShowhints.setText(R.string.settings_show_hints);
+            buttonDefaultSettings.setText(R.string.settings_factory_settings);
+        }else if(MainActivity.settings.getLanguage().equals("en")){
+            mToolbarCustomTitle.setText(R.string.settings_heading_en);
+            textViewMusic.setText(R.string.settings_alarm_en);
+            checkBoxVibration.setText(R.string.settings_vibration_en);
+            checkBoxNotification.setText(R.string.settings_notification_en);
+            textViewLanguage.setText(R.string.settings_language_en);
+            spinnerLanguage.setPrompt("Language");
+            buttonShowhints.setText(R.string.settings_show_hints_en);
+            buttonDefaultSettings.setText(R.string.settings_factory_settings_en);
+        }
     }
 }

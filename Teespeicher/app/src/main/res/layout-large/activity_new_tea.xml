@@ -43,9 +43,8 @@
         android:id="@+id/checkBoxSelfInput"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_alignBottom="@id/spinnerTeeart"
-        android:layout_alignLeft="@id/spinnerTeeart"
+        android:layout_toRightOf="@id/spinnerTeeart"
         android:layout_marginBottom="4dip"
-        android:layout_marginLeft="150dip"
         android:textColor="#494949"
         android:visibility="invisible"/>
 
@@ -61,6 +60,16 @@
         android:layout_alignRight="@id/spinnerTeeart"
         android:visibility="invisible"/>
 
+    <Button
+        android:layout_width="80dip"
+        android:layout_height="50dip"
+        android:id="@+id/buttonScan"
+        android:background="@drawable/cam"
+        android:layout_below="@id/spinnerTeeart"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="4dip"
+        android:layout_marginTop="8dip" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,7 +80,7 @@
         android:layout_below="@id/spinnerTeeart"
         android:layout_marginTop="20dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_toLeftOf="@id/buttonScan" />
 
     <EditText
         android:layout_width="wrap_content"
