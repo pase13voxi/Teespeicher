@@ -1,6 +1,6 @@
 <resources>
-    <!--German-->
     <string name="app_name">Teespeicher</string>
+    <!--German-->
     <!--main_de-->
     <string name="main_action_settings">Einstellungen</string>
     <string name="main_action_sort_date">Sortiere nach Aktivität</string>
@@ -51,8 +51,9 @@
     <string name="newtea_dialog_before_scan_title">Texterkennung</string>
     <string name="newtea_dialog_before_scan_text">\n1. Foto sollte hochauflösend sein\n2. Teename ausschneiden\n3. Text nachbearbeiten\n\nDiese Technik ist noch nicht komplett ausgereift. Also ist es möglich das manche Texte nicht erkannt werden können.\n</string>
     <string name="newtea_dialog_before_scan_check">Bitte nicht mehr zeigen!</string>
-    <string name="newtea_dialog_before_scan_ok">Ok</string>
-    <string name="newtea_dialog_before_scan_cancel">Abbrechen</string>
+    <string name="newtea_dialog_after_scan_title">Text anpassen</string>
+    <string name="newtea_dialog_scan_ok">Ok</string>
+    <string name="newtea_dialog_scan_cancel">Abbrechen</string>
     <!--setting_de-->
     <string name="settings_heading">Einstellungen</string>
     <string name="settings_alarm">Alarmsound</string>
@@ -64,6 +65,7 @@
     <string name="settings_show_hints_text">Hinweise sind wieder aktiv.</string>
     <string name="settings_factory_settings">Zurücksetzen auf Werkseinstellungen</string>
     <string name="settings_factory_settings_text">Es werden alle Tees gelöscht und die Einstellungen zurückgesetzt.</string>
+
     <!--English-->
     <!--main_en-->
     <string name="main_action_settings_en">Settings</string>
@@ -115,8 +117,9 @@
     <string name="newtea_dialog_before_scan_title_en">Text recognition</string>
     <string name="newtea_dialog_before_scan_text_en">\n1. Image should be high resolution\n2. Cut out teaname\n3. Edit text\n\nThis technique is not yet fully mature. So it is possible that some texts can not be recognized.\n</string>
     <string name="newtea_dialog_before_scan_check_en">Do not show me again!</string>
-    <string name="newtea_dialog_before_scan_ok_en">Ok</string>
-    <string name="newtea_dialog_before_scan_cancel_en">Cancel</string>
+    <string name="newtea_dialog_after_scan_title_en">Edit text</string>
+    <string name="newtea_dialog_scan_ok_en">Ok</string>
+    <string name="newtea_dialog_scan_cancel_en">Cancel</string>
     <!--settings_en-->
     <string name="settings_heading_en">Settings</string>
     <string name="settings_alarm_en">Alarm sound</string>

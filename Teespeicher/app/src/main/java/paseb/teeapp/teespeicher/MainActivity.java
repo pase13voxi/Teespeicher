@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     static public TeaAdapter adapter;
     static public TeaCollection teaItems;
     static public ActualSetting settings;
+    static public TextView mToolbarCustomTitle;
     static public Button newTea;
 
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Toolbar als ActionBar festlegen
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.app_name);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
