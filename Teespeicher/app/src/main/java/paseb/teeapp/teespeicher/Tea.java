@@ -1,7 +1,6 @@
 package paseb.teeapp.teespeicher;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -126,7 +125,6 @@ public class Tea implements Serializable {
 
         public int compare(Tea tea1, Tea tea2) {
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             Date dateno1 = tea1.getDate();
             Date dateno2 = tea2.getDate();
 

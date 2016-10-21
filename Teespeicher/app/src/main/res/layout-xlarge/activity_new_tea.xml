@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinnerTeeart"
         android:transitionName="Teeart"
+        android:entries="@array/sortsOfTea"
         android:prompt="@string/tea_sort"
         android:spinnerMode="dialog"
         android:layout_below="@id/tool_bar"

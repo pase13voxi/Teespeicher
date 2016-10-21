@@ -10,7 +10,7 @@ import android.os.IBinder;
 import java.io.IOException;
 
 /**
- * Created by paseb on 10.02.2016.
+ * Created by CoolPharaoh on 10.02.2016.
  */
 public class MediaService extends Service {
     MediaPlayer mediaPlayer = null;

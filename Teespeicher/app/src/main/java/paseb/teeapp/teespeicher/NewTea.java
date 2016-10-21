@@ -44,6 +44,11 @@ import java.io.OutputStream;
 
 public class NewTea extends AppCompatActivity {
 
+    private enum Sort {
+        BlackTea, GreenTea, YellowTea, WhiteTea, OolongTea, PuErhTea,
+        HerbalTea, FruitTea, RooibusTea, Other
+    }
+
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int PHOTO_REQUEST_CODE = 1;
     private TessBaseAPI tessBaseAPI;
@@ -74,11 +79,7 @@ public class NewTea extends AppCompatActivity {
         //Toolbar definieren und erstellen
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
-        if(MainActivity.settings.getLanguage().equals("de")){
-            mToolbarCustomTitle.setText(R.string.newtea_heading);
-        }else if(MainActivity.settings.getLanguage().equals("en")){
-            mToolbarCustomTitle.setText(R.string.newtea_heading_en);
-        }
+        mToolbarCustomTitle.setText(R.string.newtea_heading);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
@@ -97,32 +98,18 @@ public class NewTea extends AppCompatActivity {
         Button scanName = (Button) findViewById(R.id.buttonScan);
         Button addTea = (Button) findViewById(R.id.buttonfertig);
 
-        //übersetzung englisch deutsch
-        if(MainActivity.settings.getLanguage().equals("de")){
-            textViewTeeArt.setText(R.string.tea_sort);
-            editTextName.setHint("Name");
-            addTea.setText(R.string.newtea_button_create);
-            spinnerTeeArt.setPrompt("Teesorte");
-            checkboxTeeArt.setText(R.string.newtea_by_hand);
-            editTextTeeArt.setHint(R.string.tea_sort);
-        }else if(MainActivity.settings.getLanguage().equals("en")){
-            textViewTeeArt.setText(R.string.tea_sort_en);
-            editTextName.setHint("Name");
-            addTea.setText(R.string.newtea_button_create_en);
-            spinnerTeeArt.setPrompt("Tea variety");
-            checkboxTeeArt.setText(R.string.newtea_by_hand_en);
-            editTextTeeArt.setHint(R.string.tea_sort_en);
-        }
+        //feste Texte setzten
+        textViewTeeArt.setText(R.string.tea_sort);
+        editTextName.setHint(getResources().getString(R.string.newtea_hint_name));
+        addTea.setText(R.string.newtea_button_create);
+        spinnerTeeArt.setPrompt(getResources().getString(R.string.tea_sort));
+        checkboxTeeArt.setText(R.string.newtea_by_hand);
+        editTextTeeArt.setHint(R.string.tea_sort);
 
         //Setzte Spinner Groß
-        ArrayAdapter<CharSequence> spinnerTimeAdapter = null;
-        if(MainActivity.settings.getLanguage().equals("de")) {
-            spinnerTimeAdapter = ArrayAdapter.createFromResource(
+        ArrayAdapter<CharSequence> spinnerTimeAdapter = ArrayAdapter.createFromResource(
                     this, R.array.sortsOfTea, R.layout.spinner_item_sortoftea);
-        }else if(MainActivity.settings.getLanguage().equals("en")){
-            spinnerTimeAdapter = ArrayAdapter.createFromResource(
-                    this, R.array.sortsOfTea_en, R.layout.spinner_item_sortoftea);
-        }
+
         spinnerTimeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_sortoftea);
         spinnerTeeArt.setAdapter(spinnerTimeAdapter);
 
@@ -134,12 +121,8 @@ public class NewTea extends AppCompatActivity {
             Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
             //richtige SpinnerId bekommen
             int spinnerId = -1;
-            String[] spinnerElements = null;
-            if(MainActivity.settings.getLanguage().equals("de")) {
-                spinnerElements = getResources().getStringArray(R.array.sortsOfTea);
-            }else if(MainActivity.settings.getLanguage().equals("en")){
-                spinnerElements = getResources().getStringArray(R.array.sortsOfTea_en);
-            }
+            String[] spinnerElements = getResources().getStringArray(R.array.sortsOfTea);
+
             for(int i=0; i<spinnerElements.length; i++){
                 if(spinnerElements[i].equals(selectedTea.getSortOfTea())){
                     spinnerId = i;
@@ -163,124 +146,72 @@ public class NewTea extends AppCompatActivity {
             if(selectedTea.getTemperature()!=-500) editTextTemperatur.setText(String.valueOf(selectedTea.getTemperature()));
             if(!selectedTea.getTime().equals("-")) editTextZiehzeit.setText(selectedTea.getTime());
             if(selectedTea.getTeelamass()!=-500) editTextTeelamass.setText(String.valueOf(selectedTea.getTeelamass()));
-            if(MainActivity.settings.getLanguage().equals("de")){
-                addTea.setText("Ändern");
-            }else if(MainActivity.settings.getLanguage().equals("en")){
-                addTea.setText("Edit");
-            }
+            //Button Text ändern
+            addTea.setText(R.string.newtea_button_edit);
+
         }
 
         //Spinner Teeart hat sich verändert
         spinnerTeeArt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = spinnerTeeArt.getSelectedItem().toString();
-                if(selectedItem.equals("Sonstiges")||selectedItem.equals("Other")){
+                Sort sort = Sort.values()[position];
+                if(sort.equals(Sort.Other)){
                     checkboxTeeArt.setVisibility(View.VISIBLE);
                 }else{
                     checkboxTeeArt.setVisibility(View.INVISIBLE);
                 }
                 //Tipps für Temperatur und Ziehzeit anhand der Teesorte
-                switch(selectedItem){
-                    case "Schwarzer Tee":
-                        editTextTemperatur.setHint("Temperatur (95 - 100°C)");
-                        editTextTeelamass.setHint("Menge  (3 - 5Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (3 - 5min)");
+                switch(sort){
+                    case BlackTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_blacktea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_blacktea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_blacktea);
                         break;
-                    case "Black tea":
-                        editTextTemperatur.setHint("Temperature (95 - 100°C)");
-                        editTextTeelamass.setHint("Amount  (3 - 5Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (3 - 5min)");
+                    case GreenTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_greentea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_greentea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_greentea);
                         break;
-                    case "Grüner Tee":
-                        editTextTemperatur.setHint("Temperatur (60 - 90°C)");
-                        editTextTeelamass.setHint("Menge (6 - 8Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (1 - 3min)");
+                    case YellowTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_yellowtea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_yellowtea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_yellowtea);
                         break;
-                    case "Green tea":
-                        editTextTemperatur.setHint("Temperature (60 - 90°C)");
-                        editTextTeelamass.setHint("Amount (6 - 8Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (1 - 3min)");
+                    case WhiteTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_whitetea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_whitetea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_whitetea);
                         break;
-                    case "Gelber Tee":
-                        editTextTemperatur.setHint("Temperatur (75°C)");
-                        editTextTeelamass.setHint("Menge (4 - 5Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (1 - 3min)");
+                    case OolongTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_oolongtea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_oolongtea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_oolongtea);
                         break;
-                    case "Yellow tea":
-                        editTextTemperatur.setHint("Temperature (75°C)");
-                        editTextTeelamass.setHint("Amount (4 - 5Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (1 - 3min)");
+                    case PuErhTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_puerhtea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_puerhtea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_puerhtea);
                         break;
-                    case "Weißer Tee":
-                        editTextTemperatur.setHint("Temperatur (70 - 80°C)");
-                        editTextTeelamass.setHint("Menge (3 - 4Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (1 - 4min)");
+                    case HerbalTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_herbaltea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_herbaltea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_herbaltea);
                         break;
-                    case "White tea":
-                        editTextTemperatur.setHint("Temperature (70 - 80°C)");
-                        editTextTeelamass.setHint("Amount (3 - 4Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (1 - 4min)");
+                    case FruitTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_fruittea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_fruittea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_fruittea);
                         break;
-                    case "Oolong":
-                        editTextTemperatur.setHint("Temperatur (75 - 90°C)");
-                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (0:30 - 4min)");
+                    case RooibusTea:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_rooibustea);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_rooibustea);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_rooibustea);
                         break;
-                    case "Oolong tea":
-                        editTextTemperatur.setHint("Temperature (75 - 90°C)");
-                        editTextTeelamass.setHint("Amount (4 - 6Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (0:30 - 4min)");
-                        break;
-                    case "Pu Erh Tee":
-                        editTextTemperatur.setHint("Temperatur (100°C)");
-                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 15sek)");
-                        break;
-                    case "Pu-erh tea":
-                        editTextTemperatur.setHint("Temperature (100°C)");
-                        editTextTeelamass.setHint("Amount (4 - 6Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (5 - 15sec)");
-                        break;
-                    case "Kräutertee":
-                        editTextTemperatur.setHint("Temperatur (100°C)");
-                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 10min)");
-                        break;
-                    case "Herbal tea":
-                        editTextTemperatur.setHint("Temperature (100°C)");
-                        editTextTeelamass.setHint("Amount (4 - 6Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (5 - 10min)");
-                        break;
-                    case "Früchtetee":
-                        editTextTemperatur.setHint("Temperatur (100°C)");
-                        editTextTeelamass.setHint("Menge (8 - 10Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 10min)");
-                        break;
-                    case "Fruit tea":
-                        editTextTemperatur.setHint("Temperature (100°C)");
-                        editTextTeelamass.setHint("Amount (8 - 10Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (5 - 10min)");
-                        break;
-                    case "Roibuschtee":
-                        editTextTemperatur.setHint("Temperatur (100°C)");
-                        editTextTeelamass.setHint("Menge (4 - 6Tl/L)");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\" (5 - 10min)");
-                        break;
-                    case "Rooibus tea":
-                        editTextTemperatur.setHint("Temperature (100°C)");
-                        editTextTeelamass.setHint("Amount (4 - 6Ts/L)");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\" (5 - 10min)");
-                        break;
-                    case "Sonstiges" :
-                        editTextTemperatur.setHint("Temperatur (°C)");
-                        editTextTeelamass.setHint("Menge Tl/L");
-                        editTextZiehzeit.setHint("Ziehzeit \"mm:ss\" oder \"mm\"");
-                        break;
-                    case "Other" :
-                        editTextTemperatur.setHint("Temperature (°C)");
-                        editTextTeelamass.setHint("Amount Ts/L");
-                        editTextZiehzeit.setHint("Steeping time \"mm:ss\" or \"mm\"");
+                    case Other:
+                        editTextTemperatur.setHint(R.string.newtea_hint_temperature_other);
+                        editTextTeelamass.setHint(R.string.newtea_hint_teelamass_other);
+                        editTextZiehzeit.setHint(R.string.newtea_hint_time_other);
                         break;
                     default: break;
                 }
@@ -395,52 +326,22 @@ public class NewTea extends AppCompatActivity {
 
                     //Temperatur muss zwischen 100 und 0 sein und die Zeit braucht das richtige Format
                     if(!sortValid) {
-                        Toast toast= null;
-                        if(MainActivity.settings.getLanguage().equals("de")) {
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_30Char, Toast.LENGTH_SHORT);
-                        }else if(MainActivity.settings.getLanguage().equals("en")){
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_30Char_en, Toast.LENGTH_SHORT);
-                        }
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_30Char, Toast.LENGTH_SHORT);
                         toast.show();
                     } else if (!nameValid) {
-                        Toast toast = null;
-                        if(MainActivity.settings.getLanguage().equals("de")) {
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_name_just_exist, Toast.LENGTH_SHORT);
-                        }else if(MainActivity.settings.getLanguage().equals("en")){
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_name_just_exist_en, Toast.LENGTH_SHORT);
-                        }
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_name_just_exist, Toast.LENGTH_SHORT);
                         toast.show();
                     } else if (pointExist) {
-                        Toast toast = null;
-                        if(MainActivity.settings.getLanguage().equals("de")) {
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_point, Toast.LENGTH_SHORT);
-                        }else if(MainActivity.settings.getLanguage().equals("en")){
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_point_en, Toast.LENGTH_SHORT);
-                        }
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_point, Toast.LENGTH_SHORT);
                         toast.show();
                     } else if ((temperature > 100 || temperature < 0) && (temperature != -500 || tempbiggerThanInt)) {
-                        Toast toast = null;
-                        if(MainActivity.settings.getLanguage().equals("de")) {
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_wrong_temperature, Toast.LENGTH_SHORT);
-                        }else if(MainActivity.settings.getLanguage().equals("en")){
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_wrong_temperature_en, Toast.LENGTH_SHORT);
-                        }
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_wrong_temperature, Toast.LENGTH_SHORT);
                         toast.show();
                     } else if (!timeValid) {
-                        Toast toast = null;
-                        if(MainActivity.settings.getLanguage().equals("de")) {
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_time_format, Toast.LENGTH_SHORT);
-                        }else if(MainActivity.settings.getLanguage().equals("en")){
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_time_format_en, Toast.LENGTH_SHORT);
-                        }
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_time_format, Toast.LENGTH_SHORT);
                         toast.show();
                     } else if(teelabiggerThanInt){
-                        Toast toast = null;
-                        if(MainActivity.settings.getLanguage().equals("de")) {
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_amount, Toast.LENGTH_SHORT);
-                        }else if(MainActivity.settings.getLanguage().equals("en")){
-                            toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_amount_en, Toast.LENGTH_SHORT);
-                        }
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_amount, Toast.LENGTH_SHORT);
                         toast.show();
                     } else {
                         if (!(elementAt == -1)) {
@@ -454,12 +355,7 @@ public class NewTea extends AppCompatActivity {
                             //teaItems persistent speichern
                             MainActivity.teaItems.sort();
                             if (!MainActivity.teaItems.saveCollection(getApplicationContext())) {
-                                Toast toast = null;
-                                if(MainActivity.settings.getLanguage().equals("de")) {
-                                    toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_change, Toast.LENGTH_SHORT);
-                                }else if(MainActivity.settings.equals("en")){
-                                    toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_change_en, Toast.LENGTH_SHORT);
-                                }
+                                Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_change, Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         } else {
@@ -470,12 +366,7 @@ public class NewTea extends AppCompatActivity {
                             //teaItems persistent speichern
                             MainActivity.teaItems.sort();
                             if (!MainActivity.teaItems.saveCollection(getApplicationContext())) {
-                                Toast toast = null;
-                                if(MainActivity.settings.getLanguage().equals("de")) {
-                                    toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_save, Toast.LENGTH_SHORT);
-                                }else if(MainActivity.settings.getLanguage().equals("en")){
-                                    toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_save_en, Toast.LENGTH_SHORT);
-                                }
+                                Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_save, Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         }
@@ -498,12 +389,7 @@ public class NewTea extends AppCompatActivity {
                         }
                     }
                 }else{
-                    Toast toast = null;
-                    if(MainActivity.settings.getLanguage().equals("de")) {
-                        toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_name, Toast.LENGTH_SHORT);
-                    }else if(MainActivity.settings.getLanguage().equals("en")){
-                        toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_name_en, Toast.LENGTH_SHORT);
-                    }
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_name, Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
@@ -543,11 +429,10 @@ public class NewTea extends AppCompatActivity {
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setView(alertLayoutDialogBeforeScan);
-        if(MainActivity.settings.getLanguage().equals("de")) {
-            adb.setTitle(R.string.newtea_dialog_before_scan_title);
-            textViewDialogBeforeScan.setText(R.string.newtea_dialog_before_scan_text);
-            dontShowAgain.setText(R.string.newtea_dialog_before_scan_check);
-            adb.setPositiveButton(R.string.newtea_dialog_scan_ok, new DialogInterface.OnClickListener() {
+        adb.setTitle(R.string.newtea_dialog_before_scan_title);
+        textViewDialogBeforeScan.setText(R.string.newtea_dialog_before_scan_text);
+        dontShowAgain.setText(R.string.newtea_dialog_before_scan_check);
+        adb.setPositiveButton(R.string.newtea_dialog_scan_ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (dontShowAgain.isChecked()) {
                         MainActivity.settings.setOcrAlert(false);
@@ -555,31 +440,12 @@ public class NewTea extends AppCompatActivity {
                     }
                     startCameraActivity();
                 }
-            });
-            adb.setNegativeButton(R.string.newtea_dialog_scan_cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+        });
+        adb.setNegativeButton(R.string.newtea_dialog_scan_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
 
-                }
-            });
-        } else if(MainActivity.settings.getLanguage().equals("en")){
-            adb.setTitle(R.string.newtea_dialog_before_scan_title_en);
-            textViewDialogBeforeScan.setText(R.string.newtea_dialog_before_scan_text_en);
-            dontShowAgain.setText(R.string.newtea_dialog_before_scan_check_en);
-            adb.setPositiveButton(R.string.newtea_dialog_scan_ok_en, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if (dontShowAgain.isChecked()) {
-                        MainActivity.settings.setOcrAlert(false);
-                        MainActivity.settings.saveSettings(getApplicationContext());
-                    }
-                    startCameraActivity();
-                }
-            });
-            adb.setNegativeButton(R.string.newtea_dialog_scan_cancel_en, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-        }
+            }
+        });
         adb.show();
     }
 
@@ -758,12 +624,8 @@ public class NewTea extends AppCompatActivity {
     }
 
     private void editText (String result){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        if(MainActivity.settings.getLanguage().equals("de")){
-            alert.setTitle(R.string.newtea_dialog_after_scan_title);
-        }else if(MainActivity.settings.getLanguage().equals("en")){
-            alert.setTitle(R.string.newtea_dialog_after_scan_title_en);
-        }
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);alert.setTitle(R.string.newtea_dialog_after_scan_title);
+
         //result to Camelcase
         result = convertToTitleCase(result);
 
@@ -779,37 +641,20 @@ public class NewTea extends AppCompatActivity {
         input.setText(result);
         alert.setView(input);
 
-        if(MainActivity.settings.getLanguage().equals("de")) {
-            alert.setPositiveButton(R.string.newtea_dialog_scan_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String tmp = input.getText().toString();
-                    tmp = tmp.replaceAll("\n", " ");
-                    editTextName.setText(tmp);
-                }
-            });
-            alert.setNegativeButton(R.string.newtea_dialog_scan_cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //Canceled.
-                }
-            });
-        }else if(MainActivity.settings.getLanguage().equals("en")){
-            alert.setPositiveButton(R.string.newtea_dialog_scan_ok_en, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String tmp = input.getText().toString();
-                    tmp = tmp.replaceAll("\n", " ");
-                    editTextName.setText(tmp);
-                }
-            });
-            alert.setNegativeButton(R.string.newtea_dialog_scan_cancel_en, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //Canceled.
-                }
-            });
-        }
+        alert.setPositiveButton(R.string.newtea_dialog_scan_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String tmp = input.getText().toString();
+                tmp = tmp.replaceAll("\n", " ");
+                editTextName.setText(tmp);
+            }
+        });
+        alert.setNegativeButton(R.string.newtea_dialog_scan_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Canceled.
+            }
+        });
         alert.show();
     }
 

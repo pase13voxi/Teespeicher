@@ -1,6 +1,7 @@
 package paseb.teeapp.teespeicher;
 
 import android.content.Context;
+import android.content.res.Configuration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 /**
  * Created by paseb on 06.02.2016.
@@ -95,11 +97,12 @@ public class TeaCollection {
         return -1;
     }
 
+    //Muss eventuell für mehr Sprachensupport umgeschrieben werden
     public void translateSortOfTea(String language, Context context){
+        String[] sorts_en = getOtherSortsOfTea("en",context);
+        String[] sorts_de = getOtherSortsOfTea("de",context);
         for(int i=0; i<teaItems.size(); i++){
             String sortOfTea = teaItems.get(i).getSortOfTea();
-            String[] sorts_en = context.getResources().getStringArray(R.array.sortsOfTea_en);
-            String[] sorts_de = context.getResources().getStringArray(R.array.sortsOfTea);
             if(language.equals("de")){
                 for(int a=0; a<sorts_en.length; a++){
                     if(sortOfTea.equals(sorts_en[a])){
@@ -108,7 +111,6 @@ public class TeaCollection {
                     }
                 }
             }else if(language.equals("en")){
-
                 for(int a=0; a<sorts_de.length; a++){
                     if(sortOfTea.equals(sorts_de[a])){
                         teaItems.get(i).setSortOfTea(sorts_en[a]);
@@ -118,5 +120,13 @@ public class TeaCollection {
             }
         }
         saveCollection(context);
+    }
+
+    //Teesorten von einer anderen Sprache
+    private String[] getOtherSortsOfTea(String language, Context context) {
+        Configuration configuration = new Configuration(context.getResources().getConfiguration());
+        configuration.setLocale(new Locale(language));
+        String[] sortsOfTea = context.createConfigurationContext(configuration).getResources().getStringArray(R.array.sortsOfTea);
+        return sortsOfTea;
     }
 }

@@ -1,0 +1,173 @@
+<resources>
+    <string name="app_name">Tee Speicher</string>
+    <!--German-->
+    <!--main_de-->
+    <string name="main_action_settings">Einstellungen</string>
+    <string name="main_action_sort_date">Sortiere nach Aktivität</string>
+    <string name="main_action_sort_sort">Sortiere nach Sorte</string>
+    <string-array name="itemMenu">
+        <item>Bearbeiten</item>
+        <item>Löschen</item>
+    </string-array>
+    <string name="main_create_tea">Tee erstellen</string>
+    <string name="main_error_deletion">Löschung konnte nicht durchgeführt werden.</string>
+    <!--showtea_de-->
+    <string name="showtea_heading">Information</string>
+    <string name="showtea_action_settings">Bearbeiten</string>
+    <string name="showtea_action_vibrate">Vibration</string>
+    <string name="showtea_action_notification">Benachrichtigung</string>
+    <string name="showtea_display_temperature">°C</string>
+    <string name="showtea_display_teelamass">Tl/L</string>
+    <string name="showtea_display_min">Min</string>
+    <string name="showtea_display_sec">Sek</string>
+    <string name="showtea_cooldown_title">Abkühlzeiten</string>
+    <string name="showtea_cooldown_text">Bei Grünem oder Weißem Tee sollte man vor dem Aufguss das kochende Wasser abkühlen lassen. Mit dieser Option wird die ungefähre Abkühlzeit berechnet.</string>
+    <string name="showtea_cooldown_ok">Ok</string>
+    <string name="showtea_error_text">Fehler beim Anzeigen des Elements.</string>
+    <string name="showtea_timer_start">Start</string>
+    <string name="showtea_timer_reset">Reset</string>
+    <string name="showtea_tea_ready">Fertig</string>
+    <!--newtea_de-->
+    <string name="newtea_heading">Tee erstellen/bearbeiten</string>
+    <string name="tea_sort">Teesorte</string>
+    <string-array name="sortsOfTea">
+        <item>Schwarzer Tee</item>
+        <item>Grüner Tee</item>
+        <item>Gelber Tee</item>
+        <item>Weißer Tee</item>
+        <item>Oolong</item>
+        <item>Pu Erh Tee</item>
+        <item>Kräutertee</item>
+        <item>Früchtetee</item>
+        <item>Roibuschtee</item>
+        <item>Sonstiges</item>
+    </string-array>
+    <string name="newtea_by_hand">manuell</string>
+    <string name="newtea_hint_name">Name</string>
+    <string name="newtea_hint_temperature_blacktea">Temperatur (95 - 100°C)</string>
+    <string name="newtea_hint_temperature_greentea">Temperatur (60 - 90°C)</string>
+    <string name="newtea_hint_temperature_yellowtea">Temperatur (75°C)</string>
+    <string name="newtea_hint_temperature_whitetea">Temperatur (70 - 80°C)</string>
+    <string name="newtea_hint_temperature_oolongtea">Temperatur (75 - 90°C)</string>
+    <string name="newtea_hint_temperature_puerhtea">Temperatur (100°C)</string>
+    <string name="newtea_hint_temperature_herbaltea">Temperatur (100°C)</string>
+    <string name="newtea_hint_temperature_fruittea">Temperatur (100°C)</string>
+    <string name="newtea_hint_temperature_rooibustea">Temperatur (100°C)</string>
+    <string name="newtea_hint_temperature_other">Temperatur (°C)</string>
+    <string name="newtea_hint_teelamass_blacktea">Menge (3 - 5Tl/L)</string>
+    <string name="newtea_hint_teelamass_greentea">Menge (6 - 8Tl/L)</string>
+    <string name="newtea_hint_teelamass_yellowtea">Menge (4 - 5Tl/L)</string>
+    <string name="newtea_hint_teelamass_whitetea">Menge (3 - 4Tl/L)</string>
+    <string name="newtea_hint_teelamass_oolongtea">Menge (4 - 6Tl/L)</string>
+    <string name="newtea_hint_teelamass_puerhtea">Menge (4 - 6Tl/L)</string>
+    <string name="newtea_hint_teelamass_herbaltea">Menge (4 - 6Tl/L)</string>
+    <string name="newtea_hint_teelamass_fruittea">Menge (8 - 10Tl/L)</string>
+    <string name="newtea_hint_teelamass_rooibustea">Menge (4 - 6Tl/L)</string>
+    <string name="newtea_hint_teelamass_other">Menge Tl/L</string>
+    <string name="newtea_hint_time_blacktea">Ziehzeit "mm:ss" oder "mm" (3 - 5min)</string>
+    <string name="newtea_hint_time_greentea">Ziehzeit "mm:ss" oder "mm" (1 - 3min)</string>
+    <string name="newtea_hint_time_yellowtea">Ziehzeit "mm:ss" oder "mm" (1 - 3min)</string>
+    <string name="newtea_hint_time_whitetea">Ziehzeit "mm:ss" oder "mm" (1 - 4min)</string>
+    <string name="newtea_hint_time_oolongtea">Ziehzeit "mm:ss" oder "mm" (0:30 - 4min)</string>
+    <string name="newtea_hint_time_puerhtea">Ziehzeit "mm:ss" oder "mm" (5 - 15sek)</string>
+    <string name="newtea_hint_time_herbaltea">Ziehzeit "mm:ss" oder "mm" (5 - 10min)</string>
+    <string name="newtea_hint_time_fruittea">Ziehzeit "mm:ss" oder "mm" (5 - 10min)</string>
+    <string name="newtea_hint_time_rooibustea">Ziehzeit "mm:ss" oder "mm" (5 - 10min)</string>
+    <string name="newtea_hint_time_other">Ziehzeit "mm:ss" oder "mm"</string>
+    <string name="newtea_button_create">Anlegen</string>
+    <string name="newtea_button_edit">Ändern</string>
+    <string name="newtea_error_30Char">Die Teesorte überschreitet die Grenzanzahl von 30 Zeichen.</string>
+    <string name="newtea_error_name_just_exist">Diesen Namen gibt es schon.</string>
+    <string name="newtea_error_no_point">Bitte kein Punkt.</string>
+    <string name="newtea_error_wrong_temperature">Die Temperatur sollte zwischen 0 °C und 100 °C liegen.</string>
+    <string name="newtea_error_time_format">Bitte halten Sie das Format bei der Ziehzeit ein.</string>
+    <string name="newtea_error_amount">Die Tl/L sollten nicht vierstellig sein.</string>
+    <string name="newtea_error_cant_change">Änderung konnte nicht durchgeführt werden.</string>
+    <string name="newtea_error_cant_save">Speichern konnte nicht durchgeführt werden.</string>
+    <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
+    <string name="newtea_dialog_before_scan_title">Texterkennung</string>
+    <string name="newtea_dialog_before_scan_text">\n1. Foto sollte hochauflösend sein\n2. Teename ausschneiden\n3. Text nachbearbeiten\n\nDiese Technik ist noch nicht komplett ausgereift. Also ist es möglich das manche Texte nicht erkannt werden können.\n</string>
+    <string name="newtea_dialog_before_scan_check">Bitte nicht mehr zeigen!</string>
+    <string name="newtea_dialog_after_scan_title">Text anpassen</string>
+    <string name="newtea_dialog_scan_ok">Ok</string>
+    <string name="newtea_dialog_scan_cancel">Abbrechen</string>
+    <!--setting_de-->
+    <string name="settings_heading">Einstellungen</string>
+    <string name="settings_alarm">Alarmsound</string>
+    <string name="setting_alarm_selection_title">Alarmsound auswählen</string>
+    <string name="settings_vibration">Vibration</string>
+    <string name="settings_notification">Benachrichtigung</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_show_hints">Hinweise aktivieren</string>
+    <string name="settings_show_hints_text">Hinweise sind wieder aktiv.</string>
+    <string name="settings_factory_settings">Zurücksetzen auf Werkseinstellungen</string>
+    <string name="settings_factory_settings_text">Es werden alle Tees gelöscht und die Einstellungen zurückgesetzt.</string>
+    <string name="settings_factory_settings_ok">Ok</string>
+    <string name="settings_factory_settings_cancel">Abbrechen</string>
+    <!--Notification-->
+    <string name="notification_ticker">Tea Time!</string>
+    <string name="notification_title">Ihr Tee ist fertig.</string>
+    <!--Time-->
+    <string-array name="itemsTimer">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+    </string-array>
+</resources>

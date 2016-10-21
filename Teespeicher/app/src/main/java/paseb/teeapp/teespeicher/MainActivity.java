@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class MainActivity extends AppCompatActivity {
 
     static public TeaAdapter adapter;
@@ -63,28 +62,20 @@ public class MainActivity extends AppCompatActivity {
         if(!settings.loadSettings(getApplicationContext())){
             //Toast toast = Toast.makeText(getApplicationContext(), "Fehler beim Laden. Settings werden auf Standard eingestellt.", Toast.LENGTH_SHORT);
             //toast.show();
-            settings.setLanguage("de");
-            settings.saveSettings(getApplicationContext());
+        }
 
-            //Hier wird jetzt die gewünschte Sprache abgegriffen
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.main_language_selection_title);
-            builder.setItems(R.array.settings_languages, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int item) {
-                    if(item == 0){
-                        settings.setLanguage("en");
-                        newTea.setText(R.string.main_create_tea_en);
-                    }else{
-                        settings.setLanguage("de");
-                        newTea.setText(R.string.main_create_tea);
-                    }
-                    teaItems.translateSortOfTea(settings.getLanguage(),getApplicationContext());
-                    adapter.notifyDataSetChanged();
-                    settings.saveSettings(getApplicationContext());
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
+        //herausfinden welche Sprache gesetzt ist und Übersetztung der Liste starten
+        String tmpLang = settings.getLanguage();
+        String language = getResources().getString(R.string.app_name);
+        if(language.equals("Tee Speicher")){
+            settings.setLanguage("de");
+        }else if(language.equals("Tea Memory")){
+            settings.setLanguage("en");
+        }
+        settings.saveSettings(getApplicationContext());
+        if(!tmpLang.equals(settings.getLanguage())){
+            teaItems.translateSortOfTea(settings.getLanguage(), getApplicationContext());
+            teaItems.saveCollection(getApplicationContext());
         }
 
         //Liste mit Adapter verknüpfen
@@ -108,12 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Button NewTea + Aktion
         newTea = (Button) findViewById(R.id.newtea);
-        //Übersetzung Englisch Deutsch
-        if(settings.getLanguage().equals("de")){
-            newTea.setText(R.string.main_create_tea);
-        }else if(settings.getLanguage().equals("en")){
-            newTea.setText(R.string.main_create_tea_en);
-        }
+        newTea.setText(R.string.main_create_tea);
         newTea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,24 +121,12 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<menu.size(); i++){
             MenuItem mi = menu.getItem(i);
             if(mi.getItemId() == R.id.action_settings){
-                if(settings.getLanguage().equals("de")){
-                    mi.setTitle(R.string.main_action_settings);
-                }else if(settings.getLanguage().equals("en")){
-                    mi.setTitle(R.string.main_action_settings_en);
-                }
+                mi.setTitle(R.string.main_action_settings);
             }else if(mi.getItemId() == R.id.action_sort_date){
-                if(settings.getLanguage().equals("de")){
-                    mi.setTitle(R.string.main_action_sort_date);
-                }else if(settings.getLanguage().equals("en")){
-                    mi.setTitle(R.string.main_action_sort_date_en);
-                }
+                mi.setTitle(R.string.main_action_sort_date);
                 mi.setChecked(!settings.isSort());
             }else if(mi.getItemId() == R.id.action_sort_sort){
-                if(settings.getLanguage().equals("de")){
-                    mi.setTitle(R.string.main_action_sort_sort);
-                }else if(settings.getLanguage().equals("en")){
-                    mi.setTitle(R.string.main_action_sort_sort_en);
-                }
+                mi.setTitle(R.string.main_action_sort_sort);
                 mi.setChecked(settings.isSort());
             }
         }
@@ -193,12 +167,7 @@ public class MainActivity extends AppCompatActivity {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
             menu.setHeaderTitle(teaItems.getTeaItems().get(info.position).getName());
             //Übersetzung Englisch Deutsch
-            String[] menuItems = null;
-            if(settings.getLanguage().equals("de")) {
-                menuItems = getResources().getStringArray(R.array.itemMenu);
-            }else if(settings.getLanguage().equals("en")){
-                menuItems = getResources().getStringArray(R.array.itemMenu_en);
-            }
+            String[] menuItems = getResources().getStringArray(R.array.itemMenu);
             for(int i=0; i<menuItems.length; i++){
                 menu.add(Menu.NONE, i, i, menuItems[i]);
             }
@@ -209,33 +178,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int menuItemIndex = item.getItemId();
-        String[] menuItems = getResources().getStringArray(R.array.itemMenu_en);
+        String[] menuItems = getResources().getStringArray(R.array.itemMenu);
         String menuItemName = menuItems[menuItemIndex];
+        String editOption = menuItems[0], deleteOption = menuItems[1];
 
-        switch(menuItemName){
-            case "Delete":
-                teaItems.getTeaItems().remove(info.position);
-                if(!teaItems.saveCollection(getApplicationContext())){
-                    Toast toast = null;
-                    if(settings.getLanguage().equals("de")) {
-                        toast = Toast.makeText(getApplicationContext(), R.string.main_error_deletion, Toast.LENGTH_SHORT);
-                    }else if(settings.getLanguage().equals("en")){
-                        toast = Toast.makeText(getApplicationContext(), R.string.main_error_deletion_en, Toast.LENGTH_SHORT);
-                    }
-                    toast.show();
-                }
-                adapter.notifyDataSetChanged();
-                break;
-            case "Edit":
-                //Neues Intent anlegen
-                Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
-                newteaScreen.putExtra("elementAt", info.position);
-                // Intent starten und zur zweiten Activity wechseln
-                startActivity(newteaScreen);
-                break;
-            default: break;
+        if(menuItemName.equals(editOption)){
+            //Neues Intent anlegen
+            Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
+            newteaScreen.putExtra("elementAt", info.position);
+            // Intent starten und zur zweiten Activity wechseln
+            startActivity(newteaScreen);
+        }else if(menuItemName.equals(deleteOption)){
+            teaItems.getTeaItems().remove(info.position);
+            if(!teaItems.saveCollection(getApplicationContext())){
+                Toast toast = Toast.makeText(getApplicationContext(), R.string.main_error_deletion, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            adapter.notifyDataSetChanged();
         }
-
         return true;
     }
 
