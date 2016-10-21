@@ -86,6 +86,7 @@ public class ActualSetting {
         musicName = "Sunbeam";
         vibration = false;
         notification = true;
+        language = "de";
         ocrAlert = true;
         sort = false;
     }
