@@ -8,7 +8,7 @@ android {
         applicationId "paseb.teeapp.teespeicher"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 21
+        versionCode 20
         versionName "1.3"
     }
     buildTypes {

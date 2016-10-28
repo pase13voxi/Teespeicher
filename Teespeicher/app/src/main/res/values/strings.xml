@@ -11,11 +11,6 @@
     </string-array>
     <string name="main_create_tea">Create tea</string>
     <string name="main_error_deletion">Deletion could not be performed.</string>
-    <string name="main_dialog_for_update_title">New Store!</string>
-    <string name="main_dialog_for_update_text">There is a new version of the Tea Memory. The new version is to be downloaded on the new store side of the Tea Memory. I would like to point out that support for the old store page will be discontinued and from now only updates on the new page will come out.</string>
-    <string name="main_dialog_for_update_check">Do not show me again!</string>
-    <string name="main_dialog_update_ok">OK</string>
-    <string name="main_dialog_update_cancel">To the new Store</string>
     <!--showtea_en-->
     <string name="showtea_heading">Information</string>
     <string name="showtea_action_settings">Edit</string>

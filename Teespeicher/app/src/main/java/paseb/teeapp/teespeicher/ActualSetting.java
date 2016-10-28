@@ -18,7 +18,6 @@ public class ActualSetting {
     private boolean notification;
     private String language;
     private boolean ocrAlert;
-    private boolean updateAlert;
     //false = sort by Date
     private boolean sort;
 
@@ -62,14 +61,6 @@ public class ActualSetting {
         this.language = language;
     }
 
-    public boolean isUpdateAlert() {
-        return updateAlert;
-    }
-
-    public void setUpdateAlert(boolean updateAlert){
-        this.updateAlert = updateAlert;
-    }
-
     public boolean isOcrAlert() {
         return ocrAlert;
     }
@@ -97,7 +88,6 @@ public class ActualSetting {
         notification = true;
         language = "de";
         ocrAlert = true;
-        updateAlert = true;
         sort = false;
     }
 
@@ -111,7 +101,6 @@ public class ActualSetting {
             os.writeBoolean(vibration);
             os.writeBoolean(notification);
             os.writeBoolean(ocrAlert);
-            os.writeBoolean(updateAlert);
             os.writeObject(language);
             os.writeBoolean(sort);
             os.close();
@@ -135,7 +124,6 @@ public class ActualSetting {
             vibration = is.readBoolean();
             notification = is.readBoolean();
             ocrAlert = is.readBoolean();
-            updateAlert = is.readBoolean();
             language = (String) is.readObject();
             sort = is.readBoolean();
             is.close();

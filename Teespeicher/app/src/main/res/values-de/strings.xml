@@ -11,11 +11,6 @@
     </string-array>
     <string name="main_create_tea">Tee erstellen</string>
     <string name="main_error_deletion">Löschung konnte nicht durchgeführt werden.</string>
-    <string name="main_dialog_for_update_title">Neue Storeseite!</string>
-    <string name="main_dialog_for_update_text">Es gibt eine neue Version des Tee Speichers. Die neue Version ist auf der neuen Storeseite des Tee Speichers zu downloaden. Ich möchte darauf hinweisen, dass Support für die alte Storeseite eingestellt wird und ab jetzt nur noch Updates auf der neuen Seite herauskommen werden.</string>
-    <string name="main_dialog_for_update_check">Bitte nicht mehr zeigen!</string>
-    <string name="main_dialog_update_ok">OK</string>
-    <string name="main_dialog_update_cancel">Zur neuen Storeseite</string>
     <!--showtea_de-->
     <string name="showtea_heading">Information</string>
     <string name="showtea_action_settings">Bearbeiten</string>
