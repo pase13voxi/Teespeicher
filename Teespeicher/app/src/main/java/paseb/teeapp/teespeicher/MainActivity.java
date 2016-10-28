@@ -3,15 +3,18 @@ package paseb.teeapp.teespeicher;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     static public ActualSetting settings;
     static public TextView mToolbarCustomTitle;
     static public Button newTea;
+    public CheckBox dontShowAgain;
 
 
     @Override
@@ -76,6 +80,43 @@ public class MainActivity extends AppCompatActivity {
         if(!tmpLang.equals(settings.getLanguage())){
             teaItems.translateSortOfTea(settings.getLanguage(), getApplicationContext());
             teaItems.saveCollection(getApplicationContext());
+        }
+
+        //Zeige Hinweis an, dass die App eine neue Seite hat
+        if(settings.isUpdateAlert()){
+            LayoutInflater inflater = getLayoutInflater();
+            View alertLayoutDialogBeforeScan = inflater.inflate(R.layout.dialogforupdate, null);
+            TextView textViewDialogBeforeScan = (TextView) alertLayoutDialogBeforeScan.findViewById(R.id.textViewDialogForUpdate);
+            dontShowAgain = (CheckBox) alertLayoutDialogBeforeScan.findViewById(R.id.checkboxDialogForUpdate);
+
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.setView(alertLayoutDialogBeforeScan);
+            adb.setTitle(R.string.main_dialog_for_update_title);
+            textViewDialogBeforeScan.setText(R.string.main_dialog_for_update_text);
+            dontShowAgain.setText(R.string.main_dialog_for_update_check);
+            adb.setPositiveButton(R.string.main_dialog_update_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dontShowAgain.isChecked()) {
+                        settings.setUpdateAlert(false);
+                        settings.saveSettings(getApplicationContext());
+                    }
+                }
+            });
+            adb.setNegativeButton(R.string.main_dialog_update_cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dontShowAgain.isChecked()) {
+                        settings.setUpdateAlert(false);
+                        settings.saveSettings(getApplicationContext());
+                    }
+                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                }
+            });
+            adb.show();
         }
 
         //Liste mit Adapter verknüpfen
