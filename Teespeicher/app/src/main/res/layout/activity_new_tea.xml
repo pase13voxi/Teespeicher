@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="paseb.teeapp.teespeicher.NewTea">
+    tools:context="coolpharaoh.tee.speicher.tea.timer.NewTea">
 
     <include
         android:id="@id/tool_bar"
@@ -87,21 +87,51 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editTextTemperatur"
+        android:id="@+id/editTextTeelamass"
         android:layout_below="@+id/editTextName"
         android:layout_marginTop="10dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" />
 
+    <Button
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:id="@+id/buttonArrowLeft"
+        android:background="@drawable/arrowleft"
+        android:layout_below="@+id/editTextTeelamass"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dip"
+        android:layout_marginLeft="4dip"
+        android:enabled="false"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewCountBrew"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="1. Aufguss"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/buttonArrowLeft"
+        android:layout_marginBottom="5dip"
+        android:textColor="#494949" />
+
+    <Button
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:id="@+id/buttonArrowRight"
+        android:background="@drawable/arrowright"
+        android:layout_below="@+id/editTextTeelamass"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dip"
+        android:layout_marginRight="4dip" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editTextTeelamass"
-        android:layout_below="@+id/editTextTemperatur"
+        android:id="@+id/editTextTemperatur"
+        android:layout_below="@+id/textViewCountBrew"
         android:layout_marginTop="10dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" />
@@ -112,7 +142,7 @@
         android:inputType="time"
         android:ems="10"
         android:id="@+id/editTextZiehzeit"
-        android:layout_below="@+id/editTextTeelamass"
+        android:layout_below="@+id/editTextTemperatur"
         android:layout_marginTop="10dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" />

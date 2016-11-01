@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="paseb.teeapp.teespeicher">
+    package="coolpharaoh.tee.speicher.tea.timer">
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="coolpharaoh.tee.speicher.tea.timer.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,34 +27,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewTea"
+            android:name="coolpharaoh.tee.speicher.tea.timer.NewTea"
             android:label="Tee erstellen/bearbeiten"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />
         </activity>
         <activity
-            android:name=".ShowTea"
+            android:name="coolpharaoh.tee.speicher.tea.timer.ShowTea"
             android:label="Information"
             android:screenOrientation="portrait"
             android:launchMode="singleTask">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />
         </activity>
         <activity
-            android:name=".Settings"
+            android:name="coolpharaoh.tee.speicher.tea.timer.Settings"
             android:label="Einstellungen"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />
         </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <service android:name=".MediaService"/>
-        <service android:name=".CountDownService"/>
+        <service android:name="coolpharaoh.tee.speicher.tea.timer.MediaService"/>
+        <service android:name="coolpharaoh.tee.speicher.tea.timer.CountDownService"/>
     </application>
 
 </manifest>

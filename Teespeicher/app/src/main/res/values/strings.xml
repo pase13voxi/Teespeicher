@@ -20,6 +20,8 @@
     <string name="showtea_display_teelamass">Ts/L</string>
     <string name="showtea_display_min">Min</string>
     <string name="showtea_display_sec">Sec</string>
+    <string name="showtea_brew_count_title">Please choose your brew</string>
+    <string name="showtea_brew_count_content">Brew</string>
     <string name="showtea_cooldown_title">Cooling period</string>
     <string name="showtea_cooldown_text">For green or white tea the cooking water should be cool down before brew the tea. With this option the approximate cooling time is calculated.</string>
     <string name="showtea_cooldown_ok">Ok</string>
@@ -78,19 +80,21 @@
     <string name="newtea_button_edit">Edit</string>
     <string name="newtea_error_30Char">The type of tea exceeds the limit number of 30 characters.</string>
     <string name="newtea_error_name_just_exist">This name already exists.</string>
-    <string name="newtea_error_no_point">Please no point.</string>
     <string name="newtea_error_wrong_temperature">The temperature should be between 0 °C and 100 °C.</string>
     <string name="newtea_error_time_format">Please follow the format of the steeping time.</string>
     <string name="newtea_error_amount">The Tsp/L should not be four digits.</string>
     <string name="newtea_error_cant_change">Change could not be performed.</string>
     <string name="newtea_error_cant_save">Store could not be performed.</string>
     <string name="newtea_error_no_name">Please enter the name.</string>
+    <string name="newtea_error_no_data_before_next_brew">Please insert the temperature and steeping time for this brew before you enter the data for the next brew.</string>
+    <string name="newtea_error_no_data_for_this_brew">Please insert the temperature and steeping time for this brew.</string>
     <string name="newtea_dialog_before_scan_title">Text recognition</string>
     <string name="newtea_dialog_before_scan_text">\n1. Image should be high resolution\n2. Cut out teaname\n3. Edit text\n\nThis technique is not yet fully mature. So it is possible that some texts can not be recognized.\n</string>
     <string name="newtea_dialog_before_scan_check">Do not show me again!</string>
     <string name="newtea_dialog_after_scan_title">Edit text</string>
     <string name="newtea_dialog_scan_ok">Ok</string>
     <string name="newtea_dialog_scan_cancel">Cancel</string>
+    <string name="newtea_count_brew">Brew</string>
     <!--settings_en-->
     <string name="settings_heading">Settings</string>
     <string name="settings_alarm">Alarm sound</string>

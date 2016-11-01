@@ -20,6 +20,8 @@
     <string name="showtea_display_teelamass">Tl/L</string>
     <string name="showtea_display_min">Min</string>
     <string name="showtea_display_sec">Sek</string>
+    <string name="showtea_brew_count_title">Bitte wähle deinen Aufguss</string>
+    <string name="showtea_brew_count_content">Aufguss</string>
     <string name="showtea_cooldown_title">Abkühlzeiten</string>
     <string name="showtea_cooldown_text">Bei Grünem oder Weißem Tee sollte man vor dem Aufguss das kochende Wasser abkühlen lassen. Mit dieser Option wird die ungefähre Abkühlzeit berechnet.</string>
     <string name="showtea_cooldown_ok">Ok</string>
@@ -78,19 +80,21 @@
     <string name="newtea_button_edit">Ändern</string>
     <string name="newtea_error_30Char">Die Teesorte überschreitet die Grenzanzahl von 30 Zeichen.</string>
     <string name="newtea_error_name_just_exist">Diesen Namen gibt es schon.</string>
-    <string name="newtea_error_no_point">Bitte kein Punkt.</string>
     <string name="newtea_error_wrong_temperature">Die Temperatur sollte zwischen 0 °C und 100 °C liegen.</string>
     <string name="newtea_error_time_format">Bitte halten Sie das Format bei der Ziehzeit ein.</string>
     <string name="newtea_error_amount">Die Tl/L sollten nicht vierstellig sein.</string>
     <string name="newtea_error_cant_change">Änderung konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_cant_save">Speichern konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
+    <string name="newtea_error_no_data_before_next_brew">Bitte geben Sie die Temperatur und Ziehzeit für diesen Aufguss an, bevor Sie den nächsten Aufguss eingeben.</string>
+    <string name="newtea_error_no_data_for_this_brew">Bitte füllen Sie die Temperatur und den Ziehzeit für diesen Aufguss aus.</string>
     <string name="newtea_dialog_before_scan_title">Texterkennung</string>
     <string name="newtea_dialog_before_scan_text">\n1. Foto sollte hochauflösend sein\n2. Teename ausschneiden\n3. Text nachbearbeiten\n\nDiese Technik ist noch nicht komplett ausgereift. Also ist es möglich das manche Texte nicht erkannt werden können.\n</string>
     <string name="newtea_dialog_before_scan_check">Bitte nicht mehr zeigen!</string>
     <string name="newtea_dialog_after_scan_title">Text anpassen</string>
     <string name="newtea_dialog_scan_ok">Ok</string>
     <string name="newtea_dialog_scan_cancel">Abbrechen</string>
+    <string name="newtea_count_brew">Aufguss</string>
     <!--setting_de-->
     <string name="settings_heading">Einstellungen</string>
     <string name="settings_alarm">Alarmsound</string>
