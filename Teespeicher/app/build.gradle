@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "paseb.teeapp.teespeicher"
+        applicationId "coolpharaoh.tee.speicher.tea.timer"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 20
-        versionName "1.3"
+        versionName "1.4"
     }
     buildTypes {
         release {

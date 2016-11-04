@@ -5,6 +5,7 @@
     <string name="main_action_settings">Einstellungen</string>
     <string name="main_action_sort_date">Sortiere nach Aktivität</string>
     <string name="main_action_sort_sort">Sortiere nach Sorte</string>
+    <string name="main_action_about">Über den Tee Speicher</string>
     <string-array name="itemMenu">
         <item>Bearbeiten</item>
         <item>Löschen</item>
@@ -111,6 +112,27 @@
     <!--Notification-->
     <string name="notification_ticker">Tea Time!</string>
     <string name="notification_title">Ihr Tee ist fertig.</string>
+    <!--About-->
+    <string name="about_heading">Über den Tee Speicher</string>
+    <string name="about_contact_heading">Kontakt</string>
+    <string name="about_contact_description">Wer steckt hinter dem Tee Speicher?</string>
+    <string name="about_rating_heading">Bewerte die App</string>
+    <string name="about_rating_description">Gefällt dir die App? Ich würde mich über eine Bewertung freuen.</string>
+    <string name="about_donate_heading">Spende</string>
+    <string name="about_donate_description">Du denkst der Entwickler hat eine Spende verdient?</string>
+    <string name="about_software_heading">Software Lizenzen</string>
+    <string name="about_software_description">Welche Open Source Software wird von dem Tee Speicher genutzt?</string>
+    <!--Contact-->
+    <string name="contact_heading">Kontakt</string>
+    <string name="contact_about_me">Hallo, ich bin Pascal und ich habe den Tee Speicher in meiner Freizeit entwickeln. Für Fragen oder Anregungen schreib mir eine E-mail.</string>
+    <string name="contact_email">Sende mir eine E-mail.</string>
+    <string name="contact_email_address">pase.b@outlook.com</string>
+    <!--Software-->
+    <string name="software_heading">Software Lizenzen</string>
+    <string name="software_tesseract_heading">Tesseract</string>
+    <string name="software_tesseract_description">Tesseract ist eine Open Source Software, welche die Texterkennung ermöglicht.</string>
+    <string name="software_cropper_heading">Cropper von Edmodo Inc</string>
+    <string name="software_cropper_description">Der Cropper von Edmodo Inc ist eine Open Source Software, die für das Bearbeiten von Bilder nützlich ist.</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

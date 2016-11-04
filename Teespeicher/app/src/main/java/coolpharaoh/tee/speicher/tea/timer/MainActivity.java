@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static java.util.Arrays.asList;
-
 public class MainActivity extends AppCompatActivity {
 
     static public TeaAdapter adapter;
@@ -39,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
+        //askPermissions();
         //hole ListView
         final ListView tealist = (ListView) findViewById(R.id.listViewTealist);
         //Liste aller Tees
@@ -136,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
             MenuItem mi = menu.getItem(i);
             if(mi.getItemId() == R.id.action_settings){
                 mi.setTitle(R.string.main_action_settings);
+            }else if(mi.getItemId() == R.id.action_about){
+                mi.setTitle(R.string.main_action_about);
             }else if(mi.getItemId() == R.id.action_sort_date){
                 mi.setTitle(R.string.main_action_sort_date);
                 mi.setChecked(!settings.isSort());
@@ -156,6 +157,11 @@ public class MainActivity extends AppCompatActivity {
             // Intent starten und zur zweiten Activity wechseln
             startActivity(settingScreen);
             return true;
+        }else if(id == R.id.action_about){
+            //Neues Intent anlegen
+            Intent aboutScreen = new Intent(MainActivity.this, About.class);
+            // Intent starten und zur zweiten Activity wechseln
+            startActivity(aboutScreen);
         }else if(id == R.id.action_sort_date){
             settings.setSort(false);
             settings.saveSettings(getApplicationContext());
@@ -212,5 +218,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 }
