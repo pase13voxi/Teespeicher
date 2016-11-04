@@ -338,7 +338,7 @@ public class NewTea extends AppCompatActivity {
                             editTextZiehzeit.setText("");
                         }
                     }
-                    if (brewcount >= 5) {
+                    if (brewcount >= 9) {
                         rightArrow.setEnabled(false);
                     } else {
                         leftArrow.setEnabled(true);
