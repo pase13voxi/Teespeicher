@@ -101,12 +101,12 @@ public class ShowTea extends AppCompatActivity {
         spinnerMinutes.setAdapter(spinnerTimeAdapter);
         spinnerSeconds.setAdapter(spinnerTimeAdapter);
 
-
         //Hole Übergabeparemeter Position des Tees
         elementAt  = this.getIntent().getIntExtra("elementAt", -1);
         if(elementAt==-1){
             Toast toast = Toast.makeText(getApplicationContext(), R.string.showtea_error_text, Toast.LENGTH_SHORT);
             toast.show();
+            buttonBrewCount.setVisibility(View.INVISIBLE);
         }else {
             Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
 
@@ -128,6 +128,10 @@ public class ShowTea extends AppCompatActivity {
             spinnerMinutes.setSelection(minutes);
             seconds = selectedTea.getSeconds().get(brewCount);
             spinnerSeconds.setSelection(seconds);
+            //wenn nur ein Aufguss vorgesehen ist dann verschwindet der button
+            if(selectedTea.getTemperature().size()==1){
+                buttonBrewCount.setVisibility(View.INVISIBLE);
+            }
         }
 
         buttonBrewCount.setOnClickListener(new View.OnClickListener() {
