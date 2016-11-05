@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         settings.setUpdateAlert(false);
                         settings.saveSettings(getApplicationContext());
                     }
-                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                    final String appPackageName = "coolpharaoh.tee.speicher.tea.timer"; // getPackageName() from Context or Activity object
                     try {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
                     } catch (android.content.ActivityNotFoundException anfe) {
