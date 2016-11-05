@@ -124,7 +124,7 @@
     <string name="about_software_description">Welche Open Source Software wird von dem Tee Speicher genutzt?</string>
     <!--Contact-->
     <string name="contact_heading">Kontakt</string>
-    <string name="contact_about_me">Hallo, ich bin Pascal und ich habe den Tee Speicher in meiner Freizeit entwickeln. Für Fragen oder Anregungen schreib mir eine E-mail.</string>
+    <string name="contact_about_me">Hallo, ich bin Pascal und ich habe den Tee Speicher in meiner Freizeit entwickelt. Für Fragen oder Anregungen schreib mir eine E-mail.</string>
     <string name="contact_email">Sende mir eine E-mail.</string>
     <string name="contact_email_address">pase.b@outlook.com</string>
     <!--Software-->
