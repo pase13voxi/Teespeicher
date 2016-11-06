@@ -29,6 +29,8 @@ import java.util.concurrent.TimeUnit;
 public class ShowTea extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private TextView textViewBrewCount;
+    private Button buttonNextBrew;
     private int elementAt;
     private TextView textViewTemperature;
     private Spinner spinnerMinutes;
@@ -61,6 +63,8 @@ public class ShowTea extends AppCompatActivity {
         TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.showtea_heading);
         Button buttonBrewCount = (Button) findViewById(R.id.toolbar_brewcount);
+        textViewBrewCount = (TextView) findViewById(R.id.toolbar_text_brewcount);
+        buttonNextBrew  = (Button) findViewById(R.id.toolbar_nextbrew);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
@@ -130,7 +134,9 @@ public class ShowTea extends AppCompatActivity {
             spinnerSeconds.setSelection(seconds);
             //wenn nur ein Aufguss vorgesehen ist dann verschwindet der button
             if(selectedTea.getTemperature().size()==1){
+                textViewBrewCount.setVisibility(View.INVISIBLE);
                 buttonBrewCount.setVisibility(View.INVISIBLE);
+                buttonNextBrew.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -151,27 +157,20 @@ public class ShowTea extends AppCompatActivity {
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         brewCount = item;
-                        Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
-                        temperature = selectedTea.getTemperature().get(brewCount);
-                        if(temperature !=- 500) {
-                            textViewTemperature.setText(String.valueOf(temperature) + " " + getResources().getString(R.string.showtea_display_temperature));
-                        }else{
-                            textViewTemperature.setText("- " + getResources().getString(R.string.showtea_display_temperature));
-                        }
-                        if(temperature < 100 && temperature != -500){
-                            buttonExchange.setVisibility(View.VISIBLE);
-                        }else{
-                            buttonExchange.setVisibility(View.INVISIBLE);
-                        }
-                        minutes = selectedTea.getMinutes().get(brewCount);
-                        spinnerMinutes.setSelection(minutes);
-                        seconds = selectedTea.getSeconds().get(brewCount);
-                        spinnerSeconds.setSelection(seconds);
+                        brewCountChanged();
                     }
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
 
+            }
+        });
+
+        buttonNextBrew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                brewCount++;
+                brewCountChanged();
             }
         });
 
@@ -517,4 +516,23 @@ public class ShowTea extends AppCompatActivity {
         }
     }
 
+    private void brewCountChanged(){
+        Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
+        temperature = selectedTea.getTemperature().get(brewCount);
+        if(temperature < 100 && temperature != -500){
+            buttonExchange.setVisibility(View.VISIBLE);
+        }else{
+            buttonExchange.setVisibility(View.INVISIBLE);
+        }
+        minutes = selectedTea.getMinutes().get(brewCount);
+        spinnerMinutes.setSelection(minutes);
+        seconds = selectedTea.getSeconds().get(brewCount);
+        spinnerSeconds.setSelection(seconds);
+        textViewBrewCount.setText(String.valueOf(brewCount+1) + ".");
+        if(brewCount==MainActivity.teaItems.getTeaItems().get(elementAt).getTemperature().size()-1){
+            buttonNextBrew.setEnabled(false);
+        }else{
+            buttonNextBrew.setEnabled(true);
+        }
+    }
 }
