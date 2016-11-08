@@ -519,6 +519,7 @@ public class ShowTea extends AppCompatActivity {
     private void brewCountChanged(){
         Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
         temperature = selectedTea.getTemperature().get(brewCount);
+        textViewTemperature.setText(String.valueOf(temperature)+" "+getResources().getString(R.string.showtea_display_temperature));
         if(temperature < 100 && temperature != -500){
             buttonExchange.setVisibility(View.VISIBLE);
         }else{

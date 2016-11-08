@@ -1,11 +1,1 @@
-Teespeicher neuste Version
-- Neue Store Seite
-- neue signed APK
-- XML-Speicherung
-- mehrere Temperaturen und Zeiten
-- Permissions Android 6
-- Über den Tee Speicher neues Intent
--> Information über mich
--> Bewerte meine App
--> Sende mir Feedback
--> Spende mir ein paar Mark (Pay Pal)
+﻿-> Spende mir ein paar Mark (Pay Pal)
