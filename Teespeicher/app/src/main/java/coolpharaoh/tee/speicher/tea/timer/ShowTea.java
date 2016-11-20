@@ -30,6 +30,7 @@ public class ShowTea extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView textViewBrewCount;
+    private Button buttonBrewCount;
     private Button buttonNextBrew;
     private int elementAt;
     private TextView textViewTemperature;
@@ -62,7 +63,7 @@ public class ShowTea extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.showtea_heading);
-        Button buttonBrewCount = (Button) findViewById(R.id.toolbar_brewcount);
+        buttonBrewCount = (Button) findViewById(R.id.toolbar_brewcount);
         textViewBrewCount = (TextView) findViewById(R.id.toolbar_text_brewcount);
         buttonNextBrew  = (Button) findViewById(R.id.toolbar_nextbrew);
         setSupportActionBar(toolbar);
@@ -226,6 +227,9 @@ public class ShowTea extends AppCompatActivity {
                     textViewMin.setVisibility(View.INVISIBLE);
                     textViewSec.setVisibility(View.INVISIBLE);
                     textViewDoppelPunkt.setVisibility(View.INVISIBLE);
+                    //Auswahl des Aufgusses verbieten
+                    buttonBrewCount.setEnabled(false);
+                    buttonNextBrew.setEnabled(false);
                     //Timeranzeige einblenden
                     textViewTimer.setVisibility((View.VISIBLE));
                     //Teetasse anzeigen
@@ -290,6 +294,9 @@ public class ShowTea extends AppCompatActivity {
                     textViewMin.setVisibility(View.VISIBLE);
                     textViewSec.setVisibility(View.VISIBLE);
                     textViewDoppelPunkt.setVisibility(View.VISIBLE);
+                    //Auswahl des Aufgusses wieder erlauben
+                    buttonBrewCount.setEnabled(true);
+                    buttonNextBrew.setEnabled(true);
                     //Timeranzeige ausblenden
                     textViewTimer.setVisibility((View.INVISIBLE));
                     //Teetasse ausblenden
