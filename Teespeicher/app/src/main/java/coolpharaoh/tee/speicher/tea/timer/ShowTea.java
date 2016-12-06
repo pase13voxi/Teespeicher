@@ -33,6 +33,7 @@ public class ShowTea extends AppCompatActivity {
     private Button buttonBrewCount;
     private Button buttonNextBrew;
     private int elementAt;
+    private Tea selectedTea;
     private TextView textViewTemperature;
     private Spinner spinnerMinutes;
     private Spinner spinnerSeconds;
@@ -113,7 +114,7 @@ public class ShowTea extends AppCompatActivity {
             toast.show();
             buttonBrewCount.setVisibility(View.INVISIBLE);
         }else {
-            Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
+            selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
 
             //Befülle TextViews
             name = selectedTea.getName();
@@ -524,7 +525,6 @@ public class ShowTea extends AppCompatActivity {
     }
 
     private void brewCountChanged(){
-        Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
         temperature = selectedTea.getTemperature().get(brewCount);
         textViewTemperature.setText(String.valueOf(temperature)+" "+getResources().getString(R.string.showtea_display_temperature));
         if(temperature < 100 && temperature != -500){

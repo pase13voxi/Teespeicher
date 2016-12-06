@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 
 public class NewTea extends AppCompatActivity {
@@ -584,23 +585,17 @@ public class NewTea extends AppCompatActivity {
     }
 
     private boolean timeValid(String time){
-        boolean timeValid = true;
+        boolean timeValid = false;
         //ist die Zeit gesetzt so wird sie geprüft
-        if (!time.equals("")) {
-            String[] split = time.split(":");
-            if((time.contains(":") && split.length == 2)|| !time.contains(":")) {
-                if (split.length <= 2) {
-                    for (int i = 0; i < split.length; i++) {
-                        if(!split[i].equals("")) {
-                            if (split[i].length() <= 2) {
-                                if (Integer.parseInt(split[i]) >= 60)
-                                    timeValid = false;
-                            } else timeValid = false;
-                        }else timeValid = false;
-                        if (i == 1 && split[i].length() != 2) timeValid = false;
-                    }
-                } else timeValid = false;
-            } else timeValid = false;
+        if (time.length()<6 && !time.equals("")) {
+            boolean formatMinutes = Pattern.matches("\\d\\d",time)||Pattern.matches("\\d",time);
+            boolean formatSeconds = Pattern.matches("\\d\\d:\\d\\d",time) || Pattern.matches("\\d:\\d\\d",time);
+            if(formatMinutes){
+                timeValid = Integer.parseInt(time) < 60;
+            }else if(formatSeconds){
+                String[] split = time.split(":");
+                timeValid = Integer.parseInt(split[0])<60 && Integer.parseInt(split[1])<60;
+            }
         }
         return timeValid;
     }

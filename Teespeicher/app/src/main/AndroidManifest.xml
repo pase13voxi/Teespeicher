@@ -30,7 +30,8 @@
         <activity
             android:name=".NewTea"
             android:label="Tee erstellen/bearbeiten"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />

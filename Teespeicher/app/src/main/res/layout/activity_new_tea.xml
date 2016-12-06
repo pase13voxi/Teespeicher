@@ -8,159 +8,169 @@
     <include
         android:id="@id/tool_bar"
         layout="@layout/tool_bar" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewTeaSort"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Teesorte"
-        android:gravity="center_vertical"
-        android:layout_alignBottom="@+id/spinnerTeeart"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="8dip"
-        android:layout_marginLeft="4dip"
-        android:textColor="#494949" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerTeeart"
-        android:transitionName="Teeart"
-        android:entries="@array/sortsOfTea"
-        android:prompt="@string/tea_sort"
-        android:spinnerMode="dialog"
-        android:layout_below="@id/tool_bar"
-        android:layout_toRightOf="@+id/textViewTeaSort"
-        android:layout_marginTop="10dip"
-        android:layout_marginLeft="20dip"
-        style="@android:style/Widget.Holo.Light.Spinner" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewTeaSort"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Teesorte"
+                android:gravity="center_vertical"
+                android:layout_alignBottom="@+id/spinnerTeeart"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="8dip"
+                android:layout_marginLeft="4dip"
+                android:textColor="#494949" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="manuell"
-        android:id="@+id/checkBoxSelfInput"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignBottom="@id/spinnerTeeart"
-        android:layout_toRightOf="@id/spinnerTeeart"
-        android:layout_marginBottom="4dip"
-        android:textColor="#494949"
-        android:visibility="invisible"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerTeeart"
+                android:transitionName="Teeart"
+                android:entries="@array/sortsOfTea"
+                android:prompt="@string/tea_sort"
+                android:spinnerMode="dialog"
+                android:layout_toRightOf="@+id/textViewTeaSort"
+                android:layout_marginTop="10dip"
+                android:layout_marginLeft="20dip"
+                style="@android:style/Widget.Holo.Light.Spinner" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textCapWords"
-        android:hint="Teesorte"
-        android:ems="10"
-        android:id="@+id/editTextSelfInput"
-        android:layout_alignBottom="@id/spinnerTeeart"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@id/spinnerTeeart"
-        android:visibility="invisible"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="manuell"
+                android:id="@+id/checkBoxSelfInput"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_alignBottom="@id/spinnerTeeart"
+                android:layout_toRightOf="@id/spinnerTeeart"
+                android:layout_marginBottom="4dip"
+                android:textColor="#494949"
+                android:visibility="invisible"/>
 
-    <Button
-        android:layout_width="64dip"
-        android:layout_height="40dip"
-        android:id="@+id/buttonScan"
-        android:background="@drawable/cam"
-        android:layout_below="@id/spinnerTeeart"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="6dip"
-        android:layout_marginRight="4dip" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Teesorte"
+                android:ems="10"
+                android:id="@+id/editTextSelfInput"
+                android:layout_alignBottom="@id/spinnerTeeart"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/spinnerTeeart"
+                android:visibility="invisible"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textCapWords"
-        android:hint="Name"
-        android:ems="10"
-        android:id="@+id/editTextName"
-        android:layout_below="@id/spinnerTeeart"
-        android:layout_marginTop="10dip"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/buttonScan" />
+            <Button
+                android:layout_width="64dip"
+                android:layout_height="40dip"
+                android:id="@+id/buttonScan"
+                android:background="@drawable/cam"
+                android:layout_below="@id/spinnerTeeart"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="6dip"
+                android:layout_marginRight="4dip" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/editTextTeelamass"
-        android:layout_below="@+id/editTextName"
-        android:layout_marginTop="10dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Name"
+                android:ems="10"
+                android:id="@+id/editTextName"
+                android:layout_below="@id/spinnerTeeart"
+                android:layout_marginTop="10dip"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/buttonScan" />
 
-    <Button
-        android:layout_width="30dip"
-        android:layout_height="30dip"
-        android:id="@+id/buttonArrowLeft"
-        android:background="@drawable/arrowleft"
-        android:layout_below="@+id/editTextTeelamass"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="10dip"
-        android:layout_marginLeft="4dip"
-        android:enabled="false"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/editTextTeelamass"
+                android:layout_below="@+id/editTextName"
+                android:layout_marginTop="10dip"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewCountBrew"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="1. Aufguss"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@id/buttonArrowLeft"
-        android:layout_marginBottom="5dip"
-        android:textColor="#494949" />
+            <Button
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:id="@+id/buttonArrowLeft"
+                android:background="@drawable/arrowleft"
+                android:layout_below="@+id/editTextTeelamass"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dip"
+                android:layout_marginLeft="4dip"
+                android:enabled="false"/>
 
-    <Button
-        android:layout_width="30dip"
-        android:layout_height="30dip"
-        android:id="@+id/buttonArrowRight"
-        android:background="@drawable/arrowright"
-        android:layout_below="@+id/editTextTeelamass"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dip"
-        android:layout_marginRight="4dip" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewCountBrew"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="1. Aufguss"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@id/buttonArrowLeft"
+                android:layout_marginBottom="5dip"
+                android:textColor="#494949" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/editTextTemperatur"
-        android:layout_below="@+id/textViewCountBrew"
-        android:layout_marginTop="10dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+            <Button
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:id="@+id/buttonArrowRight"
+                android:background="@drawable/arrowright"
+                android:layout_below="@+id/editTextTeelamass"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="4dip" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editTextZiehzeit"
-        android:layout_below="@+id/editTextTemperatur"
-        android:layout_marginTop="10dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/editTextTemperatur"
+                android:layout_below="@+id/textViewCountBrew"
+                android:layout_marginTop="10dip"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="50dip"
-        android:text="anlegen"
-        android:textSize="17sp"
-        android:textAllCaps="false"
-        android:id="@+id/buttonfertig"
-        android:layout_below="@+id/editTextZiehzeit"
-        android:layout_marginTop="11dip"
-        android:layout_marginLeft="4dip"
-        android:layout_marginRight="4dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:background="@color/colorPrimary"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/editTextZiehzeit"
+                android:layout_below="@+id/editTextTemperatur"
+                android:layout_marginTop="10dip"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:text="anlegen"
+                android:textSize="17sp"
+                android:textAllCaps="false"
+                android:id="@+id/buttonfertig"
+                android:layout_below="@+id/editTextZiehzeit"
+                android:layout_marginTop="11dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="4dip"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorPrimary"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
