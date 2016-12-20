@@ -17,8 +17,10 @@
     <string name="showtea_action_settings">Edit</string>
     <string name="showtea_action_vibrate">Vibration</string>
     <string name="showtea_action_notification">Notification</string>
-    <string name="showtea_display_temperature">°C</string>
-    <string name="showtea_display_teelamass">Ts/L</string>
+    <string name="showtea_display_celsius">°C</string>
+    <string name="showtea_display_fahrenheit">°F</string>
+    <string name="showtea_display_ts">ts/l</string>
+    <string name="showtea_display_gr">g/l</string>
     <string name="showtea_display_min">Min</string>
     <string name="showtea_display_sec">Sec</string>
     <string name="showtea_brew_count_title">Please choose your brew</string>
@@ -45,28 +47,52 @@
         <item>Rooibus tea</item>
         <item>Other</item>
     </string-array>
+    <array name="newtea_amount">
+        <item>Ts/L</item>
+        <item>g/L</item>
+    </array>
     <string name="newtea_by_hand">by hand</string>
     <string name="newtea_hint_name">Name</string>
-    <string name="newtea_hint_temperature_blacktea">Temperature (95 - 100°C)</string>
-    <string name="newtea_hint_temperature_greentea">Temperature (60 - 90°C)</string>
-    <string name="newtea_hint_temperature_yellowtea">Temperature (75°C)</string>
-    <string name="newtea_hint_temperature_whitetea">Temperature (70 - 80°C)</string>
-    <string name="newtea_hint_temperature_oolongtea">Temperature (75 - 90°C)</string>
-    <string name="newtea_hint_temperature_puerhtea">Temperature (100°C)</string>
-    <string name="newtea_hint_temperature_herbaltea">Temperature (100°C)</string>
-    <string name="newtea_hint_temperature_fruittea">Temperature (100°C)</string>
-    <string name="newtea_hint_temperature_rooibustea">Temperature (100°C)</string>
-    <string name="newtea_hint_temperature_other">Temperature (°C)</string>
-    <string name="newtea_hint_teelamass_blacktea">Amount  (3 - 5Ts/L)</string>
-    <string name="newtea_hint_teelamass_greentea">Amount (6 - 8Ts/L)</string>
-    <string name="newtea_hint_teelamass_yellowtea">Amount (4 - 5Ts/L)</string>
-    <string name="newtea_hint_teelamass_whitetea">Amount (3 - 4Ts/L)</string>
-    <string name="newtea_hint_teelamass_oolongtea">Amount (4 - 6Ts/L)</string>
-    <string name="newtea_hint_teelamass_puerhtea">Amount (4 - 6Ts/L)</string>
-    <string name="newtea_hint_teelamass_herbaltea">Amount (4 - 6Ts/L)</string>
-    <string name="newtea_hint_teelamass_fruittea">Amount (8 - 10Ts/L)</string>
-    <string name="newtea_hint_teelamass_rooibustea">Amount (4 - 6Ts/L)</string>
-    <string name="newtea_hint_teelamass_other">Amount Ts/L</string>
+    <string name="newtea_hint_celsius_blacktea">Temperature (95 - 100°C)</string>
+    <string name="newtea_hint_celsius_greentea">Temperature (60 - 90°C)</string>
+    <string name="newtea_hint_celsius_yellowtea">Temperature (75°C)</string>
+    <string name="newtea_hint_celsius_whitetea">Temperature (70 - 80°C)</string>
+    <string name="newtea_hint_celsius_oolongtea">Temperature (75 - 90°C)</string>
+    <string name="newtea_hint_celsius_puerhtea">Temperature (100°C)</string>
+    <string name="newtea_hint_celsius_herbaltea">Temperature (100°C)</string>
+    <string name="newtea_hint_celsius_fruittea">Temperature (100°C)</string>
+    <string name="newtea_hint_celsius_rooibustea">Temperature (100°C)</string>
+    <string name="newtea_hint_celsius_other">Temperature (°C)</string>
+    <string name="newtea_hint_fahrenheit_blacktea">Temperature (203 - 212°F)</string>
+    <string name="newtea_hint_fahrenheit_greentea">Temperature (140 - 194°F)</string>
+    <string name="newtea_hint_fahrenheit_yellowtea">Temperature (167°C)</string>
+    <string name="newtea_hint_fahrenheit_whitetea">Temperature (158 - 176°F)</string>
+    <string name="newtea_hint_fahrenheit_oolongtea">Temperature (167 - 194°F)</string>
+    <string name="newtea_hint_fahrenheit_puerhtea">Temperature (212°F)</string>
+    <string name="newtea_hint_fahrenheit_herbaltea">Temperature (212°F)</string>
+    <string name="newtea_hint_fahrenheit_fruittea">Temperature (212°F)</string>
+    <string name="newtea_hint_fahrenheit_rooibustea">Temperature (212°F)</string>
+    <string name="newtea_hint_fahrenheit_other">Temperature (°F)</string>
+    <string name="newtea_hint_ts_blacktea">Amount  (3 - 5ts/l)</string>
+    <string name="newtea_hint_ts_greentea">Amount (6 - 8ts/l)</string>
+    <string name="newtea_hint_ts_yellowtea">Amount (4 - 5ts/l)</string>
+    <string name="newtea_hint_ts_whitetea">Amount (3 - 4ts/l)</string>
+    <string name="newtea_hint_ts_oolongtea">Amount (4 - 6ts/l)</string>
+    <string name="newtea_hint_ts_puerhtea">Amount (4 - 6ts/l)</string>
+    <string name="newtea_hint_ts_herbaltea">Amount (4 - 6ts/l)</string>
+    <string name="newtea_hint_ts_fruittea">Amount (8 - 10ts/l)</string>
+    <string name="newtea_hint_ts_rooibustea">Amount (4 - 6ts/l)</string>
+    <string name="newtea_hint_ts_other">Amount ts/l</string>
+    <string name="newtea_hint_gr_blacktea">Amount  (8 - 13g/l)</string>
+    <string name="newtea_hint_gr_greentea">Amount (10 -14g/l)</string>
+    <string name="newtea_hint_gr_yellowtea">Amount (10 - 12g/l)</string>
+    <string name="newtea_hint_gr_whitetea">Amount (8 - 12g/l)</string>
+    <string name="newtea_hint_gr_oolongtea">Amount (10 - 12g/l)</string>
+    <string name="newtea_hint_gr_puerhtea">Amount (8 - 12g/l)</string>
+    <string name="newtea_hint_gr_herbaltea">Amount (10 -15g/l)</string>
+    <string name="newtea_hint_gr_fruittea">Amount (15 - 20g/l)</string>
+    <string name="newtea_hint_gr_rooibustea">Amount (12 - 15g/l)</string>
+    <string name="newtea_hint_gr_other">Amount g/l</string>
     <string name="newtea_hint_time_blacktea">Steeping time "mm:ss" or "mm" (3 - 5min)</string>
     <string name="newtea_hint_time_greentea">Steeping time "mm:ss" or "mm" (1 - 3min)</string>
     <string name="newtea_hint_time_yellowtea">Steeping time "mm:ss" or "mm" (1 - 3min)</string>
@@ -81,9 +107,10 @@
     <string name="newtea_button_edit">Edit</string>
     <string name="newtea_error_30Char">The type of tea exceeds the limit number of 30 characters.</string>
     <string name="newtea_error_name_just_exist">This name already exists.</string>
-    <string name="newtea_error_wrong_temperature">The temperature should be between 0 °C and 100 °C.</string>
+    <string name="newtea_error_wrong_celsius">The temperature should be between 0 °C and 100 °C.</string>
+    <string name="newtea_error_wrong_fahrenheit">The temperature should be between 32 °F and 212 °F.</string>
     <string name="newtea_error_time_format">Please follow the format of the steeping time.</string>
-    <string name="newtea_error_amount">The Tsp/L should not be four digits.</string>
+    <string name="newtea_error_amount">The amount should not be four digits.</string>
     <string name="newtea_error_cant_change">Change could not be performed.</string>
     <string name="newtea_error_cant_save">Store could not be performed.</string>
     <string name="newtea_error_no_name">Please enter the name.</string>
@@ -102,7 +129,11 @@
     <string name="setting_alarm_selection_title">Choose alarm sound</string>
     <string name="settings_vibration">Vibration</string>
     <string name="settings_notification">Notification</string>
-    <string name="settings_language">Language</string>
+    <string name="settings_temperature_unit">Temperature unit</string>
+    <array name="settings_temperature_units">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </array>
     <string name="settings_show_hints">Activate hints</string>
     <string name="settings_show_hints_text">Hints are active again.</string>
     <string name="settings_factory_settings">Reset to factory setting</string>

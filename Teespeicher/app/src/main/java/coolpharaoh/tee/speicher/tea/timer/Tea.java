@@ -10,8 +10,6 @@ import java.util.Date;
  * Created by paseb on 05.02.2016.
  */
 public class Tea implements Serializable {
-
-    //Attribute
     private String name;
     private String sortOfTea;
     private ArrayList<Integer> temperature;

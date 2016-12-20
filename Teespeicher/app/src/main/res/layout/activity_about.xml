@@ -4,7 +4,7 @@
     android:id="@+id/activity_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="coolpharaoh.tee.speicher.tea.timer.About">
+    tools:context="coolpharaoh.tee.speicher.tea.timer.views.About">
 
     <include
         android:id="@+id/tool_bar"

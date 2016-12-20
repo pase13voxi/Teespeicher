@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,61 +28,61 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewTea"
+            android:name=".views.NewTea"
             android:label="Tee erstellen/bearbeiten"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.MainActivity" />
         </activity>
         <activity
-            android:name=".ShowTea"
+            android:name=".views.ShowTea"
             android:label="Information"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.MainActivity" />
         </activity>
         <activity
-            android:name=".Settings"
+            android:name=".views.Settings"
             android:label="Einstellungen"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.MainActivity" />
         </activity>
         <activity
-            android:name=".About"
+            android:name=".views.About"
             android:label="About"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="coolpharaoh.tee.speicher.tea.timer.MainActivity" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.MainActivity" />
         </activity>
         <activity
-            android:name=".Contact"
+            android:name=".views.Contact"
             android:label="Contact"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="coolpharaoh.tee.speicher.tea.timer.About" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
         </activity>
         <activity
-            android:name=".Software"
+            android:name=".views.Software"
             android:label="Software"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="coolpharaoh.tee.speicher.tea.timer.About" />
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
 
-        <service android:name=".MediaService" />
-        <service android:name=".CountDownService" />
+        <service android:name=".services.MediaService" />
+        <service android:name=".services.CountDownService" />
 
     </application>
 

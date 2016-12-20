@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="coolpharaoh.tee.speicher.tea.timer.NewTea">
+    tools:context="coolpharaoh.tee.speicher.tea.timer.views.NewTea">
 
     <include
         android:id="@id/tool_bar"
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:hint="Name"
+                android:hint="@string/newtea_hint_name"
                 android:ems="10"
                 android:id="@+id/editTextName"
                 android:layout_below="@id/spinnerTeeart"
@@ -89,16 +89,30 @@
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@id/buttonScan" />
 
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:id="@+id/spinnerAmountUnit"
+                android:spinnerMode="dropdown"
+                android:entries="@array/newtea_amount"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                android:layout_below="@id/editTextName"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dip"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="4dp"></Spinner>
+
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:hint="@string/newtea_hint_ts_other"
                 android:ems="10"
                 android:id="@+id/editTextTeelamass"
                 android:layout_below="@+id/editTextName"
                 android:layout_marginTop="10dip"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_toLeftOf="@id/spinnerAmountUnit" />
 
             <Button
                 android:layout_width="30dip"
@@ -136,6 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:hint="@string/newtea_hint_celsius_other"
                 android:ems="10"
                 android:id="@+id/editTextTemperatur"
                 android:layout_below="@+id/textViewCountBrew"
@@ -147,6 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="time"
+                android:hint="@string/newtea_hint_time_other"
                 android:ems="10"
                 android:id="@+id/editTextZiehzeit"
                 android:layout_below="@+id/editTextTemperatur"

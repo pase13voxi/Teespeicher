@@ -3,95 +3,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="coolpharaoh.tee.speicher.tea.timer.Settings">
+    tools:context="coolpharaoh.tee.speicher.tea.timer.views.Settings">
 
     <include
         android:id="@id/tool_bar"
         layout="@layout/tool_bar" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Alarmsound"
-        android:id="@+id/textViewMusic"
-        android:layout_below="@id/tool_bar"
-        android:layout_marginTop="53dip"
-        android:layout_marginLeft="10dip"
-        android:layout_alignParentLeft="true"
-        android:textColor="#010101" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Keine"
-        android:textSize="17sp"
-        android:textAllCaps="false"
-        android:id="@+id/buttonMusicChoice"
-        android:background="@drawable/buttonshape"
-        android:layout_marginTop="40dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginLeft="10dip"
-        android:layout_below="@id/tool_bar"
-        android:layout_toRightOf="@+id/textViewMusic"
-        android:layout_alignParentRight="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="40dip"
-        android:text="Vibration"
-        android:id="@+id/checkBoxVibration"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/buttonMusicChoice"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="40dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="35dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/settings_alarm"
+                    android:id="@+id/textViewMusic"
+                    android:textColor="#010101" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="40dip"
-        android:text="Benachrichtigung"
-        android:id="@+id/checkBoxNotification"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/checkBoxVibration"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="40dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keine"
+                    android:textSize="17sp"
+                    android:textAllCaps="false"
+                    android:id="@+id/buttonMusicChoice"
+                    android:background="@drawable/buttonshape"
+                    android:layout_marginLeft="10dip" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_show_hints"
-        android:textSize="17sp"
-        android:textAllCaps="false"
-        android:id="@+id/buttonShowHints"
-        android:background="@drawable/buttonshape"
-        android:layout_below="@+id/checkBoxNotification"
-        android:layout_marginTop="45dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginLeft="10dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+            </LinearLayout>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="35dip"
+                android:text="@string/settings_vibration"
+                android:id="@+id/checkBoxVibration"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="40dip" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Zurücksetzen auf Werkseinstellungen"
-        android:textSize="17sp"
-        android:textAllCaps="false"
-        android:id="@+id/buttonDefaultSettings"
-        android:background="@drawable/buttonshape"
-        android:layout_below="@+id/buttonShowHints"
-        android:layout_marginTop="45dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginLeft="10dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="35dip"
+                android:text="@string/settings_notification"
+                android:id="@+id/checkBoxNotification"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="40dip" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="35dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/settings_temperature_unit"
+                    android:id="@+id/textViewTempUnit"
+                    android:textColor="#010101" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:id="@+id/spinnerTempUnit"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/settings_temperature_units"
+                    style="@android:style/Widget.Holo.Light.Spinner"
+                    android:layout_marginLeft="10dp"></Spinner>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_show_hints"
+                android:textSize="17sp"
+                android:textAllCaps="false"
+                android:id="@+id/buttonShowHints"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="35dip" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_factory_settings"
+                android:textSize="17sp"
+                android:textAllCaps="false"
+                android:id="@+id/buttonDefaultSettings"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="35dip" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

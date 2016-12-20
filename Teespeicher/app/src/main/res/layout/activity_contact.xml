@@ -5,7 +5,7 @@
     android:id="@+id/activity_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="coolpharaoh.tee.speicher.tea.timer.Contact">
+    tools:context="coolpharaoh.tee.speicher.tea.timer.views.Contact">
 
     <include
         android:id="@+id/tool_bar"

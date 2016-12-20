@@ -5,6 +5,6 @@
     style="@android:style/Widget.TextView.SpinnerItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:textSize="20sp"
     android:textColor="#211f1f"/>
