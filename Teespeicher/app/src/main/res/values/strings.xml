@@ -48,8 +48,8 @@
         <item>Other</item>
     </string-array>
     <array name="newtea_amount">
-        <item>Ts/L</item>
-        <item>g/L</item>
+        <item>ts/l</item>
+        <item>g/l</item>
     </array>
     <string name="newtea_by_hand">by hand</string>
     <string name="newtea_hint_name">Name</string>
@@ -150,7 +150,7 @@
     <string name="about_rating_heading">Rate this app</string>
     <string name="about_rating_description">Do you like the app? I would look forward to a review.</string>
     <string name="about_donate_heading">Donate</string>
-    <string name="about_donate_description">You think the developer has earned a donation?</string>
+    <string name="about_donate_description">Support me by giving me something on my homepage via PayPal.</string>
     <string name="about_software_heading">Software Licences</string>
     <string name="about_software_description">Which open source software is used by the Tea Memory?</string>
     <!--Contact-->

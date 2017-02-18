@@ -23,7 +23,7 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 public class About extends AppCompatActivity {
 
     private enum ListItems {
-        Contact, Rating, /*Donate,*/ Software
+        Contact, Rating, Donate, Software
     }
 
 
@@ -48,8 +48,8 @@ public class About extends AppCompatActivity {
         aboutList.add(itemContact);
         ListRowItem itemRating = new ListRowItem(getResources().getString(R.string.about_rating_heading), getResources().getString(R.string.about_rating_description));
         aboutList.add(itemRating);
-        /*ListRowItem itemDonate = new ListRowItem(getResources().getString(R.string.about_donate_heading),getResources().getString(R.string.about_donate_description));
-        aboutList.add(itemDonate);*/
+        ListRowItem itemDonate = new ListRowItem(getResources().getString(R.string.about_donate_heading),getResources().getString(R.string.about_donate_description));
+        aboutList.add(itemDonate);
         ListRowItem itemSoftware = new ListRowItem(getResources().getString(R.string.about_software_heading),getResources().getString(R.string.about_software_description));
         aboutList.add(itemSoftware);
 
@@ -78,9 +78,9 @@ public class About extends AppCompatActivity {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                         }
                         break;
-                    /*case Donate:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com/")));
-                        break;*/
+                    case Donate:
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://pbechtoldt.de/")));
+                        break;
                     case Software:
                         //Neues Intent anlegen
                         Intent softwareScreen = new Intent(About.this, Software.class);

@@ -150,7 +150,7 @@
     <string name="about_rating_heading">Bewerte die App</string>
     <string name="about_rating_description">Gefällt dir die App? Ich würde mich über eine Bewertung freuen.</string>
     <string name="about_donate_heading">Spende</string>
-    <string name="about_donate_description">Du denkst der Entwickler hat eine Spende verdient?</string>
+    <string name="about_donate_description">Unterstütze mich, indem mir auf meiner Homepage über PayPal etwas spendest.</string>
     <string name="about_software_heading">Software Lizenzen</string>
     <string name="about_software_description">Welche Open Source Software wird von dem Tee Speicher genutzt?</string>
     <!--Contact-->
