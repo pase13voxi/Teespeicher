@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
 import coolpharaoh.tee.speicher.tea.timer.services.MediaService;
@@ -39,7 +40,7 @@ public class ShowTea extends AppCompatActivity {
     private Button buttonBrewCount;
     private Button buttonNextBrew;
     private int elementAt;
-    private NTea selectedTea;
+    private Tea selectedTea;
     private TextView textViewTemperature;
     private Spinner spinnerMinutes;
     private Spinner spinnerSeconds;
@@ -124,31 +125,31 @@ public class ShowTea extends AppCompatActivity {
             //Befülle TextViews
             name = selectedTea.getName();
             textViewName.setText(name);
-            sortOfTea = selectedTea.getSortOfTea();
+            sortOfTea = selectedTea.getSortOfTea().getType();
             textViewSortOfTea.setText(sortOfTea);
             if(selectedTea.getTemperature().get(brewCount).getCelsius()!=-500) {
                 if (MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    textViewTemperature.setText(String.valueOf(selectedTea.getTemperature().get(brewCount).getCelsius()) + " " + getResources().getString(R.string.showtea_display_celsius));
+                    textViewTemperature.setText(getResources().getString(R.string.showtea_display_celsius, String.valueOf(selectedTea.getTemperature().get(brewCount).getCelsius())));
                 } else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    textViewTemperature.setText(String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit()) + " " + getResources().getString(R.string.showtea_display_fahrenheit));
+                    textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit())));
                 }
             }else {
                 if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    textViewTemperature.setText("- " + getResources().getString(R.string.showtea_display_celsius));
+                    textViewTemperature.setText(getResources().getString(R.string.showtea_display_celsius, "-"));
                 }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    textViewTemperature.setText("- " + getResources().getString(R.string.showtea_display_fahrenheit));
+                    textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, "-"));
                 }
             }
             if(selectedTea.getAmount().getValue()!=-500) {
                 if(selectedTea.getAmount().getUnit().equals("Ts"))
-                    textViewTeelamass.setText(String.valueOf(selectedTea.getAmount().getValue()) + " " + getResources().getString(R.string.showtea_display_ts));
+                    textViewTeelamass.setText(getResources().getString(R.string.showtea_display_ts, String.valueOf(selectedTea.getAmount().getValue())));
                 else if(selectedTea.getAmount().getUnit().equals("Gr"))
-                    textViewTeelamass.setText(String.valueOf(selectedTea.getAmount().getValue()) + " " + getResources().getString(R.string.showtea_display_gr));
+                    textViewTeelamass.setText(getResources().getString(R.string.showtea_display_gr, String.valueOf(selectedTea.getAmount().getValue())));
             }else {
                 if(selectedTea.getAmount().getUnit().equals("Ts"))
-                    textViewTeelamass.setText("- " + getResources().getString(R.string.showtea_display_ts));
+                    textViewTeelamass.setText(getResources().getString(R.string.showtea_display_ts, "-"));
                 else if(selectedTea.getAmount().getUnit().equals("Gr"))
-                    textViewTeelamass.setText("- " + getResources().getString(R.string.showtea_display_gr));
+                    textViewTeelamass.setText(getResources().getString(R.string.showtea_display_gr, "-"));
             }
             minutes = selectedTea.getTime().get(brewCount).getMinutes();
             spinnerMinutes.setSelection(minutes);
@@ -547,9 +548,9 @@ public class ShowTea extends AppCompatActivity {
 
     private void brewCountChanged(){
         if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-            textViewTemperature.setText(String.valueOf(selectedTea.getTemperature().get(brewCount).getCelsius()) + " " + getResources().getString(R.string.showtea_display_celsius));
+            textViewTemperature.setText(getResources().getString(R.string.showtea_display_celsius, String.valueOf(selectedTea.getTemperature().get(brewCount).getCelsius())));
         }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-            textViewTemperature.setText(String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit()) + " " + getResources().getString(R.string.showtea_display_fahrenheit));
+            textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit())));
         }
         if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
             buttonExchange.setVisibility(View.VISIBLE);
@@ -560,7 +561,7 @@ public class ShowTea extends AppCompatActivity {
         spinnerMinutes.setSelection(minutes);
         seconds = selectedTea.getTime().get(brewCount).getSeconds();
         spinnerSeconds.setSelection(seconds);
-        textViewBrewCount.setText(String.valueOf(brewCount+1) + ".");
+        textViewBrewCount.setText(getResources().getString(R.string.showtea_brea_count_point, (brewCount+1)));
         if(brewCount==selectedTea.getTemperature().size()-1){
             buttonNextBrew.setEnabled(false);
         }else{

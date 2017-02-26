@@ -14,38 +14,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
-import coolpharaoh.tee.speicher.tea.timer.Tea;
 import coolpharaoh.tee.speicher.tea.timer.views.MainActivity;
 import coolpharaoh.tee.speicher.tea.timer.R;
 
 /**
  * Created by paseb on 06.02.2016.
+ * This is a class, where every tea is listed in an Arraylist.
  */
 public class TeaCollection {
 
     //Attribute
     //kann später entfernt werden
-    private ArrayList<Tea> oldTeaItems;
-    private ArrayList<NTea> teaItems;
+    private ArrayList<NTea> oldTeaItems;
+    private ArrayList<Tea> teaItems;
 
-    public ArrayList<NTea> getTeaItems() {
+    public ArrayList<Tea> getTeaItems() {
         return teaItems;
     }
 
-    public void setTeaItems(ArrayList<NTea> teaItems) {
+    public void setTeaItems(ArrayList<Tea> teaItems) {
         this.teaItems = teaItems;
     }
 
     //Konstruktor
     public TeaCollection(){
-        oldTeaItems = new ArrayList<Tea>();
-        teaItems = new ArrayList<NTea>();
+        oldTeaItems = new ArrayList<>();
+        teaItems = new ArrayList<>();
     }
 
     //Save and Load Data
     public boolean saveCollection(Context context){
         try {
-            FileOutputStream fos = context.openFileOutput("teacollection", Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput("teacollection_1.0", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(teaItems);
             os.close();
@@ -63,13 +63,14 @@ public class TeaCollection {
 
     // TODO Auto-generated method stub
     //kann später entfernt werden
+    @SuppressWarnings("unchecked")
     public boolean loadOldCollection(Context context) {
         try {
-            FileInputStream fis = context.openFileInput("TeaCollection");
+            FileInputStream fis = context.openFileInput("teacollection");
             ObjectInputStream is = new ObjectInputStream(fis);
-            oldTeaItems = (ArrayList<Tea>) is.readObject();
+            oldTeaItems = (ArrayList<NTea>) is.readObject();
             if(oldTeaItems == null) {
-                oldTeaItems = new ArrayList<Tea>();
+                oldTeaItems = new ArrayList<>();
             }
             is.close();
             fis.close();
@@ -85,40 +86,36 @@ public class TeaCollection {
             return false;
         }
     }
-    // TODO Auto-generated method stub
-    //Funktioniert noch nicht da die Datei nicht gefunden wird
-    public boolean deleteOldCollection(){
-        File file = new File("TeaCollection.ser");
-        if(file.delete()){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     // TODO Auto-generated method stub
     //kann später entfernt werden
-    public void convertCollectionToNew(){
+    public void convertCollectionToNew(Context context){
+        String[] sortsDE = getOtherSortsOfTea(context, "de");
+        String[] sortsEN = getOtherSortsOfTea(context, "en");
         for(int i=0; i<oldTeaItems.size(); i++){
-            ArrayList<Temperature> tempList = new ArrayList<>();
-            ArrayList<Time> timeList = new ArrayList<>();
-            for(int o=0; o<oldTeaItems.get(i).getTemperature().size();o++){
-                tempList.add(new TemperatureCelsius(oldTeaItems.get(i).getTemperature().get(o)));
-                timeList.add(new Time(oldTeaItems.get(i).getTime().get(o)));
+            //finde variety heraus
+            Variety variety = Variety.Other;
+            for(int v=0; v<sortsDE.length; v++){
+                if(sortsDE[v].equals(oldTeaItems.get(i).getSortOfTea()) ||
+                sortsEN[v].equals(oldTeaItems.get(i).getSortOfTea())){
+                    variety = Variety.values()[v];
+                }
             }
-            teaItems.add(new NTea(oldTeaItems.get(i).getName(), oldTeaItems.get(i).getSortOfTea(), tempList,
-                    timeList, new AmountTs(oldTeaItems.get(i).getTeelamass())));
+            teaItems.add(new Tea(oldTeaItems.get(i).getName(), new SortOfTea(oldTeaItems.get(i).getSortOfTea()),
+                    oldTeaItems.get(i).getTemperature(), oldTeaItems.get(i).getTime(),
+                    oldTeaItems.get(i).getAmount(), SortOfTea.getVariatyColor(variety)));
             teaItems.get(i).setDate(oldTeaItems.get(i).getDate());
         }
     }
 
+    @SuppressWarnings("unchecked")
     public boolean loadCollection(Context context) {
         try {
-            FileInputStream fis = context.openFileInput("teacollection");
+            FileInputStream fis = context.openFileInput("teacollection_1.0");
             ObjectInputStream is = new ObjectInputStream(fis);
-            teaItems = (ArrayList<NTea>) is.readObject();
+            teaItems = (ArrayList<Tea>) is.readObject();
             if(teaItems == null) {
-                teaItems = new ArrayList<NTea>();
+                teaItems = new ArrayList<>();
             }
             is.close();
             fis.close();
@@ -136,14 +133,14 @@ public class TeaCollection {
     }
 
     public void deleteCollection(){
-        teaItems = new ArrayList<NTea>();
+        teaItems = new ArrayList<>();
     }
 
     public void sort(){
         if(MainActivity.settings.isSort()){
-            Collections.sort(teaItems,NTea.TeaSortSortofTea);
+            Collections.sort(teaItems,Tea.TeaSortSortofTea);
         }else{
-            Collections.sort(teaItems,NTea.TeaSortDate);
+            Collections.sort(teaItems,Tea.TeaSortDate);
         }
     }
 
@@ -156,25 +153,17 @@ public class TeaCollection {
         return -1;
     }
 
+    //TODO eventuell verlagern
     //Muss eventuell für mehr Sprachensupport umgeschrieben werden
-    public void translateSortOfTea(String language, Context context){
-        String[] sorts_en = getOtherSortsOfTea("en",context);
-        String[] sorts_de = getOtherSortsOfTea("de",context);
+    public void translateSortOfTea(Context context, String languageFrom, String languageTo){
+        String[] varietiesFrom = getOtherSortsOfTea(context, languageFrom);
+        String[] varietiesTo = getOtherSortsOfTea(context, languageTo);
         for(int i=0; i<teaItems.size(); i++){
-            String sortOfTea = teaItems.get(i).getSortOfTea();
-            if(language.equals("de")){
-                for(int a=0; a<sorts_en.length; a++){
-                    if(sortOfTea.equals(sorts_en[a])){
-                        teaItems.get(i).setSortOfTea(sorts_de[a]);
-                        break;
-                    }
-                }
-            }else if(language.equals("en")){
-                for(int a=0; a<sorts_de.length; a++){
-                    if(sortOfTea.equals(sorts_de[a])){
-                        teaItems.get(i).setSortOfTea(sorts_en[a]);
-                        break;
-                    }
+            String sortOfTea = teaItems.get(i).getSortOfTea().getType();
+            for(int a=0; a<varietiesFrom.length; a++){
+                if(sortOfTea.equals(varietiesFrom[a])){
+                    teaItems.get(i).setSortOfTea(new SortOfTea(varietiesTo[a]));
+                    break;
                 }
             }
         }
@@ -182,10 +171,9 @@ public class TeaCollection {
     }
 
     //Teesorten von einer anderen Sprache
-    private String[] getOtherSortsOfTea(String language, Context context) {
+    private String[] getOtherSortsOfTea(Context context, String language) {
         Configuration configuration = new Configuration(context.getResources().getConfiguration());
         configuration.setLocale(new Locale(language));
-        String[] sortsOfTea = context.createConfigurationContext(configuration).getResources().getStringArray(R.array.sortsOfTea);
-        return sortsOfTea;
+        return context.createConfigurationContext(configuration).getResources().getStringArray(R.array.sortsOfTea);
     }
 }

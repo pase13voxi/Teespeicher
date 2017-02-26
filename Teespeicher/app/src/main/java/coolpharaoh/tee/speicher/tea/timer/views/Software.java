@@ -18,7 +18,7 @@ import coolpharaoh.tee.speicher.tea.timer.listadapter.SoftwareListAdapter;
 
 public class Software extends AppCompatActivity {
 
-    static public TextView mToolbarCustomTitle;
+    private TextView mToolbarCustomTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class Software extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        List<ListRowItem> softwareList = new ArrayList<ListRowItem>();
+        List<ListRowItem> softwareList = new ArrayList<>();
         ListRowItem itemContact = new ListRowItem(getResources().getString(R.string.software_tesseract_heading),getResources().getString(R.string.software_tesseract_description));
         softwareList.add(itemContact);
         ListRowItem itemRating = new ListRowItem(getResources().getString(R.string.software_cropper_heading), getResources().getString(R.string.software_cropper_description));

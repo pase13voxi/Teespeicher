@@ -48,19 +48,18 @@ import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountGramm;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureFahrenheit;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Time;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 
 
 public class NewTea extends AppCompatActivity {
 
-    private enum Sort {
-        BlackTea, GreenTea, YellowTea, WhiteTea, OolongTea, PuErhTea,
-        HerbalTea, FruitTea, RooibusTea, Other
-    }
-    private Sort sort = Sort.BlackTea;
+    private Variety variety = Variety.BlackTea;
     private int brewcount = 1;
     private ArrayList<Temperature> temperatureList;
     private ArrayList<Time> timeList;
@@ -75,21 +74,21 @@ public class NewTea extends AppCompatActivity {
     private static final String DATA_PATH = Environment.getExternalStorageDirectory().toString() + "/Teespeicher/";
     private static final String TESSDATA = "tessdata";
 
-    TextView textViewTeeArt;
-    Spinner spinnerTeeArt;
-    CheckBox checkboxTeeArt;
-    EditText editTextTeeArt;
-    EditText editTextName;
-    EditText editTextTemperatur;
-    EditText editTextZiehzeit;
-    EditText editTextTeelamass;
-    Spinner spinnerAmount;
-    TextView textViewBrew;
-    Button leftArrow;
-    Button rightArrow;
-    CheckBox dontShowAgain;
-    int elementAt;
-    boolean showTea;
+    private TextView textViewTeeArt;
+    private Spinner spinnerTeeArt;
+    private CheckBox checkboxTeeArt;
+    private EditText editTextTeeArt;
+    private EditText editTextName;
+    private EditText editTextTemperatur;
+    private EditText editTextZiehzeit;
+    private EditText editTextTeelamass;
+    private Spinner spinnerAmount;
+    private TextView textViewBrew;
+    private Button leftArrow;
+    private Button rightArrow;
+    private CheckBox dontShowAgain;
+    private int elementAt;
+    private boolean showTea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,13 +153,13 @@ public class NewTea extends AppCompatActivity {
         //Falls Änderung, dann wird ein Wert übergeben.
         elementAt  = this.getIntent().getIntExtra("elementAt", -1);
         if(elementAt!=-1){
-            NTea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
+            Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
             //richtige SpinnerId bekommen
             int spinnerId = -1;
             String[] spinnerElements = getResources().getStringArray(R.array.sortsOfTea);
 
             for(int i=0; i<spinnerElements.length; i++){
-                if(spinnerElements[i].equals(selectedTea.getSortOfTea())){
+                if(spinnerElements[i].equals(selectedTea.getSortOfTea().getType())){
                     spinnerId = i;
                     break;
                 }
@@ -174,7 +173,7 @@ public class NewTea extends AppCompatActivity {
                 checkboxTeeArt.setVisibility(View.VISIBLE);
                 checkboxTeeArt.setChecked(true);
                 editTextTeeArt.setVisibility(View.VISIBLE);
-                editTextTeeArt.setText(selectedTea.getSortOfTea());
+                editTextTeeArt.setText(selectedTea.getSortOfTea().getType());
             }else {
                 spinnerTeeArt.setSelection(spinnerId);
             }
@@ -183,7 +182,7 @@ public class NewTea extends AppCompatActivity {
             //richtige SpinnerId bekommen
             amountUnit = selectedTea.getAmount().getUnit();
             switch(amountUnit){
-                case "Ts": spinnerAmount.setSelection(0);; break;
+                case "Ts": spinnerAmount.setSelection(0); break;
                 case "Gr": spinnerAmount.setSelection(1); break;
             }
             if(selectedTea.getTemperature().get(0).getCelsius()!=-500){
@@ -201,8 +200,8 @@ public class NewTea extends AppCompatActivity {
         spinnerTeeArt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sort = Sort.values()[position];
-                if(sort.equals(Sort.Other)){
+                variety = Variety.values()[position];
+                if(variety.equals(Variety.Other)){
                     checkboxTeeArt.setVisibility(View.VISIBLE);
                 }else{
                     checkboxTeeArt.setVisibility(View.INVISIBLE);
@@ -243,7 +242,7 @@ public class NewTea extends AppCompatActivity {
                 }
             }
         });
-
+        //unit hat sich verändert
         spinnerAmount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -264,7 +263,7 @@ public class NewTea extends AppCompatActivity {
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean check = false;
+                boolean check;
                 //wenn man am Ende der Liste ist, ist es möglich den eingebenen Wert zu löschen
                 if(temperatureList.size() <= brewcount &&
                         editTextTemperatur.getText().toString().equals("") &&
@@ -288,7 +287,7 @@ public class NewTea extends AppCompatActivity {
                         }else {
                             editTextTemperatur.setText("");
                         }
-                        if(!timeList.get(brewcount-1).equals("-")) {
+                        if(!timeList.get(brewcount-1).getTime().equals("-")) {
                             editTextZiehzeit.setText(timeList.get(brewcount - 1).getTime());
                         }else {
                             editTextZiehzeit.setText("");
@@ -319,7 +318,7 @@ public class NewTea extends AppCompatActivity {
                         }else {
                             editTextTemperatur.setText("");
                         }
-                        if(!timeList.get(brewcount-1).equals("-")) {
+                        if(!timeList.get(brewcount-1).getTime().equals("-")) {
                             editTextZiehzeit.setText(timeList.get(brewcount - 1).getTime());
                         }else {
                             editTextZiehzeit.setText("");
@@ -342,7 +341,7 @@ public class NewTea extends AppCompatActivity {
                 if(!editTextName.getText().toString().equals("")) {
                     //Attribute auslesen
                     boolean sortValid = true;
-                    String sortOfTea = "";
+                    String sortOfTea;
                     if(checkboxTeeArt.isChecked()){
                         sortOfTea = editTextTeeArt.getText().toString();
                         sortValid = !(sortOfTea.length()>30);
@@ -439,7 +438,7 @@ public class NewTea extends AppCompatActivity {
                         if (!(elementAt == -1)) {
                             //Tee wird geändert
                             MainActivity.teaItems.getTeaItems().get(elementAt).setName(name);
-                            MainActivity.teaItems.getTeaItems().get(elementAt).setSortOfTea(sortOfTea);
+                            MainActivity.teaItems.getTeaItems().get(elementAt).setSortOfTea(new SortOfTea(sortOfTea));
                             MainActivity.teaItems.getTeaItems().get(elementAt).setTemperature(temperatureList);
                             MainActivity.teaItems.getTeaItems().get(elementAt).setTime(timeList);
                             MainActivity.teaItems.getTeaItems().get(elementAt).setAmount(createAmount(teelamass));
@@ -452,7 +451,8 @@ public class NewTea extends AppCompatActivity {
                             }
                         } else {
                             //erstelle Tee
-                            NTea tea = new NTea(name, sortOfTea, temperatureList, timeList, createAmount(teelamass));
+                            Tea tea = new Tea(name, new SortOfTea(sortOfTea), temperatureList, timeList,
+                                    createAmount(teelamass), SortOfTea.getVariatyColor(variety));
                             tea.setCurrentDate();
                             MainActivity.teaItems.getTeaItems().add(tea);
                             //teaItems persistent speichern
@@ -601,7 +601,7 @@ public class NewTea extends AppCompatActivity {
     }
 
     private boolean timeValid(String time){
-        boolean timeValid = true;
+        boolean timeValid;
         //ist die Zeit gesetzt so wird sie geprüft
         timeValid = time.length()<6;
         if (timeValid && !time.equals("")) {
@@ -620,22 +620,18 @@ public class NewTea extends AppCompatActivity {
     }
 
     private Temperature createTemperature(int value){
-        if(MainActivity.settings.getTemperatureUnit().equals("Celsius")){
-            return new TemperatureCelsius(value);
-        }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")){
-            return new TemperatureFahrenheit(value);
-        }else {
-            return null;
+        switch(MainActivity.settings.getTemperatureUnit()){
+            case "Celsius": return new TemperatureCelsius(value);
+            case "Fahrenheit": return new TemperatureFahrenheit(value);
+            default: return null;
         }
     }
 
     private int getTemperature(int index){
-        if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-            return temperatureList.get(index).getCelsius();
-        }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")){
-            return temperatureList.get(index).getFahrenheit();
-        }else {
-            return -500;
+        switch(MainActivity.settings.getTemperatureUnit()){
+            case "Celsius": return temperatureList.get(index).getCelsius();
+            case "Fahrenheit": return temperatureList.get(index).getFahrenheit();
+            default: return -500;
         }
     }
 
@@ -650,140 +646,11 @@ public class NewTea extends AppCompatActivity {
     }
 
     private void sethints(){
-        //Tipps für Temperatur und Ziehzeit anhand der Teesorte
-        switch(sort){
-            case BlackTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_blacktea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_blacktea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_blacktea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_blacktea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_blacktea);
-                break;
-            case GreenTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_greentea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_greentea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_greentea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_greentea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_greentea);
-                break;
-            case YellowTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_yellowtea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_yellowtea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_yellowtea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_yellowtea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_yellowtea);
-                break;
-            case WhiteTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_whitetea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_whitetea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_whitetea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_whitetea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_whitetea);
-                break;
-            case OolongTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_oolongtea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_oolongtea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_oolongtea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_oolongtea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_oolongtea);
-                break;
-            case PuErhTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_puerhtea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_puerhtea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_puerhtea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_puerhtea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_puerhtea);
-                break;
-            case HerbalTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_herbaltea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_herbaltea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_herbaltea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_herbaltea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_herbaltea);
-                break;
-            case FruitTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_fruittea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_fruittea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_fruittea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_fruittea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_fruittea);
-                break;
-            case RooibusTea:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_rooibustea);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_rooibustea);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_rooibustea);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_rooibustea);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_rooibustea);
-                break;
-            case Other:
-                if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_celsius_other);
-                }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-                    editTextTemperatur.setHint(R.string.newtea_hint_fahrenheit_other);
-                }
-                if(amountUnit.equals("Ts")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_ts_other);
-                }else if(amountUnit.equals("Gr")){
-                    editTextTeelamass.setHint(R.string.newtea_hint_gr_other);
-                }
-                editTextZiehzeit.setHint(R.string.newtea_hint_time_other);
-                break;
-            default: break;
-        }
+        //set Hint for variety
+        editTextTemperatur.setHint(SortOfTea.getHintTemperature(getApplicationContext(), variety,
+                MainActivity.settings.getTemperatureUnit()));
+        editTextTeelamass.setHint(SortOfTea.getHintAmount(getApplicationContext(), variety, amountUnit));
+        editTextZiehzeit.setHint(SortOfTea.getHintTime(getApplicationContext(), variety));
     }
 
     //Show the Dialog befor using the The Scan
@@ -1011,7 +878,7 @@ public class NewTea extends AppCompatActivity {
         input.setLines(8);
         input.setMinLines(6);
         input.setMaxLines(10);
-        input.setGravity(Gravity.TOP|Gravity.LEFT);
+        input.setGravity(Gravity.TOP|Gravity.START);
         input.setSingleLine(false);
         input.setMovementMethod(new ScrollingMovementMethod());
         input.setText(result);
@@ -1036,7 +903,7 @@ public class NewTea extends AppCompatActivity {
 
     private String convertToTitleCase(String words){
         words = words.toLowerCase();
-        StringBuffer result = new StringBuffer("");
+        StringBuilder result = new StringBuilder("");
         Boolean blank = true;
         for(int i=0; i<words.length(); i++){
             if(blank){

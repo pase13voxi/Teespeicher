@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 
 /**
  * Created by paseb on 13.02.2016.
+ * Class, that describes all the Settings of the app.
  */
 public class ActualSetting {
     private String musicChoice;
@@ -121,34 +122,6 @@ public class ActualSetting {
             e.printStackTrace();
             return false;
         }catch(IOException e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // TODO Auto-generated method stub
-    //kann später entfernt werden
-    public boolean loadSettingsOld(Context context) {
-        try {
-            FileInputStream fis = context.openFileInput("ActualSetting");
-            ObjectInputStream is = new ObjectInputStream(fis);
-            musicChoice = (String) is.readObject();
-            musicName = (String) is.readObject();
-            vibration = is.readBoolean();
-            notification = is.readBoolean();
-            ocrAlert = is.readBoolean();
-            language = (String) is.readObject();
-            sort = is.readBoolean();
-            is.close();
-            fis.close();
-            return true;
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }catch(IOException e) {
             e.printStackTrace();
             return false;
         }

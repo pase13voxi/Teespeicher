@@ -22,12 +22,14 @@ import java.util.ArrayList;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Time;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.TeaAdapter;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.ActualSetting;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TeaCollection;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     static public TeaAdapter adapter;
     static public TeaCollection teaItems;
     static public ActualSetting settings;
-    static public TextView mToolbarCustomTitle;
-    static public Button newTea;
+    private TextView mToolbarCustomTitle;
+    private Button newTea;
 
 
     @Override
@@ -68,27 +70,30 @@ public class MainActivity extends AppCompatActivity {
                 tmpTemperature.add(new TemperatureCelsius(100));
                 ArrayList<Time> tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("3:30"));
-                NTea teaExample1 = new NTea("Earl Grey", "Schwarzer Tee", tmpTemperature, tmpTime, new AmountTs(5));
+                Tea teaExample1 = new Tea("Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
+                        tmpTime, new AmountTs(5), SortOfTea.getVariatyColor(Variety.BlackTea));
                 teaExample1.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample1);
                 tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new TemperatureCelsius(85));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("2"));
-                NTea teaExample2 = new NTea("Pai Mu Tan", "Weißer Tee", tmpTemperature, tmpTime, new AmountTs(4));
+                Tea teaExample2 = new Tea("Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
+                        tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.WhiteTea));
                 teaExample2.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample2);
                 tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new TemperatureCelsius(80));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("1:30"));
-                NTea teaExample3 = new NTea("Sencha", "Grüner Tee", tmpTemperature, tmpTime, new AmountTs(4));
+                Tea teaExample3 = new Tea("Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
+                        tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.GreenTea));
                 teaExample3.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample3);
 
                 teaItems.saveCollection(getApplicationContext());
             }else{
-                teaItems.convertCollectionToNew();
+                teaItems.convertCollectionToNew(getApplicationContext());
                 teaItems.saveCollection(getApplicationContext());
             }
         }
@@ -96,24 +101,23 @@ public class MainActivity extends AppCompatActivity {
         //Settings holen
         settings = new ActualSetting();
         if(!settings.loadSettings(getApplicationContext())){
-            // TODO Auto-generated method stub
-            //kann später entfernt werden
-            settings.loadSettingsOld(getApplicationContext());
             settings.saveSettings(getApplicationContext());
         }
 
         //herausfinden welche Sprache gesetzt ist und Übersetztung der Liste starten
-        String tmpLang = settings.getLanguage();
+        String tmpLang = "";
         String language = getResources().getString(R.string.app_name);
-        if(language.equals("Tee Speicher")){
-            settings.setLanguage("de");
-        }else if(language.equals("Tea Memory")){
-            settings.setLanguage("en");
+        switch(language){
+            case "Tee Speicher":
+                tmpLang = "de"; break;
+            case "Tea Memory":
+                tmpLang = "en"; break;
         }
-        settings.saveSettings(getApplicationContext());
         if(!tmpLang.equals(settings.getLanguage())){
-            teaItems.translateSortOfTea(settings.getLanguage(), getApplicationContext());
+            teaItems.translateSortOfTea(getApplicationContext(), settings.getLanguage(), tmpLang);
             teaItems.saveCollection(getApplicationContext());
+            settings.setLanguage(tmpLang);
+            settings.saveSettings(getApplicationContext());
         }
 
         //Liste mit Adapter verknüpfen
