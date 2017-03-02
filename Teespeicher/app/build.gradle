@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "coolpharaoh.tee.speicher.tea.timer"
@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.rmtheis:tess-two:5.4.1'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
+    compile 'com.github.attenzione:android-ColorPickerPreference:9cbe9e7757'
 }

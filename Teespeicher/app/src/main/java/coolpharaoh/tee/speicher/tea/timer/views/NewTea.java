@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +36,8 @@ import com.googlecode.tesseract.android.TessBaseAPI;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import net.margaritov.preference.colorpicker.ColorPickerDialog;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,7 +50,6 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountGramm;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
@@ -59,7 +61,8 @@ import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 
 public class NewTea extends AppCompatActivity {
 
-    private Variety variety = Variety.BlackTea;
+    private Variety variety = Variety.BlackTea;ColorPickerDialog colorPickerDialog;
+    int color = SortOfTea.getVariatyColor(Variety.BlackTea);
     private int brewcount = 1;
     private ArrayList<Temperature> temperatureList;
     private ArrayList<Time> timeList;
@@ -78,6 +81,8 @@ public class NewTea extends AppCompatActivity {
     private Spinner spinnerTeeArt;
     private CheckBox checkboxTeeArt;
     private EditText editTextTeeArt;
+    private Button buttonColor;
+    private GradientDrawable buttonColorSape;
     private EditText editTextName;
     private EditText editTextTemperatur;
     private EditText editTextZiehzeit;
@@ -88,7 +93,7 @@ public class NewTea extends AppCompatActivity {
     private Button rightArrow;
     private CheckBox dontShowAgain;
     private int elementAt;
-    private boolean showTea;
+    private boolean showTea, colorChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +115,8 @@ public class NewTea extends AppCompatActivity {
         spinnerTeeArt = (Spinner) findViewById(R.id.spinnerTeeart);
         checkboxTeeArt = (CheckBox) findViewById(R.id.checkBoxSelfInput);
         editTextTeeArt = (EditText) findViewById(R.id.editTextSelfInput);
+        buttonColor = (Button) findViewById(R.id.buttonColor);
+        buttonColorSape = (GradientDrawable)buttonColor.getBackground();
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextTemperatur = (EditText) findViewById(R.id.editTextTemperatur);
         editTextZiehzeit = (EditText) findViewById(R.id.editTextZiehzeit);
@@ -128,6 +135,7 @@ public class NewTea extends AppCompatActivity {
         spinnerTeeArt.setPrompt(getResources().getString(R.string.tea_sort));
         checkboxTeeArt.setText(R.string.newtea_by_hand);
         editTextTeeArt.setHint(R.string.tea_sort);
+        buttonColorSape.setColor(color);
         textViewBrew.setText(String.valueOf(brewcount) + ". " + getResources().getString(R.string.newtea_count_brew));
 
         //Zwei Tempuräre Listen erstellen
@@ -177,6 +185,9 @@ public class NewTea extends AppCompatActivity {
             }else {
                 spinnerTeeArt.setSelection(spinnerId);
             }
+            color = selectedTea.getColor();
+            buttonColorSape.setColor(color);
+            colorChange = true;
             editTextName.setText(selectedTea.getName());
             temperatureList = selectedTea.getTemperature();
             //richtige SpinnerId bekommen
@@ -201,6 +212,13 @@ public class NewTea extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 variety = Variety.values()[position];
+                //Farbe soll am Anfang nicht geändert werden, wenn der Tee geändert wird
+                if(!colorChange){
+                    color = SortOfTea.getVariatyColor(variety);
+                    buttonColorSape.setColor(color);
+                }else{
+                    colorChange = false;
+                }
                 if(variety.equals(Variety.Other)){
                     checkboxTeeArt.setVisibility(View.VISIBLE);
                 }else{
@@ -228,6 +246,22 @@ public class NewTea extends AppCompatActivity {
                     spinnerTeeArt.setVisibility(View.VISIBLE);
                     editTextTeeArt.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+
+        buttonColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                colorPickerDialog = new ColorPickerDialog(NewTea.this, color);
+                colorPickerDialog.setTitle(getResources().getString(R.string.newtea_color_dialog_title));
+                colorPickerDialog.setOnColorChangedListener(new ColorPickerDialog.OnColorChangedListener() {
+                    @Override
+                    public void onColorChanged(int c) {
+                        color = c;
+                        buttonColorSape.setColor(color);
+                    }
+                });
+                colorPickerDialog.show();
             }
         });
 
@@ -442,6 +476,7 @@ public class NewTea extends AppCompatActivity {
                             MainActivity.teaItems.getTeaItems().get(elementAt).setTemperature(temperatureList);
                             MainActivity.teaItems.getTeaItems().get(elementAt).setTime(timeList);
                             MainActivity.teaItems.getTeaItems().get(elementAt).setAmount(createAmount(teelamass));
+                            MainActivity.teaItems.getTeaItems().get(elementAt).setColor(color);
                             MainActivity.teaItems.getTeaItems().get(elementAt).setCurrentDate();
                             //teaItems persistent speichern
                             MainActivity.teaItems.sort();
@@ -452,7 +487,7 @@ public class NewTea extends AppCompatActivity {
                         } else {
                             //erstelle Tee
                             Tea tea = new Tea(name, new SortOfTea(sortOfTea), temperatureList, timeList,
-                                    createAmount(teelamass), SortOfTea.getVariatyColor(variety));
+                                    createAmount(teelamass), color);
                             tea.setCurrentDate();
                             MainActivity.teaItems.getTeaItems().add(tea);
                             //teaItems persistent speichern
@@ -636,12 +671,10 @@ public class NewTea extends AppCompatActivity {
     }
 
     private Amount createAmount(int value){
-        if(amountUnit.equals("Ts")){
-            return new AmountTs(value);
-        }else if(amountUnit.equals("Gr")){
-            return new AmountGramm(value);
-        }else {
-            return null;
+        switch(amountUnit){
+            case "Ts": return new AmountTs(value);
+            case "Gr": return new AmountGramm(value);
+            default: return null;
         }
     }
 

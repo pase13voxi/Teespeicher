@@ -54,6 +54,8 @@
     </array>
     <string name="newtea_by_hand">by hand</string>
     <string name="newtea_hint_name">Name</string>
+    <string name="newtea_color_label">Color</string>
+    <string name="newtea_color_dialog_title">Choose Color: </string>
     <string name="newtea_hint_celsius_blacktea">Temperature (95 &#8211; 100°C)</string>
     <string name="newtea_hint_celsius_greentea">Temperature (60 &#8211; 90°C)</string>
     <string name="newtea_hint_celsius_yellowtea">Temperature (75°C)</string>

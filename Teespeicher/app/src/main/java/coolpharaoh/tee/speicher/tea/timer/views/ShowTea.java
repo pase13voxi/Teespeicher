@@ -39,8 +39,6 @@ public class ShowTea extends AppCompatActivity {
     private TextView textViewBrewCount;
     private Button buttonBrewCount;
     private Button buttonNextBrew;
-    private int elementAt;
-    private Tea selectedTea;
     private TextView textViewTemperature;
     private Spinner spinnerMinutes;
     private Spinner spinnerSeconds;
@@ -54,6 +52,8 @@ public class ShowTea extends AppCompatActivity {
     private ImageView imageViewCup;
     private ImageView imageViewFill;
     private ImageView imageViewSteam;
+    private int elementAt;
+    private Tea selectedTea;
     private int brewCount = 0;
     private String name;
     private String sortOfTea;
@@ -260,38 +260,7 @@ public class ShowTea extends AppCompatActivity {
                         imageViewCup.setVisibility((View.VISIBLE));
                         imageViewFill.setVisibility((View.VISIBLE));
                         //Farbe des Inhalts der Tasse festlegen
-                        String[] sorts = getResources().getStringArray(R.array.sortsOfTea);
-                        if(sortOfTea.equals(sorts[0])){
-                            //Schwarzer Tee
-                            imageViewFill.setColorFilter(Color.argb(255, 20, 20, 80), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[1])){
-                            //Grüner Tee
-                            imageViewFill.setColorFilter(Color.argb(255, 154, 205, 50), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[2])){
-                            //Gelber Tee
-                            imageViewFill.setColorFilter(Color.argb(255, 255, 194, 75), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[3])){
-                            //Weißer Tee
-                            imageViewFill.setColorFilter(Color.argb(255, 255, 249, 150), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[4])){
-                            //Oolong
-                            imageViewFill.setColorFilter(Color.argb(255, 255, 165, 0), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[5])){
-                            //Puh Erh Tee
-                            imageViewFill.setColorFilter(Color.argb(255, 139, 37, 0), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[6])){
-                            //Kräutertee
-                            imageViewFill.setColorFilter(Color.argb(255, 67, 153, 54), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[7])){
-                            //Früchtetee
-                            imageViewFill.setColorFilter(Color.argb(255, 255, 42, 22), PorterDuff.Mode.SRC_ATOP);
-                        }else if(sortOfTea.equals(sorts[8])){
-                            //Roibuschtee
-                            imageViewFill.setColorFilter(Color.argb(255, 250, 90, 0), PorterDuff.Mode.SRC_ATOP);
-                        }else{
-                            //Default
-                            imageViewFill.setColorFilter(Color.argb(255, 127, 127, 186), PorterDuff.Mode.SRC_ATOP);
-                        }
+                        imageViewFill.setColorFilter(selectedTea.getColor(), PorterDuff.Mode.SRC_ATOP);
                     }
                     //In millisekunden umrechnen
                     int min = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
