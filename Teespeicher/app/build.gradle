@@ -8,8 +8,8 @@ android {
         applicationId "coolpharaoh.tee.speicher.tea.timer"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 29
-        versionName "1.5"
+        versionCode 30
+        versionName "1.6"
     }
     buildTypes {
         release {
