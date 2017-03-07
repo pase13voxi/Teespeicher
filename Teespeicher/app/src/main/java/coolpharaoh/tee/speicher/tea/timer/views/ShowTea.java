@@ -14,11 +14,14 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +42,7 @@ public class ShowTea extends AppCompatActivity {
     private TextView textViewBrewCount;
     private Button buttonBrewCount;
     private Button buttonNextBrew;
+    private Button buttonNote;
     private TextView textViewTemperature;
     private Spinner spinnerMinutes;
     private Spinner spinnerSeconds;
@@ -82,6 +86,7 @@ public class ShowTea extends AppCompatActivity {
         //Hole TextViews
         TextView textViewName = (TextView) findViewById(R.id.textViewShowName);
         TextView textViewSortOfTea = (TextView) findViewById(R.id.textViewShowTeesorte);
+        buttonNote = (Button) findViewById(R.id.buttonNote);
         textViewTemperature = (TextView) findViewById(R.id.textViewShowTemperatur);
         TextView textViewTeelamass = (TextView) findViewById(R.id.textViewShowTeelamass);
 
@@ -94,10 +99,6 @@ public class ShowTea extends AppCompatActivity {
         imageViewCup = (ImageView) findViewById(R.id.imageViewCup);
         imageViewFill = (ImageView) findViewById(R.id.imageViewFill);
         imageViewSteam = (ImageView) findViewById(R.id.imageViewSteam);
-
-        //setzte Text
-        textViewMin.setText(R.string.showtea_display_min);
-        textViewSec.setText(R.string.showtea_display_sec);
 
         //setzt Tranparenz der Textviews
         int alpha = 130;
@@ -127,6 +128,9 @@ public class ShowTea extends AppCompatActivity {
             textViewName.setText(name);
             sortOfTea = selectedTea.getSortOfTea().getType();
             textViewSortOfTea.setText(sortOfTea);
+            if(!selectedTea.getNote().equals("")){
+                buttonNote.setVisibility(View.VISIBLE);
+            }
             if(selectedTea.getTemperature().get(brewCount).getCelsius()!=-500) {
                 if (MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
                     textViewTemperature.setText(getResources().getString(R.string.showtea_display_celsius, String.valueOf(selectedTea.getTemperature().get(brewCount).getCelsius())));
@@ -162,6 +166,13 @@ public class ShowTea extends AppCompatActivity {
                 buttonNextBrew.setVisibility(View.INVISIBLE);
             }
         }
+
+        buttonNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogNote();
+            }
+        });
 
         buttonBrewCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -321,13 +332,9 @@ public class ShowTea extends AppCompatActivity {
     public boolean onPrepareOptionsMenu (Menu menu) {
         for(int i=0; i<menu.size(); i++){
             MenuItem mi = menu.getItem(i);
-            if(mi.getItemId() == R.id.action_settings){
-                mi.setTitle(R.string.showtea_action_settings);
-            }else if(mi.getItemId() == R.id.action_vibrate){
-                mi.setTitle(R.string.showtea_action_vibrate);
+            if(mi.getItemId() == R.id.action_vibrate){
                 mi.setChecked(MainActivity.settings.isVibration());
             }else if(mi.getItemId() == R.id.action_notification){
-                mi.setTitle(R.string.showtea_action_notification);
                 mi.setChecked(MainActivity.settings.isNotification());
             }
         }
@@ -336,8 +343,9 @@ public class ShowTea extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
-
-        if(id == R.id.action_settings){
+        if(id == R.id.action_note){
+            dialogNote();
+        }else if(id == R.id.action_settings){
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(ShowTea.this, NewTea.class);
             elementAt = MainActivity.teaItems.getPositionByName(name);
@@ -536,5 +544,39 @@ public class ShowTea extends AppCompatActivity {
         }else{
             buttonNextBrew.setEnabled(true);
         }
+    }
+
+    private void dialogNote(){
+
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayoutDialogNote = inflater.inflate(R.layout.dialognote, null);
+        final EditText editTextNote = (EditText) alertLayoutDialogNote.findViewById(R.id.editTextNote);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(alertLayoutDialogNote);
+        adb.setTitle(R.string.showtea_dialog_note_title);
+        adb.setIcon(R.drawable.note);
+        editTextNote.setText(selectedTea.getNote());
+        editTextNote.setSelected(false);
+        adb.setPositiveButton(R.string.newtea_dialog_scan_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                selectedTea.setNote(editTextNote.getText().toString());
+                if (!MainActivity.teaItems.saveCollection(getApplicationContext())) {
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_save, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                if(!selectedTea.getNote().equals("")){
+                    buttonNote.setVisibility(View.VISIBLE);
+                }else{
+                    buttonNote.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        adb.setNegativeButton(R.string.newtea_dialog_scan_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        adb.show();
     }
 }

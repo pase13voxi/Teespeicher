@@ -35,6 +35,17 @@
         android:layout_centerHorizontal="true"
         android:background="#ffffff" />
 
+    <Button
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:id="@+id/buttonNote"
+        android:background="@drawable/note"
+        android:layout_below="@id/textViewShowTeesorte"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dip"
+        android:layout_marginLeft="20dip"
+        android:visibility="invisible"/>
+
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -126,7 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Min"
+        android:text="@string/showtea_display_min"
         android:id="@+id/textViewMin"
         android:layout_above="@id/buttonStartTimer"
         android:layout_marginBottom="40dip"
@@ -137,7 +148,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Sek"
+        android:text="@string/showtea_display_sec"
         android:id="@+id/textViewSec"
         android:layout_above="@+id/buttonStartTimer"
         android:layout_marginBottom="40dip"

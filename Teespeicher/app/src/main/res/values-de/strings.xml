@@ -14,6 +14,10 @@
     <string name="main_error_deletion">Löschung konnte nicht durchgeführt werden.</string>
     <!--showtea_de-->
     <string name="showtea_heading">Information</string>
+    <string name="showtea_action_note">Notiz</string>
+    <string name="showtea_dialog_note_title">Notiere dir etwas.</string>
+    <string name="showtea_dialog_note_ok">Ok</string>
+    <string name="showtea_dialog_note_cancle">Abbrechen</string>
     <string name="showtea_action_settings">Bearbeiten</string>
     <string name="showtea_action_vibrate">Vibration</string>
     <string name="showtea_action_notification">Benachrichtigung</string>

@@ -153,8 +153,6 @@ public class TeaCollection {
         return -1;
     }
 
-    //TODO eventuell verlagern
-    //Muss eventuell für mehr Sprachensupport umgeschrieben werden
     public void translateSortOfTea(Context context, String languageFrom, String languageTo){
         String[] varietiesFrom = getOtherSortsOfTea(context, languageFrom);
         String[] varietiesTo = getOtherSortsOfTea(context, languageTo);
