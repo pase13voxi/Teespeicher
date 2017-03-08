@@ -8,11 +8,11 @@
         android:id="@+id/editTextNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/showtea_dialog_note_hint"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:inputType="textMultiLine"
         android:minLines="2"
         android:maxLines="8"
-        android:textColor="#000000"
-        android:text="Ein paar Worte."/>
+        android:textColor="#000000"/>
 </LinearLayout>

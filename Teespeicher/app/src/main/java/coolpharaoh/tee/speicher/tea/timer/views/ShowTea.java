@@ -110,7 +110,7 @@ public class ShowTea extends AppCompatActivity {
         //Setzte Spinner Groß
         ArrayAdapter<CharSequence> spinnerTimeAdapter = ArrayAdapter.createFromResource(
                 this, R.array.itemsTimer, R.layout.spinner_item);
-        spinnerTimeAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerTimeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerMinutes.setAdapter(spinnerTimeAdapter);
         spinnerSeconds.setAdapter(spinnerTimeAdapter);
 
@@ -554,7 +554,7 @@ public class ShowTea extends AppCompatActivity {
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setView(alertLayoutDialogNote);
-        adb.setTitle(R.string.showtea_dialog_note_title);
+        adb.setTitle(R.string.showtea_action_note);
         adb.setIcon(R.drawable.note);
         editTextNote.setText(selectedTea.getNote());
         editTextNote.setSelected(false);

@@ -36,18 +36,6 @@
         android:layout_centerHorizontal="true"
         android:background="#ffffff" />
 
-
-    <Button
-        android:layout_width="100dip"
-        android:layout_height="100dip"
-        android:id="@+id/buttonNote"
-        android:background="@drawable/note"
-        android:layout_below="@id/textViewShowTeesorte"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="20dip"
-        android:layout_marginLeft="40dip"
-        android:visibility="invisible"/>
-
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +43,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="125dip"
         android:layout_toStartOf="@+id/textViewDoppelPunkt"
-        android:layout_toLeftOf="@+id/textViewDoppelPunkt" />
+        android:layout_toLeftOf="@+id/textViewDoppelPunkt"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -64,7 +52,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="125dip"
         android:layout_toRightOf="@+id/textViewDoppelPunkt"
-        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
+        android:layout_toEndOf="@+id/textViewDoppelPunkt"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -77,6 +65,17 @@
         android:layout_marginBottom="135dip"
         android:layout_centerHorizontal="true"
         android:background="#ffffff" />
+
+    <Button
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:id="@+id/buttonNote"
+        android:background="@drawable/note"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="200dip"
+        android:layout_marginRight="50dip"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="200dip"
