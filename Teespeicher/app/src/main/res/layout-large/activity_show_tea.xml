@@ -43,7 +43,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="115dip"
         android:layout_toStartOf="@+id/textViewDoppelPunkt"
-        android:layout_toLeftOf="@+id/textViewDoppelPunkt" />
+        android:layout_toLeftOf="@+id/textViewDoppelPunkt"
+        style="@style/spinner_style"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -52,7 +53,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="115dip"
         android:layout_toRightOf="@+id/textViewDoppelPunkt"
-        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
+        android:layout_toEndOf="@+id/textViewDoppelPunkt"
+        style="@style/spinner_style"/>
 
     <TextView
         android:layout_width="wrap_content"
