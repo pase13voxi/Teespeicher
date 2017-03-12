@@ -157,7 +157,9 @@
     <string name="about_rating_heading">Bewerte die App</string>
     <string name="about_rating_description">Gefällt dir die App? Ich würde mich über eine Bewertung freuen.</string>
     <string name="about_donate_heading">Unterstützung</string>
-    <string name="about_donate_description">Unterstütze mich über meine Webseite.</string>
+    <string name="about_donate_description">Auf meiner Webseite kannst du mich unterstützen.</string>
+    <string name="about_translation_heading">Sprachen</string>
+    <string name="about_translation_description">Du möchtest die App in deiner Sprache und kannst helfen, zu übersetzen?</string>
     <string name="about_software_heading">Software Lizenzen</string>
     <string name="about_software_description">Welche Open Source Software wird von dem Tee Speicher genutzt?</string>
     <!--Contact-->
@@ -171,8 +173,6 @@
     <string name="software_tesseract_description">Tesseract ist eine Open Source Software, welche die Texterkennung ermöglicht.</string>
     <string name="software_cropper_heading">Cropper von Edmodo Inc</string>
     <string name="software_cropper_description">Der Cropper von Edmodo Inc ist eine Open Source Software, die für das Bearbeiten von Bilder nützlich ist.</string>
-    <string name="about_translation_heading">Übersetzung</string>
-    <string name="about_translation_description">Du möchtest die App in deiner Sprache und kannst helfen, zu übersetzen?</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
     <string name="software_colorpicker_description">Der ColorPicker ist eine Open Source Software, welche die Auswahl einer Farbe ermöglicht.</string>
     <!--Time-->
