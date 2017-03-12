@@ -23,7 +23,7 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 public class About extends AppCompatActivity {
 
     private enum ListItems {
-        Contact, Rating, Donate, Software
+        Contact, Rating, Donate, Translation, Software
     }
 
 
@@ -43,13 +43,15 @@ public class About extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //ListView beschreiben
-        List<ListRowItem> aboutList = new ArrayList<ListRowItem>();
+        List<ListRowItem> aboutList = new ArrayList<>();
         ListRowItem itemContact = new ListRowItem(getResources().getString(R.string.about_contact_heading),getResources().getString(R.string.about_contact_description));
         aboutList.add(itemContact);
         ListRowItem itemRating = new ListRowItem(getResources().getString(R.string.about_rating_heading), getResources().getString(R.string.about_rating_description));
         aboutList.add(itemRating);
         ListRowItem itemDonate = new ListRowItem(getResources().getString(R.string.about_donate_heading),getResources().getString(R.string.about_donate_description));
         aboutList.add(itemDonate);
+        ListRowItem itemTranslation = new ListRowItem(getResources().getString(R.string.about_translation_heading),getResources().getString(R.string.about_translation_description));
+        aboutList.add(itemTranslation);
         ListRowItem itemSoftware = new ListRowItem(getResources().getString(R.string.about_software_heading),getResources().getString(R.string.about_software_description));
         aboutList.add(itemSoftware);
 
@@ -80,6 +82,13 @@ public class About extends AppCompatActivity {
                         break;
                     case Donate:
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://pbechtoldt.de/")));
+                        break;
+                    case Translation:
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("plain/text");
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.contact_email_address) });
+                        intent.putExtra(Intent.EXTRA_SUBJECT, R.string.about_translation_heading);
+                        startActivity(Intent.createChooser(intent, ""));
                         break;
                     case Software:
                         //Neues Intent anlegen
