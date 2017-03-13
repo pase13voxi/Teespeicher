@@ -179,7 +179,7 @@ public class ShowTea extends AppCompatActivity {
             public void onClick(View v) {
                 String[] items = null;
                 if(elementAt != -1) {
-                    int tmpSize = MainActivity.teaItems.getTeaItems().get(elementAt).getTemperature().size();
+                    int tmpSize = selectedTea.getTemperature().size();
                     items = new String[tmpSize];
                     for(int i=0; i<tmpSize; i++){
                         items[i] = String.valueOf(i+1) +". "+ getResources().getString(R.string.showtea_brew_count_content);
@@ -247,7 +247,7 @@ public class ShowTea extends AppCompatActivity {
             public void onClick(View v) {
                 if(buttonStartTimer.getText().equals(getResources().getString(R.string.showtea_timer_start))){
                     //Mainlist aktualisieren
-                    MainActivity.teaItems.getTeaItems().get(elementAt).setCurrentDate();
+                    selectedTea.setCurrentDate();
                     MainActivity.teaItems.sort();
                     MainActivity.teaItems.saveCollection(getApplicationContext());
                     MainActivity.adapter.notifyDataSetChanged();
