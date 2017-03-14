@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
             // TODO Auto-generated method stub
             //kann später entfernt werden
             if(!teaItems.loadOldCollection(getApplicationContext())) {
-                //Toast toast = Toast.makeText(getApplicationContext(), "Fehler beim Laden. Liste wurde neu erstellt.", Toast.LENGTH_SHORT);
-                //toast.show();
                 ArrayList<Temperature> tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new TemperatureCelsius(100));
                 ArrayList<Time> tmpTime = new ArrayList<>();

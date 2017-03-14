@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
@@ -269,10 +270,15 @@ public class NewTea extends AppCompatActivity {
         scanName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.settings.isOcrAlert()) {
-                    dialogBeforeScan();
-                } else {
-                    startCameraActivity();
+                if(checkWriteExternalPermission()) {
+                    if (MainActivity.settings.isOcrAlert()) {
+                        dialogBeforeScan();
+                    } else {
+                        startCameraActivity();
+                    }
+                }else {
+                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.newtea_error_scan),Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
         });
@@ -438,7 +444,7 @@ public class NewTea extends AppCompatActivity {
                             (temperatureList.size() > brewcount && (time.equals("-") || temperature == -500)) ||
                             (temperatureList.size() < brewcount && ((time.equals("-") && temperature != -500)||(!time.equals("-") && temperature == -500)))) &&
                             temperatureList.size()!=0 && !(temperatureList.size()==1 && brewcount==1)){
-                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_data_for_this_brew, Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_data_for_this_brew, Toast.LENGTH_LONG);
                         toast.show();
                     }
                     else {
@@ -554,7 +560,7 @@ public class NewTea extends AppCompatActivity {
         String time = editTextZiehzeit.getText().toString();
 
         if(tmpTemperature.equals("") || time.equals("")) {
-            Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_data_before_next_brew, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_data_before_next_brew, Toast.LENGTH_LONG);
             toast.show();
             checkValid = false;
         }else {
@@ -684,6 +690,13 @@ public class NewTea extends AppCompatActivity {
                 MainActivity.settings.getTemperatureUnit()));
         editTextTeelamass.setHint(SortOfTea.getHintAmount(getApplicationContext(), variety, amountUnit));
         editTextZiehzeit.setHint(SortOfTea.getHintTime(getApplicationContext(), variety));
+    }
+
+    //check if the permission exists
+    private boolean checkWriteExternalPermission(){
+        String permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+        int res = getApplicationContext().checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
     }
 
     //Show the Dialog befor using the The Scan
@@ -878,14 +891,6 @@ public class NewTea extends AppCompatActivity {
         }
 
         tessBaseAPI.init(DATA_PATH, lang);
-
-        //       //EXTRA SETTINGS
-        //        //For example if we only want to detect numbers
-        //        tessBaseApi.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");
-        //
-        //        //blackList Example
-        //        tessBaseApi.setVariable(TessBaseAPI.VAR_CHAR_BLACKLIST, "!@#$%^&*()_+=-qwertyuiop[]}{POIU" +
-        //                "YTRWQasdASDfghFGHjklJKLl;L:'\"\\|~`xcvXCVbnmBNM,./<>?");
 
         Log.d(TAG, "Training file loaded");
         tessBaseAPI.setImage(bitmap);

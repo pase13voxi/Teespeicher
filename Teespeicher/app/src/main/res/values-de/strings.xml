@@ -129,6 +129,7 @@
     <string name="newtea_dialog_after_scan_title">Text anpassen</string>
     <string name="newtea_dialog_scan_ok">Ok</string>
     <string name="newtea_dialog_scan_cancel">Abbrechen</string>
+    <string name="newtea_error_scan">Die Texterkennung kann nur in Verbindung mit der Berechtigung \"read and write your External storage\" genutzt werden.</string>
     <string name="newtea_count_brew">Aufguss</string>
     <!--setting_de-->
     <string name="settings_heading">Einstellungen</string>
