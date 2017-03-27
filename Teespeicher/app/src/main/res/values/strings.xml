@@ -25,6 +25,13 @@
     <string name="showtea_display_fahrenheit">%1$s °F</string>
     <string name="showtea_display_ts">%1$s ts/l</string>
     <string name="showtea_display_gr">%1$s g/l</string>
+    <string name="showtea_dialog_amount">Amount</string>
+    <string name="showtea_dialog_amount_scala_left">0.0l</string>
+    <string name="showtea_dialog_amount_scala_center">1.0l</string>
+    <string name="showtea_dialog_amount_scala_right">2.0l</string>
+    <string name="showtea_dialog_amount_per_amount_ts">%1$.1f ts / %2$.1f l</string>
+    <string name="showtea_dialog_amount_per_amount_gr">%1$.1f g / %2$.1f l</string>
+    <string name="showtea_dialog_amount_ok">OK</string>
     <string name="showtea_display_min">Min</string>
     <string name="showtea_display_sec">Sec</string>
     <string name="showtea_brea_count_point">%1$d.</string>

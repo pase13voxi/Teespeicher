@@ -23,12 +23,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
@@ -63,6 +65,7 @@ public class ShowTea extends AppCompatActivity {
     private String sortOfTea;
     private int minutes;
     private int seconds;
+    private boolean infoShown = false;
     //animation
     private long maxMilliSec;
     private int percent;
@@ -174,6 +177,17 @@ public class ShowTea extends AppCompatActivity {
             }
         });
 
+        /*
+        @TODO muss später verändert werden
+         */
+        Button buttest = (Button) findViewById(R.id.test);
+        buttest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogamount();
+            }
+        });
+
         buttonBrewCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,8 +240,9 @@ public class ShowTea extends AppCompatActivity {
         buttonExchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!buttonInfo.isShown()){
+                if(!infoShown){
                     buttonInfo.setVisibility(View.VISIBLE);
+                    infoShown = true;
                     //Temperaturrechnung
                     float tmp = (100 - (float)selectedTea.getTemperature().get(brewCount).getCelsius()) / 2;
                     int minute = (int)tmp;
@@ -236,6 +251,7 @@ public class ShowTea extends AppCompatActivity {
                     spinnerSeconds.setSelection(sek);
                 }else {
                     buttonInfo.setVisibility(View.INVISIBLE);
+                    infoShown = false;
                     spinnerMinutes.setSelection(minutes);
                     spinnerSeconds.setSelection(seconds);
                 }
@@ -254,7 +270,6 @@ public class ShowTea extends AppCompatActivity {
                     //Button umbenennen
                     buttonStartTimer.setText(R.string.showtea_timer_reset);
                     buttonExchange.setVisibility(View.INVISIBLE);
-                    //buttonInfo.setEnabled(false);
                     //EingabeFelder ausblenden
                     spinnerMinutes.setVisibility(View.INVISIBLE);
                     spinnerSeconds.setVisibility(View.INVISIBLE);
@@ -267,7 +282,7 @@ public class ShowTea extends AppCompatActivity {
                     //Timeranzeige einblenden
                     textViewTimer.setVisibility((View.VISIBLE));
                     //Teetasse anzeigen
-                    if(!buttonInfo.isShown()) {
+                    if(!infoShown) {
                         imageViewCup.setVisibility((View.VISIBLE));
                         imageViewFill.setVisibility((View.VISIBLE));
                         //Farbe des Inhalts der Tasse festlegen
@@ -290,7 +305,6 @@ public class ShowTea extends AppCompatActivity {
                     if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100) {
                         buttonExchange.setVisibility(View.VISIBLE);
                     }
-                    //buttonInfo.setEnabled(true);
                     //EingabeFelder ausblenden
                     spinnerMinutes.setVisibility(View.VISIBLE);
                     spinnerSeconds.setVisibility(View.VISIBLE);
@@ -303,7 +317,7 @@ public class ShowTea extends AppCompatActivity {
                     //Timeranzeige ausblenden
                     textViewTimer.setVisibility((View.INVISIBLE));
                     //Teetasse ausblenden
-                    if(!buttonInfo.isShown()) {
+                    if(!infoShown) {
                         imageViewCup.setVisibility((View.INVISIBLE));
                         imageViewFill.setVisibility((View.INVISIBLE));
                         imageViewFill.setImageResource(R.drawable.fill0pr);
@@ -396,12 +410,12 @@ public class ShowTea extends AppCompatActivity {
         if (intent.getExtras() != null) {
             long millis = intent.getLongExtra("countdown", 0);
             boolean ready = intent.getBooleanExtra("ready", false);
-            if(!buttonInfo.isShown()) {
+            if(!infoShown) {
                 updateImage(millis);
             }
             if(ready){
                 textViewTimer.setText(R.string.showtea_tea_ready);
-                if(!buttonInfo.isShown()) {
+                if(!infoShown) {
                     imageViewFill.setImageResource(R.drawable.fill100pr);
                     imageViewSteam.setVisibility((View.VISIBLE));
                 }
@@ -562,6 +576,7 @@ public class ShowTea extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 selectedTea.setNote(editTextNote.getText().toString());
                 if (!MainActivity.teaItems.saveCollection(getApplicationContext())) {
+
                     Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_cant_save, Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -578,5 +593,53 @@ public class ShowTea extends AppCompatActivity {
             }
         });
         adb.show();
+    }
+
+    private void dialogamount(){
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayoutDialogNote = inflater.inflate(R.layout.dialogamount, null);
+        final SeekBar seekBarAmountPerAmount = (SeekBar) alertLayoutDialogNote.findViewById(R.id.seekBarAmountPerAmount);
+        final TextView textViewAmountPerAmount = (TextView) alertLayoutDialogNote.findViewById(R.id.textViewShowAmountPerAmount);
+        // 10 for 1 liter
+        fillAmountPerAmount(10, textViewAmountPerAmount);
+
+        seekBarAmountPerAmount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
+                fillAmountPerAmount(value, textViewAmountPerAmount);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(alertLayoutDialogNote);
+        adb.setTitle(R.string.showtea_dialog_amount);
+        adb.setIcon(R.drawable.spoon);
+        adb.setPositiveButton(R.string.showtea_dialog_amount_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        adb.show();
+    }
+    private void fillAmountPerAmount(int value, TextView textViewAmountPerAmount){
+        Amount tmpAmount = selectedTea.getAmount();
+        float liter = (float)value/10;
+        float amountPerLiter = (float)tmpAmount.getValue()*liter;
+        if(tmpAmount.getUnit().equals("Ts")){
+            textViewAmountPerAmount.setText(getResources().getString(R.string.showtea_dialog_amount_per_amount_ts, amountPerLiter, liter));
+        }else if(tmpAmount.getUnit().equals("Gr")){
+            textViewAmountPerAmount.setText(getResources().getString(R.string.showtea_dialog_amount_per_amount_gr, amountPerLiter, liter));
+        }
+
     }
 }
