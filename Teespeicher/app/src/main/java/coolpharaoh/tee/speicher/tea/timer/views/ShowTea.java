@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -20,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -32,11 +30,9 @@ import java.util.concurrent.TimeUnit;
 
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
 import coolpharaoh.tee.speicher.tea.timer.services.MediaService;
 import coolpharaoh.tee.speicher.tea.timer.R;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
 
 public class ShowTea extends AppCompatActivity {
 
@@ -180,8 +176,8 @@ public class ShowTea extends AppCompatActivity {
         /*
         @TODO muss später verändert werden
          */
-        Button buttest = (Button) findViewById(R.id.test);
-        buttest.setOnClickListener(new View.OnClickListener() {
+        Button buttonCalcAmount = (Button) findViewById(R.id.buttonCalculateAmount);
+        buttonCalcAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogamount();
@@ -235,7 +231,8 @@ public class ShowTea extends AppCompatActivity {
 
         buttonExchange = (Button) findViewById(R.id.buttonExchange);
         if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
-            buttonExchange.setVisibility(View.VISIBLE);
+            buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperatureexchange));
+            buttonExchange.setEnabled(true);
         }
         buttonExchange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,7 +266,7 @@ public class ShowTea extends AppCompatActivity {
                     MainActivity.adapter.notifyDataSetChanged();
                     //Button umbenennen
                     buttonStartTimer.setText(R.string.showtea_timer_reset);
-                    buttonExchange.setVisibility(View.INVISIBLE);
+                    buttonExchange.setEnabled(false);
                     //EingabeFelder ausblenden
                     spinnerMinutes.setVisibility(View.INVISIBLE);
                     spinnerSeconds.setVisibility(View.INVISIBLE);
@@ -302,9 +299,8 @@ public class ShowTea extends AppCompatActivity {
                 }else if(buttonStartTimer.getText().equals(getResources().getString(R.string.showtea_timer_reset))){
                     //Button umbenennen
                     buttonStartTimer.setText(R.string.showtea_timer_start);
-                    if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100) {
-                        buttonExchange.setVisibility(View.VISIBLE);
-                    }
+                    buttonExchange.setEnabled(true);
+
                     //EingabeFelder ausblenden
                     spinnerMinutes.setVisibility(View.VISIBLE);
                     spinnerSeconds.setVisibility(View.VISIBLE);
@@ -544,9 +540,11 @@ public class ShowTea extends AppCompatActivity {
             textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit())));
         }
         if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
-            buttonExchange.setVisibility(View.VISIBLE);
+            buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperatureexchange));
+            buttonExchange.setEnabled(true);
         }else{
-            buttonExchange.setVisibility(View.INVISIBLE);
+            buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperature));
+            buttonExchange.setEnabled(false);
         }
         minutes = selectedTea.getTime().get(brewCount).getMinutes();
         spinnerMinutes.setSelection(minutes);

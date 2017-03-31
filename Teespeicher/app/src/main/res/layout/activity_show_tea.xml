@@ -78,28 +78,45 @@
         android:layout_marginRight="10dip"
         android:visibility="invisible"/>
 
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/buttonExchange"
+        android:background="@drawable/temperature"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="55dip"
+        android:layout_toLeftOf="@+id/textViewShowTemperatur"
+        android:enabled="false"/>
+
     <TextView
-        android:layout_width="120dip"
+        android:layout_width="70dip"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large"
-        android:drawableLeft="@drawable/temperature"
         android:id="@+id/textViewShowTemperatur"
         android:layout_above="@id/spinnerSeconds"
-        android:layout_marginBottom="55dip"
+        android:layout_marginBottom="65dip"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="6dip" />
+        android:layout_marginRight="4dip" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/buttonCalculateAmount"
+        android:background="@drawable/spoon"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="5dp"
+        android:layout_alignLeft="@+id/buttonExchange" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large"
-        android:drawableLeft="@drawable/spoon"
         android:id="@+id/textViewShowTeelamass"
         android:layout_above="@id/spinnerSeconds"
-        android:layout_marginBottom="5dip"
-        android:layout_alignLeft="@+id/textViewShowTemperatur" />
+        android:layout_marginBottom="15dip"
+        android:layout_toRightOf="@+id/buttonCalculateAmount" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -115,16 +132,6 @@
         android:layout_alignLeft="@id/spinnerMinutes"
         android:layout_alignRight="@+id/spinnerSeconds"/>
 
-    <Button
-        android:layout_width="50dip"
-        android:layout_height="50dip"
-        android:id="@+id/buttonExchange"
-        android:visibility="invisible"
-        android:background="@drawable/buttonround_exchange"
-        android:layout_toRightOf="@id/buttonStartTimer"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dip"
-        android:layout_marginLeft="20dip"/>
     <Button
         android:layout_width="30dip"
         android:layout_height="30dip"
@@ -198,13 +205,5 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dip"
         android:visibility="invisible"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="text"
-        android:id="@+id/test"
-        android:layout_alignParentBottom="true"/>
-
 
 </RelativeLayout>
