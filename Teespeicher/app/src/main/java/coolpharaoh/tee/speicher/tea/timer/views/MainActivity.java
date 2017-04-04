@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         //Settings holen
         settings = new ActualSetting();
         if(!settings.loadSettings(getApplicationContext())){
+            // TODO Auto-generated method stub
+            //kann später entfernt werden
+            settings.loadOldSettings(getApplicationContext());
             settings.saveSettings(getApplicationContext());
         }
 

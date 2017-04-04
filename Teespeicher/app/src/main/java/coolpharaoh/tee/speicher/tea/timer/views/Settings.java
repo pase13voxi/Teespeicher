@@ -130,6 +130,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.settings.setOcrAlert(true);
+                MainActivity.settings.setShowteaAlert(true);
                 MainActivity.settings.saveSettings(getApplicationContext());
                 Toast toast = Toast.makeText(getApplicationContext(), R.string.settings_show_hints_text, Toast.LENGTH_SHORT);
                 toast.show();

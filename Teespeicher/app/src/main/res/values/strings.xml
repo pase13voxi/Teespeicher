@@ -21,6 +21,12 @@
     <string name="showtea_action_settings">Edit</string>
     <string name="showtea_action_vibrate">Vibration</string>
     <string name="showtea_action_notification">Notification</string>
+    <string name="showtea_dialog_description_header">How to use.</string>
+    <string name="showtea_dialog_description_temperature">Calculating the time the boiling water needs to cool to the desired temperature.</string>
+    <string name="showtea_dialog_description_amount">Calculate the amount of tea required for the preparation.</string>
+    <string name="showtea_dialog_description_brew">Select the desired brew.</string>
+    <string name="showtea_dialog_description_checkbox">Do not show me again!</string>
+    <string name="showtea_dialog_description_ok">OK</string>
     <string name="showtea_display_celsius">%1$s °C</string>
     <string name="showtea_display_fahrenheit">%1$s °F</string>
     <string name="showtea_display_ts">%1$s ts/l</string>

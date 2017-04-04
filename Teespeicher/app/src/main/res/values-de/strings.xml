@@ -21,6 +21,12 @@
     <string name="showtea_action_settings">Bearbeiten</string>
     <string name="showtea_action_vibrate">Vibration</string>
     <string name="showtea_action_notification">Benachrichtigung</string>
+    <string name="showtea_dialog_description_header">Benutzung</string>
+    <string name="showtea_dialog_description_temperature">Berechne die Zeit, die das kochende Wasser auf die gewünschte Temperatur abkühlen muss.</string>
+    <string name="showtea_dialog_description_amount">Berechne die benötigte Teemenge für die Zubereitung.</string>
+    <string name="showtea_dialog_description_brew">Wähle den gewünschten Aufguss aus.</string>
+    <string name="showtea_dialog_description_checkbox">Bitte nicht mehr zeigen!</string>
+    <string name="showtea_dialog_description_ok">Ok</string>
     <string name="showtea_display_celsius">%1$s °C</string>
     <string name="showtea_display_fahrenheit">%1$s °F</string>
     <string name="showtea_display_ts">%1$s TL/l</string>

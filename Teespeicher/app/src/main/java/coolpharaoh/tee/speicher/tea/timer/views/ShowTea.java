@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -51,6 +52,7 @@ public class ShowTea extends AppCompatActivity {
     private Button buttonStartTimer;
     private Button buttonExchange;
     private Button buttonInfo;
+    Button buttonCalcAmount;
     private ImageView imageViewCup;
     private ImageView imageViewFill;
     private ImageView imageViewSteam;
@@ -87,7 +89,10 @@ public class ShowTea extends AppCompatActivity {
         TextView textViewSortOfTea = (TextView) findViewById(R.id.textViewShowTeesorte);
         buttonNote = (Button) findViewById(R.id.buttonNote);
         textViewTemperature = (TextView) findViewById(R.id.textViewShowTemperatur);
+        buttonInfo = (Button) findViewById(R.id.buttonInfo);
+        buttonExchange = (Button) findViewById(R.id.buttonExchange);
         TextView textViewTeelamass = (TextView) findViewById(R.id.textViewShowTeelamass);
+        buttonCalcAmount = (Button) findViewById(R.id.buttonCalculateAmount);
 
         spinnerMinutes = (Spinner) findViewById(R.id.spinnerMinutes);
         spinnerSeconds = (Spinner) findViewById(R.id.spinnerSeconds);
@@ -112,6 +117,11 @@ public class ShowTea extends AppCompatActivity {
         spinnerTimeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerMinutes.setAdapter(spinnerTimeAdapter);
         spinnerSeconds.setAdapter(spinnerTimeAdapter);
+
+        //show Description
+        if(MainActivity.settings.isShowteaAlert()){
+            dialogShowTeaDescription();
+        }
 
         //Hole Übergabeparemeter Position des Tees
         elementAt  = this.getIntent().getIntExtra("elementAt", -1);
@@ -143,12 +153,17 @@ public class ShowTea extends AppCompatActivity {
                     textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, "-"));
                 }
             }
+            if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
+                buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperatureexchange));
+                buttonExchange.setEnabled(true);
+            }
             if(selectedTea.getAmount().getValue()!=-500) {
                 if(selectedTea.getAmount().getUnit().equals("Ts"))
                     textViewTeelamass.setText(getResources().getString(R.string.showtea_display_ts, String.valueOf(selectedTea.getAmount().getValue())));
                 else if(selectedTea.getAmount().getUnit().equals("Gr"))
                     textViewTeelamass.setText(getResources().getString(R.string.showtea_display_gr, String.valueOf(selectedTea.getAmount().getValue())));
             }else {
+                buttonCalcAmount.setEnabled(false);
                 if(selectedTea.getAmount().getUnit().equals("Ts"))
                     textViewTeelamass.setText(getResources().getString(R.string.showtea_display_ts, "-"));
                 else if(selectedTea.getAmount().getUnit().equals("Gr"))
@@ -173,10 +188,6 @@ public class ShowTea extends AppCompatActivity {
             }
         });
 
-        /*
-        @TODO muss später verändert werden
-         */
-        Button buttonCalcAmount = (Button) findViewById(R.id.buttonCalculateAmount);
         buttonCalcAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,7 +229,6 @@ public class ShowTea extends AppCompatActivity {
             }
         });
 
-        buttonInfo = (Button) findViewById(R.id.buttonInfo);
         buttonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,11 +239,6 @@ public class ShowTea extends AppCompatActivity {
             }
         });
 
-        buttonExchange = (Button) findViewById(R.id.buttonExchange);
-        if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
-            buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperatureexchange));
-            buttonExchange.setEnabled(true);
-        }
         buttonExchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -556,6 +561,9 @@ public class ShowTea extends AppCompatActivity {
         }else{
             buttonNextBrew.setEnabled(true);
         }
+
+        buttonInfo.setVisibility(View.INVISIBLE);
+        infoShown = false;
     }
 
     private void dialogNote(){
@@ -639,5 +647,24 @@ public class ShowTea extends AppCompatActivity {
             textViewAmountPerAmount.setText(getResources().getString(R.string.showtea_dialog_amount_per_amount_gr, amountPerLiter, liter));
         }
 
+    }
+
+    private void dialogShowTeaDescription(){
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayoutDialogNote = inflater.inflate(R.layout.dialogshowteadescription, null);
+        final CheckBox dontshowagain = (CheckBox) alertLayoutDialogNote.findViewById(R.id.checkboxDialogShowTeaDescription);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(alertLayoutDialogNote);
+        adb.setTitle(R.string.showtea_dialog_description_header);
+        adb.setPositiveButton(R.string.showtea_dialog_description_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if(dontshowagain.isChecked()){
+                    MainActivity.settings.setShowteaAlert(false);
+                    MainActivity.settings.saveSettings(getApplicationContext());
+                }
+            }
+        });
+        adb.show();
     }
 }

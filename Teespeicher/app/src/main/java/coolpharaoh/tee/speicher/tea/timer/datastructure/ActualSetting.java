@@ -20,6 +20,7 @@ public class ActualSetting {
     private String temperatureUnit;
     private String language;
     private boolean ocrAlert;
+    private boolean showteaAlert;
     //false = sort by Date
     private boolean sort;
 
@@ -79,6 +80,14 @@ public class ActualSetting {
         this.ocrAlert = ocrAlert;
     }
 
+    public boolean isShowteaAlert(){
+        return showteaAlert;
+    }
+
+    public void setShowteaAlert(boolean showteaAlert){
+        this.showteaAlert = showteaAlert;
+    }
+
     public boolean isSort() {
         return sort;
     }
@@ -99,6 +108,7 @@ public class ActualSetting {
         temperatureUnit = "Celsius";
         language = "de";
         ocrAlert = true;
+        showteaAlert = true;
         sort = false;
     }
 
@@ -113,6 +123,7 @@ public class ActualSetting {
             os.writeBoolean(notification);
             os.writeObject(temperatureUnit);
             os.writeBoolean(ocrAlert);
+            os.writeBoolean(showteaAlert);
             os.writeObject(language);
             os.writeBoolean(sort);
             os.close();
@@ -128,6 +139,34 @@ public class ActualSetting {
     }
 
     public boolean loadSettings(Context context) {
+        try {
+            FileInputStream fis = context.openFileInput("ActualSetting");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            musicChoice = (String) is.readObject();
+            musicName = (String) is.readObject();
+            vibration = is.readBoolean();
+            notification = is.readBoolean();
+            temperatureUnit = (String) is.readObject();
+            ocrAlert = is.readBoolean();
+            showteaAlert = is.readBoolean();
+            language = (String) is.readObject();
+            sort = is.readBoolean();
+            is.close();
+            fis.close();
+            return true;
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }catch(IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean loadOldSettings(Context context) {
         try {
             FileInputStream fis = context.openFileInput("ActualSetting");
             ObjectInputStream is = new ObjectInputStream(fis);
