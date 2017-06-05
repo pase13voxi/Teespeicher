@@ -90,16 +90,6 @@
                 android:layout_marginLeft="20dip"
                 style="?android:attr/borderlessButtonStyle" />
 
-            <Button
-                android:layout_width="64dip"
-                android:layout_height="40dip"
-                android:id="@+id/buttonScan"
-                android:background="@drawable/cam"
-                android:layout_below="@id/buttonColor"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dip"
-                android:layout_marginRight="4dip" />
-
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +100,7 @@
                 android:layout_below="@id/buttonColor"
                 android:layout_marginTop="14dip"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@id/buttonScan" />
+                android:layout_alignParentRight="true" />
 
             <Spinner
                 android:layout_width="wrap_content"

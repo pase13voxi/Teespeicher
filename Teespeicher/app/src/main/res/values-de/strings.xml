@@ -136,13 +136,6 @@
     <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
     <string name="newtea_error_no_data_before_next_brew">Bitte geben Sie die Temperatur und Ziehzeit für diesen Aufguss an, bevor Sie den nächsten Aufguss eingeben.</string>
     <string name="newtea_error_no_data_for_this_brew">Bitte füllen Sie die Temperatur und den Ziehzeit für diesen Aufguss aus.</string>
-    <string name="newtea_dialog_before_scan_title">Texterkennung</string>
-    <string name="newtea_dialog_before_scan_text">\n1. Foto sollte hochauflösend sein\n2. Teename ausschneiden\n3. Text nachbearbeiten\n\nDiese Technik ist noch nicht komplett ausgereift. Also ist es möglich das manche Texte nicht erkannt werden können.\n</string>
-    <string name="newtea_dialog_before_scan_check">Bitte nicht mehr zeigen!</string>
-    <string name="newtea_dialog_after_scan_title">Text anpassen</string>
-    <string name="newtea_dialog_scan_ok">Ok</string>
-    <string name="newtea_dialog_scan_cancel">Abbrechen</string>
-    <string name="newtea_error_scan">Die Texterkennung kann nur in Verbindung mit der Berechtigung \"read and write your External storage\" genutzt werden.</string>
     <string name="newtea_count_brew">Aufguss</string>
     <!--setting_de-->
     <string name="settings_heading">Einstellungen</string>

@@ -136,13 +136,6 @@
     <string name="newtea_error_no_name">Please enter the name.</string>
     <string name="newtea_error_no_data_before_next_brew">Please insert the temperature and steeping time for this brew before you enter the data for the next brew.</string>
     <string name="newtea_error_no_data_for_this_brew">Please insert the temperature and steeping time for this brew.</string>
-    <string name="newtea_dialog_before_scan_title">Text recognition</string>
-    <string name="newtea_dialog_before_scan_text">\n1. Image should be high resolution\n2. Cut out teaname\n3. Edit text\n\nThis technique is not yet fully mature. So it is possible that some texts can not be recognized.\n</string>
-    <string name="newtea_dialog_before_scan_check">Do not show me again!</string>
-    <string name="newtea_dialog_after_scan_title">Edit text</string>
-    <string name="newtea_dialog_scan_ok">OK</string>
-    <string name="newtea_dialog_scan_cancel">Cancel</string>
-    <string name="newtea_error_scan">The text recognition can only be used in combination with the permission \"read and write your external storage\".</string>
     <string name="newtea_count_brew">Brew</string>
     <!--settings_en-->
     <string name="settings_heading">Settings</string>

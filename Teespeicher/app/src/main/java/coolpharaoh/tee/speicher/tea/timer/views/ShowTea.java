@@ -304,7 +304,9 @@ public class ShowTea extends AppCompatActivity {
                 }else if(buttonStartTimer.getText().equals(getResources().getString(R.string.showtea_timer_reset))){
                     //Button umbenennen
                     buttonStartTimer.setText(R.string.showtea_timer_start);
-                    buttonExchange.setEnabled(true);
+                    if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
+                        buttonExchange.setEnabled(true);
+                    }
 
                     //EingabeFelder ausblenden
                     spinnerMinutes.setVisibility(View.VISIBLE);
