@@ -14,7 +14,7 @@
         android:layout_below="@+id/tool_bar">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,12 +66,37 @@
                 android:layout_alignRight="@id/spinnerTeeart"
                 android:visibility="invisible"/>
 
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewChooseColor"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/newtea_color_label"
+                android:layout_below="@id/spinnerTeeart"
+                android:layout_marginTop="30dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="4dip"
+                android:textColor="#494949" />
+
+            <Button
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:id="@+id/buttonColor"
+                android:background="@drawable/button_color"
+                android:layout_below="@id/spinnerTeeart"
+                android:layout_toRightOf="@id/textViewChooseColor"
+                android:layout_marginTop="20dip"
+                android:layout_marginLeft="20dip"
+                style="?android:attr/borderlessButtonStyle" />
+
             <Button
                 android:layout_width="80dip"
                 android:layout_height="50dip"
                 android:id="@+id/buttonScan"
                 android:background="@drawable/cam"
-                android:layout_below="@id/spinnerTeeart"
+                android:layout_below="@id/buttonColor"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="4dip"
                 android:layout_marginTop="8dip" />
@@ -83,7 +108,7 @@
                 android:hint="Name"
                 android:ems="10"
                 android:id="@+id/editTextName"
-                android:layout_below="@id/spinnerTeeart"
+                android:layout_below="@id/buttonColor"
                 android:layout_marginTop="20dip"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@id/buttonScan" />

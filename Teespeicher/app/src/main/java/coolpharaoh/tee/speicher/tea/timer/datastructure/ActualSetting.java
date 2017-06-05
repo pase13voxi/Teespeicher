@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 
 /**
  * Created by paseb on 13.02.2016.
+ * Class, that describes all the Settings of the app.
  */
 public class ActualSetting {
     private String musicChoice;
@@ -19,6 +20,7 @@ public class ActualSetting {
     private String temperatureUnit;
     private String language;
     private boolean ocrAlert;
+    private boolean showteaAlert;
     //false = sort by Date
     private boolean sort;
 
@@ -78,6 +80,14 @@ public class ActualSetting {
         this.ocrAlert = ocrAlert;
     }
 
+    public boolean isShowteaAlert(){
+        return showteaAlert;
+    }
+
+    public void setShowteaAlert(boolean showteaAlert){
+        this.showteaAlert = showteaAlert;
+    }
+
     public boolean isSort() {
         return sort;
     }
@@ -98,6 +108,7 @@ public class ActualSetting {
         temperatureUnit = "Celsius";
         language = "de";
         ocrAlert = true;
+        showteaAlert = true;
         sort = false;
     }
 
@@ -112,6 +123,7 @@ public class ActualSetting {
             os.writeBoolean(notification);
             os.writeObject(temperatureUnit);
             os.writeBoolean(ocrAlert);
+            os.writeBoolean(showteaAlert);
             os.writeObject(language);
             os.writeBoolean(sort);
             os.close();
@@ -126,9 +138,7 @@ public class ActualSetting {
         }
     }
 
-    // TODO Auto-generated method stub
-    //kann später entfernt werden
-    public boolean loadSettingsOld(Context context) {
+    public boolean loadSettings(Context context) {
         try {
             FileInputStream fis = context.openFileInput("ActualSetting");
             ObjectInputStream is = new ObjectInputStream(fis);
@@ -136,7 +146,9 @@ public class ActualSetting {
             musicName = (String) is.readObject();
             vibration = is.readBoolean();
             notification = is.readBoolean();
+            temperatureUnit = (String) is.readObject();
             ocrAlert = is.readBoolean();
+            showteaAlert = is.readBoolean();
             language = (String) is.readObject();
             sort = is.readBoolean();
             is.close();
@@ -154,7 +166,7 @@ public class ActualSetting {
         }
     }
 
-    public boolean loadSettings(Context context) {
+    public boolean loadOldSettings(Context context) {
         try {
             FileInputStream fis = context.openFileInput("ActualSetting");
             ObjectInputStream is = new ObjectInputStream(fis);

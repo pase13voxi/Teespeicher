@@ -12,14 +12,15 @@ import android.widget.TextView;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 
 public class TeaAdapter extends BaseAdapter
 {
 
-    LayoutInflater inflater;
-    List<NTea> items;
+    private LayoutInflater inflater;
+    private List<Tea> items;
 
-    public TeaAdapter(Activity context, List<NTea> items) {
+    public TeaAdapter(Activity context, List<Tea> items) {
         super();
 
         this.items = items;
@@ -44,7 +45,7 @@ public class TeaAdapter extends BaseAdapter
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        NTea item = items.get(position);
+        Tea item = items.get(position);
 
         View vi=convertView;
 
@@ -55,7 +56,7 @@ public class TeaAdapter extends BaseAdapter
         TextView txtSort = (TextView) vi.findViewById(R.id.textViewListSortOfTea);
 
         txtName.setText(item.getName());
-        txtSort.setText(item.getSortOfTea());
+        txtSort.setText(item.getSortOfTea().getType());
 
         return vi;
     }

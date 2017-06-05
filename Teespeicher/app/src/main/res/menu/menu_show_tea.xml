@@ -10,6 +10,11 @@
         android:title="@string/showtea_action_settings"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_note"
+        android:orderInCategory="100"
+        android:title="@string/showtea_action_note"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_vibrate"
         android:orderInCategory="100"
         android:title="@string/showtea_action_vibrate"

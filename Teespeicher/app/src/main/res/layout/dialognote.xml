@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+    <EditText
+        android:id="@+id/editTextNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/showtea_dialog_note_hint"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:inputType="textMultiLine"
+        android:minLines="2"
+        android:maxLines="8"
+        android:textColor="#000000"/>
+</LinearLayout>

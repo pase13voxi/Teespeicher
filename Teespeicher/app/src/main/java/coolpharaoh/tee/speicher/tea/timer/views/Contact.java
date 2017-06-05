@@ -15,7 +15,7 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 
 public class Contact extends AppCompatActivity {
 
-    static public TextView mToolbarCustomTitle;
+    private TextView mToolbarCustomTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

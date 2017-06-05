@@ -43,7 +43,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="125dip"
         android:layout_toStartOf="@+id/textViewDoppelPunkt"
-        android:layout_toLeftOf="@+id/textViewDoppelPunkt" />
+        android:layout_toLeftOf="@+id/textViewDoppelPunkt"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="125dip"
         android:layout_toRightOf="@+id/textViewDoppelPunkt"
-        android:layout_toEndOf="@+id/textViewDoppelPunkt" />
+        android:layout_toEndOf="@+id/textViewDoppelPunkt"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,18 +66,47 @@
         android:layout_centerHorizontal="true"
         android:background="#ffffff" />
 
+    <Button
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:id="@+id/buttonNote"
+        android:background="@drawable/note"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="200dip"
+        android:layout_marginRight="50dip"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/buttonExchange"
+        android:background="@drawable/temperature"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="130dip"
+        android:layout_toLeftOf="@+id/textViewShowTemperatur"
+        android:enabled="false"/>
+
     <TextView
-        android:layout_width="200dip"
+        android:layout_width="130dip"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large"
         android:textSize="40sp"
-        android:drawableLeft="@drawable/temperature"
         android:id="@+id/textViewShowTemperatur"
         android:layout_above="@id/spinnerSeconds"
-        android:layout_marginBottom="130dip"
+        android:layout_marginBottom="140dip"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dip" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/buttonCalculateAmount"
+        android:background="@drawable/spoon"
+        android:layout_above="@id/spinnerSeconds"
+        android:layout_marginBottom="40dp"
+        android:layout_alignLeft="@+id/buttonExchange" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,11 +114,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large"
         android:textSize="40sp"
-        android:drawableLeft="@drawable/spoon"
         android:id="@+id/textViewShowTeelamass"
         android:layout_above="@id/spinnerSeconds"
-        android:layout_marginBottom="40dip"
-        android:layout_alignLeft="@+id/textViewShowTemperatur" />
+        android:layout_marginBottom="50dp"
+        android:layout_toRightOf="@+id/buttonCalculateAmount" />
 
     <Button
        style="?android:attr/buttonStyleSmall"
@@ -106,17 +134,6 @@
        android:layout_alignRight="@+id/spinnerSeconds"/>
 
     <Button
-        android:layout_width="90dip"
-        android:layout_height="90dip"
-        android:id="@+id/buttonExchange"
-        android:visibility="invisible"
-        android:background="@drawable/buttonround_exchange"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/buttonStartTimer"
-        android:layout_marginBottom="90dip"
-        android:layout_marginLeft="65dip"/>
-
-    <Button
         android:layout_width="55dip"
         android:layout_height="55dip"
         android:id="@+id/buttonInfo"
@@ -131,7 +148,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Min"
+        android:text="@string/showtea_display_min"
         android:id="@+id/textViewMin"
         android:layout_above="@id/buttonStartTimer"
         android:layout_marginBottom="65dip"
@@ -142,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Sec"
+        android:text="@string/showtea_display_sec"
         android:id="@+id/textViewSec"
         android:layout_above="@id/buttonStartTimer"
         android:layout_marginBottom="65dip"
