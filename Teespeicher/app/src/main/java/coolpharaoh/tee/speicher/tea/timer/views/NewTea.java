@@ -1,25 +1,11 @@
 package coolpharaoh.tee.speicher.tea.timer.views;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,17 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.googlecode.tesseract.android.TessBaseAPI;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
-
 import net.margaritov.preference.colorpicker.ColorPickerDialog;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -68,15 +45,7 @@ public class NewTea extends AppCompatActivity {
     private ArrayList<Temperature> temperatureList;
     private ArrayList<Time> timeList;
     private String amountUnit = "Ts";
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int PHOTO_REQUEST_CODE = 1;
-    private TessBaseAPI tessBaseAPI;
-    private Uri outputFileUri;
-    private String lang = "deu";
-    private String result = "empty";
 
-    private static final String DATA_PATH = Environment.getExternalStorageDirectory().toString() + "/Teespeicher/";
-    private static final String TESSDATA = "tessdata";
 
     private TextView textViewTeeArt;
     private Spinner spinnerTeeArt;
@@ -92,7 +61,6 @@ public class NewTea extends AppCompatActivity {
     private TextView textViewBrew;
     private Button leftArrow;
     private Button rightArrow;
-    private CheckBox dontShowAgain;
     private int elementAt;
     private boolean showTea, colorChange;
 

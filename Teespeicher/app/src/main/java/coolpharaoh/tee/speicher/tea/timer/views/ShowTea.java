@@ -580,7 +580,7 @@ public class ShowTea extends AppCompatActivity {
         adb.setIcon(R.drawable.note);
         editTextNote.setText(selectedTea.getNote());
         editTextNote.setSelected(false);
-        adb.setPositiveButton(R.string.newtea_dialog_scan_ok, new DialogInterface.OnClickListener() {
+        adb.setPositiveButton(R.string.showtea_dialog_note_ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 selectedTea.setNote(editTextNote.getText().toString());
                 if (!MainActivity.teaItems.saveCollection(getApplicationContext())) {
@@ -595,7 +595,7 @@ public class ShowTea extends AppCompatActivity {
                 }
             }
         });
-        adb.setNegativeButton(R.string.newtea_dialog_scan_cancel, new DialogInterface.OnClickListener() {
+        adb.setNegativeButton(R.string.showtea_dialog_note_cancle, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
             }

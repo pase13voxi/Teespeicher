@@ -77,9 +77,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
         </activity>
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
 
         <service android:name=".services.MediaService" />
         <service android:name=".services.CountDownService" />

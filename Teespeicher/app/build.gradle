@@ -8,7 +8,7 @@ android {
         applicationId "coolpharaoh.tee.speicher.tea.timer"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 31
+        versionCode 32
         versionName "1.6"
     }
     buildTypes {
@@ -26,7 +26,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.rmtheis:tess-two:5.4.1'
-    compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
     compile 'com.github.attenzione:android-ColorPickerPreference:9cbe9e7757'
 }

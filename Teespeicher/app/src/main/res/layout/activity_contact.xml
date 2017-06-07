@@ -16,7 +16,7 @@
         android:id="@+id/imageViewMyPicture"
         android:layout_width="150dp"
         android:layout_height="225dp"
-        app:srcCompat="@drawable/picture"
+        android:src="@drawable/picture"
         android:layout_below="@+id/tool_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
