@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTemperature;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTemperatureCelsius;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Time;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.TeaAdapter;
@@ -64,28 +64,34 @@ public class MainActivity extends AppCompatActivity {
             // TODO Auto-generated method stub
             //kann später entfernt werden
             if(!teaItems.loadOldCollection(getApplicationContext())) {
-                ArrayList<Temperature> tmpTemperature = new ArrayList<>();
-                tmpTemperature.add(new TemperatureCelsius(100));
+                ArrayList<NTemperature> tmpTemperature = new ArrayList<>();
+                tmpTemperature.add(new NTemperatureCelsius(100));
+                ArrayList<Time> tmpSteepingTime = new ArrayList<>();
+                tmpSteepingTime.add(new Time(NTemperature.celsiusToSteepingTime(100)));
                 ArrayList<Time> tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("3:30"));
-                Tea teaExample1 = new Tea("Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
-                        tmpTime, new AmountTs(5), SortOfTea.getVariatyColor(Variety.BlackTea));
+                NTea teaExample1 = new NTea("Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
+                        tmpSteepingTime, tmpTime, new AmountTs(5), SortOfTea.getVariatyColor(Variety.BlackTea));
                 teaExample1.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample1);
                 tmpTemperature = new ArrayList<>();
-                tmpTemperature.add(new TemperatureCelsius(85));
+                tmpTemperature.add(new NTemperatureCelsius(85));
+                tmpSteepingTime = new ArrayList<>();
+                tmpSteepingTime.add(new Time(NTemperature.celsiusToSteepingTime(85)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("2"));
-                Tea teaExample2 = new Tea("Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
-                        tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.WhiteTea));
+                NTea teaExample2 = new NTea("Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
+                        tmpSteepingTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.WhiteTea));
                 teaExample2.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample2);
                 tmpTemperature = new ArrayList<>();
-                tmpTemperature.add(new TemperatureCelsius(80));
+                tmpTemperature.add(new NTemperatureCelsius(80));
+                tmpSteepingTime = new ArrayList<>();
+                tmpSteepingTime.add(new Time(NTemperature.celsiusToSteepingTime(80)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("1:30"));
-                Tea teaExample3 = new Tea("Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
-                        tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.GreenTea));
+                NTea teaExample3 = new NTea("Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
+                        tmpSteepingTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.GreenTea));
                 teaExample3.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample3);
 
@@ -99,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
         //Settings holen
         settings = new ActualSetting();
         if(!settings.loadSettings(getApplicationContext())){
-            // TODO Auto-generated method stub
-            //kann später entfernt werden
-            settings.loadOldSettings(getApplicationContext());
+            //setzte Default wenn nicht vorhanden
             settings.saveSettings(getApplicationContext());
         }
 

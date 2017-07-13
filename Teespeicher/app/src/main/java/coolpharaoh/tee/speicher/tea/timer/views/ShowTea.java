@@ -30,7 +30,7 @@ import android.widget.Toast;
 import java.util.concurrent.TimeUnit;
 
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
 import coolpharaoh.tee.speicher.tea.timer.services.MediaService;
 import coolpharaoh.tee.speicher.tea.timer.R;
@@ -57,7 +57,7 @@ public class ShowTea extends AppCompatActivity {
     private ImageView imageViewFill;
     private ImageView imageViewSteam;
     private int elementAt;
-    private Tea selectedTea;
+    private NTea selectedTea;
     private int brewCount = 0;
     private String name;
     private String sortOfTea;

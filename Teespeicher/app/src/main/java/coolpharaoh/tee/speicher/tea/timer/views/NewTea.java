@@ -29,10 +29,10 @@ import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountGramm;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureFahrenheit;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTemperature;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTemperatureCelsius;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTemperatureFahrenheit;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Time;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 
@@ -42,7 +42,8 @@ public class NewTea extends AppCompatActivity {
     private Variety variety = Variety.BlackTea;ColorPickerDialog colorPickerDialog;
     int color = SortOfTea.getVariatyColor(Variety.BlackTea);
     private int brewcount = 1;
-    private ArrayList<Temperature> temperatureList;
+    private ArrayList<NTemperature> temperatureList;
+    private ArrayList<Time> steepingTimeList;
     private ArrayList<Time> timeList;
     private String amountUnit = "Ts";
 
@@ -129,7 +130,7 @@ public class NewTea extends AppCompatActivity {
         //Falls Änderung, dann wird ein Wert übergeben.
         elementAt  = this.getIntent().getIntExtra("elementAt", -1);
         if(elementAt!=-1){
-            Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
+            NTea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
             //richtige SpinnerId bekommen
             int spinnerId = -1;
             String[] spinnerElements = getResources().getStringArray(R.array.sortsOfTea);
@@ -354,7 +355,7 @@ public class NewTea extends AppCompatActivity {
                         temperature = Integer.parseInt(editTextTemperatur.getText().toString());
                     }
                     if (MainActivity.settings.getTemperatureUnit().equals("Celsius")) checktemperature = temperature;
-                    else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) checktemperature = Temperature.fahrenheitToCelsius(temperature);
+                    else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) checktemperature = NTemperature.fahrenheitToCelsius(temperature);
 
                     //Ist Zeit nicht gesetzt so ist sie -
                     String time = "-";
@@ -401,27 +402,38 @@ public class NewTea extends AppCompatActivity {
                     else {
                         //Time und Temperature
                         if(temperatureList.size()==0 && brewcount==1){
-                            temperatureList.add(createTemperature(temperature));
+                            NTemperature temperatureNew = createTemperature(temperature);
+                            temperatureList.add(temperatureNew);
+                            steepingTimeList.add(new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
                             timeList.add(new Time(time));
                         }else if(temperatureList.size()==1 && brewcount==1){
-                            temperatureList.set(brewcount-1,createTemperature(temperature));
+                            NTemperature temperatureNew = createTemperature(temperature);
+                            temperatureList.set(brewcount-1,temperatureNew);
+                            steepingTimeList.set(brewcount-1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
                             timeList.set(brewcount-1,new Time(time));
                         }else if(temperatureList.size()==brewcount){
                             if(temperature==-500 && time.equals("-")){
                                 temperatureList.remove(brewcount-1);
+                                steepingTimeList.remove(brewcount-1);
                                 timeList.remove(brewcount-1);
                             }else {
-                                temperatureList.set(brewcount-1,createTemperature(temperature));
+                                NTemperature temperatureNew = createTemperature(temperature);
+                                temperatureList.set(brewcount-1,temperatureNew);
+                                steepingTimeList.set(brewcount-1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
                                 timeList.set(brewcount-1,new Time(time));
                             }
                         }else if(temperatureList.size()>brewcount){
                             if(temperature!=-500 && !time.equals("-")){
-                                temperatureList.set(brewcount-1,createTemperature(temperature));
+                                NTemperature temperatureNew = createTemperature(temperature);
+                                temperatureList.set(brewcount-1,temperatureNew);
+                                steepingTimeList.set(brewcount-1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
                                 timeList.set(brewcount-1,new Time(time));
                             }
                         }else if(temperatureList.size()<brewcount){
                             if(temperature!=-500 && !time.equals("-")){
-                                temperatureList.add(createTemperature(temperature));
+                                NTemperature temperatureNew = createTemperature(temperature);
+                                temperatureList.add(temperatureNew);
+                                steepingTimeList.add(new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
                                 timeList.add(new Time(time));
                             }
                         }
@@ -443,7 +455,7 @@ public class NewTea extends AppCompatActivity {
                             }
                         } else {
                             //erstelle Tee
-                            Tea tea = new Tea(name, new SortOfTea(sortOfTea), temperatureList, timeList,
+                            NTea tea = new NTea(name, new SortOfTea(sortOfTea), temperatureList, steepingTimeList, timeList,
                                     createAmount(teelamass), color);
                             tea.setCurrentDate();
                             MainActivity.teaItems.getTeaItems().add(tea);
@@ -537,7 +549,7 @@ public class NewTea extends AppCompatActivity {
             }
             int checktemperature = 0;
             if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) checktemperature = temperature;
-            else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) checktemperature = Temperature.fahrenheitToCelsius(temperature);
+            else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) checktemperature = NTemperature.fahrenheitToCelsius(temperature);
             if (checktemperature > 100 || checktemperature < 0) {
                 if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
                     Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_wrong_celsius, Toast.LENGTH_SHORT);
@@ -611,10 +623,10 @@ public class NewTea extends AppCompatActivity {
         return timeValid;
     }
 
-    private Temperature createTemperature(int value){
+    private NTemperature createTemperature(int value){
         switch(MainActivity.settings.getTemperatureUnit()){
-            case "Celsius": return new TemperatureCelsius(value);
-            case "Fahrenheit": return new TemperatureFahrenheit(value);
+            case "Celsius": return new NTemperatureCelsius(value);
+            case "Fahrenheit": return new NTemperatureFahrenheit(value);
             default: return null;
         }
     }

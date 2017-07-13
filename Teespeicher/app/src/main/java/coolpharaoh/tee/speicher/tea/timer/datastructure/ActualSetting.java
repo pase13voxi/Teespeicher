@@ -165,31 +165,4 @@ public class ActualSetting {
             return false;
         }
     }
-
-    public boolean loadOldSettings(Context context) {
-        try {
-            FileInputStream fis = context.openFileInput("ActualSetting");
-            ObjectInputStream is = new ObjectInputStream(fis);
-            musicChoice = (String) is.readObject();
-            musicName = (String) is.readObject();
-            vibration = is.readBoolean();
-            notification = is.readBoolean();
-            temperatureUnit = (String) is.readObject();
-            ocrAlert = is.readBoolean();
-            language = (String) is.readObject();
-            sort = is.readBoolean();
-            is.close();
-            fis.close();
-            return true;
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }catch(IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }

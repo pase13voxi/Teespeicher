@@ -91,16 +91,14 @@
                 style="?android:attr/borderlessButtonStyle" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:hint="@string/newtea_hint_name"
                 android:ems="10"
                 android:id="@+id/editTextName"
                 android:layout_below="@id/buttonColor"
-                android:layout_marginTop="14dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_marginTop="14dip" />
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -126,7 +124,6 @@
                 android:layout_marginTop="10dip"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@id/spinnerAmountUnit" />
-
             <Button
                 android:layout_width="30dip"
                 android:layout_height="30dip"
@@ -160,28 +157,34 @@
                 android:layout_marginRight="4dip" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:hint="@string/newtea_hint_celsius_other"
                 android:ems="10"
                 android:id="@+id/editTextTemperatur"
                 android:layout_below="@+id/textViewCountBrew"
-                android:layout_marginTop="10dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_marginTop="10dip" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:hint="@string/newtea_hint_time_other"
+                android:ems="10"
+                android:id="@+id/editTextAbkuehlZeit"
+                android:layout_below="@+id/editTextTemperatur"
+                android:layout_marginTop="10dip" />
+
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="time"
                 android:hint="@string/newtea_hint_time_other"
                 android:ems="10"
                 android:id="@+id/editTextZiehzeit"
-                android:layout_below="@+id/editTextTemperatur"
-                android:layout_marginTop="10dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_below="@+id/editTextAbkuehlZeit"
+                android:layout_marginTop="10dip" />
 
             <Button
                 android:layout_width="wrap_content"

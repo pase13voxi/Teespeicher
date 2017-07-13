@@ -3,7 +3,6 @@ package coolpharaoh.tee.speicher.tea.timer.datastructure;
 import android.content.Context;
 import android.content.res.Configuration;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -25,14 +24,14 @@ public class TeaCollection {
 
     //Attribute
     //kann später entfernt werden
-    private ArrayList<NTea> oldTeaItems;
-    private ArrayList<Tea> teaItems;
+    private ArrayList<Tea> oldTeaItems;
+    private ArrayList<NTea> teaItems;
 
-    public ArrayList<Tea> getTeaItems() {
+    public ArrayList<NTea> getTeaItems() {
         return teaItems;
     }
 
-    public void setTeaItems(ArrayList<Tea> teaItems) {
+    public void setTeaItems(ArrayList<NTea> teaItems) {
         this.teaItems = teaItems;
     }
 
@@ -45,7 +44,7 @@ public class TeaCollection {
     //Save and Load Data
     public boolean saveCollection(Context context){
         try {
-            FileOutputStream fos = context.openFileOutput("teacollection_1.0", Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput("teacollection_1.1", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(teaItems);
             os.close();
@@ -66,9 +65,9 @@ public class TeaCollection {
     @SuppressWarnings("unchecked")
     public boolean loadOldCollection(Context context) {
         try {
-            FileInputStream fis = context.openFileInput("teacollection");
+            FileInputStream fis = context.openFileInput("teacollection_1.0");
             ObjectInputStream is = new ObjectInputStream(fis);
-            oldTeaItems = (ArrayList<NTea>) is.readObject();
+            oldTeaItems = (ArrayList<Tea>) is.readObject();
             if(oldTeaItems == null) {
                 oldTeaItems = new ArrayList<>();
             }
@@ -90,20 +89,19 @@ public class TeaCollection {
     // TODO Auto-generated method stub
     //kann später entfernt werden
     public void convertCollectionToNew(Context context){
-        String[] sortsDE = getOtherSortsOfTea(context, "de");
-        String[] sortsEN = getOtherSortsOfTea(context, "en");
         for(int i=0; i<oldTeaItems.size(); i++){
-            //finde variety heraus
-            Variety variety = Variety.Other;
-            for(int v=0; v<sortsDE.length; v++){
-                if(sortsDE[v].equals(oldTeaItems.get(i).getSortOfTea()) ||
-                sortsEN[v].equals(oldTeaItems.get(i).getSortOfTea())){
-                    variety = Variety.values()[v];
-                }
+            ArrayList<Temperature> temperaturesOld = oldTeaItems.get(i).getTemperature();
+            ArrayList<NTemperature> temperaturesNew = new ArrayList<>();
+            ArrayList<Time> steepingTimesNew = new ArrayList<>();
+            for(int o=0; o<temperaturesOld.size(); o++){
+                NTemperature tmpTemperature = new NTemperatureCelsius(temperaturesOld.get(o).getCelsius());
+                temperaturesNew.add(tmpTemperature);
+                Time tmpTime = new Time(NTemperature.celsiusToSteepingTime(temperaturesOld.get(o).getCelsius()));
+                steepingTimesNew.add(tmpTime);
             }
-            teaItems.add(new Tea(oldTeaItems.get(i).getName(), new SortOfTea(oldTeaItems.get(i).getSortOfTea()),
-                    oldTeaItems.get(i).getTemperature(), oldTeaItems.get(i).getTime(),
-                    oldTeaItems.get(i).getAmount(), SortOfTea.getVariatyColor(variety)));
+            teaItems.add(new NTea(oldTeaItems.get(i).getName(), oldTeaItems.get(i).getSortOfTea(),
+                    temperaturesNew, steepingTimesNew, oldTeaItems.get(i).getTime(),
+                    oldTeaItems.get(i).getAmount(), oldTeaItems.get(i).getColor()));
             teaItems.get(i).setDate(oldTeaItems.get(i).getDate());
         }
     }
@@ -111,9 +109,9 @@ public class TeaCollection {
     @SuppressWarnings("unchecked")
     public boolean loadCollection(Context context) {
         try {
-            FileInputStream fis = context.openFileInput("teacollection_1.0");
+            FileInputStream fis = context.openFileInput("teacollection_1.1");
             ObjectInputStream is = new ObjectInputStream(fis);
-            teaItems = (ArrayList<Tea>) is.readObject();
+            teaItems = (ArrayList<NTea>) is.readObject();
             if(teaItems == null) {
                 teaItems = new ArrayList<>();
             }
@@ -138,9 +136,9 @@ public class TeaCollection {
 
     public void sort(){
         if(MainActivity.settings.isSort()){
-            Collections.sort(teaItems,Tea.TeaSortSortofTea);
+            Collections.sort(teaItems,NTea.TeaSortSortofTea);
         }else{
-            Collections.sort(teaItems,Tea.TeaSortDate);
+            Collections.sort(teaItems,NTea.TeaSortDate);
         }
     }
 

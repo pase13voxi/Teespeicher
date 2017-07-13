@@ -183,11 +183,24 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:hint="@string/newtea_hint_time_other"
+                android:ems="10"
+                android:id="@+id/editTextAbkuehlZeit"
+                android:layout_below="@+id/editTextTemperatur"
+                android:layout_marginTop="30dip"
+                android:textSize="25sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:inputType="time"
-                android:hint="Ziehzeit (mm:ss) oder (mm)"
+                android:hint="@string/newtea_hint_time_other"
                 android:ems="10"
                 android:id="@+id/editTextZiehzeit"
-                android:layout_below="@+id/editTextTemperatur"
+                android:layout_below="@+id/editTextAbkuehlZeit"
                 android:layout_marginTop="30dip"
                 android:textSize="25sp"
                 android:layout_alignParentLeft="true"
