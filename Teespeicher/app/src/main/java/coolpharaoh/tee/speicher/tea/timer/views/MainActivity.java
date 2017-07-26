@@ -66,32 +66,32 @@ public class MainActivity extends AppCompatActivity {
             if(!teaItems.loadOldCollection(getApplicationContext())) {
                 ArrayList<NTemperature> tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new NTemperatureCelsius(100));
-                ArrayList<Time> tmpSteepingTime = new ArrayList<>();
-                tmpSteepingTime.add(new Time(NTemperature.celsiusToSteepingTime(100)));
+                ArrayList<Time> tmpCoolDownTime = new ArrayList<>();
+                tmpCoolDownTime.add(new Time(NTemperature.celsiusToSteepingTime(100)));
                 ArrayList<Time> tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("3:30"));
-                NTea teaExample1 = new NTea("Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
-                        tmpSteepingTime, tmpTime, new AmountTs(5), SortOfTea.getVariatyColor(Variety.BlackTea));
+                NTea teaExample1 = new NTea(teaItems.nextId(), "Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
+                        tmpCoolDownTime, tmpTime, new AmountTs(5), SortOfTea.getVariatyColor(Variety.BlackTea));
                 teaExample1.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample1);
                 tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new NTemperatureCelsius(85));
-                tmpSteepingTime = new ArrayList<>();
-                tmpSteepingTime.add(new Time(NTemperature.celsiusToSteepingTime(85)));
+                tmpCoolDownTime = new ArrayList<>();
+                tmpCoolDownTime.add(new Time(NTemperature.celsiusToSteepingTime(85)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("2"));
-                NTea teaExample2 = new NTea("Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
-                        tmpSteepingTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.WhiteTea));
+                NTea teaExample2 = new NTea(teaItems.nextId(), "Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
+                        tmpCoolDownTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.WhiteTea));
                 teaExample2.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample2);
                 tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new NTemperatureCelsius(80));
-                tmpSteepingTime = new ArrayList<>();
-                tmpSteepingTime.add(new Time(NTemperature.celsiusToSteepingTime(80)));
+                tmpCoolDownTime = new ArrayList<>();
+                tmpCoolDownTime.add(new Time(NTemperature.celsiusToSteepingTime(80)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("1:30"));
-                NTea teaExample3 = new NTea("Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
-                        tmpSteepingTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.GreenTea));
+                NTea teaExample3 = new NTea(teaItems.nextId(),"Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
+                        tmpCoolDownTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.GreenTea));
                 teaExample3.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample3);
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Neues Intent anlegen
                 Intent showteaScreen = new Intent(MainActivity.this, ShowTea.class);
-                showteaScreen.putExtra("elementAt", position);
+                showteaScreen.putExtra("elementId", teaItems.getTeaItems().get(position).getId());
                 // Intent starten und zur zweiten Activity wechseln
                 startActivity(showteaScreen);
             }
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         if(menuItemName.equals(editOption)){
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
-            newteaScreen.putExtra("elementAt", info.position);
+            newteaScreen.putExtra("elementId", teaItems.getTeaItems().get(info.position).getId());
             // Intent starten und zur zweiten Activity wechseln
             startActivity(newteaScreen);
         }else if(menuItemName.equals(deleteOption)){

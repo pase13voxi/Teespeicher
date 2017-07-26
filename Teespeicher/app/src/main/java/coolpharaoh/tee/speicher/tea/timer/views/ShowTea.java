@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
@@ -56,6 +57,7 @@ public class ShowTea extends AppCompatActivity {
     private ImageView imageViewCup;
     private ImageView imageViewFill;
     private ImageView imageViewSteam;
+    private UUID elementId;
     private int elementAt;
     private NTea selectedTea;
     private int brewCount = 0;
@@ -124,12 +126,13 @@ public class ShowTea extends AppCompatActivity {
         }
 
         //Hole Übergabeparemeter Position des Tees
-        elementAt  = this.getIntent().getIntExtra("elementAt", -1);
-        if(elementAt==-1){
+        elementId  = (UUID) this.getIntent().getSerializableExtra("elementId");
+        if(elementId == null){
             Toast toast = Toast.makeText(getApplicationContext(), R.string.showtea_error_text, Toast.LENGTH_SHORT);
             toast.show();
             buttonBrewCount.setVisibility(View.INVISIBLE);
         }else {
+            elementAt = MainActivity.teaItems.getPositionById(elementId);
             selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
 
             //Befülle TextViews
@@ -154,7 +157,7 @@ public class ShowTea extends AppCompatActivity {
                 }
             }
             if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
-                buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperatureexchange));
+                buttonExchange.setBackground(getResources().getDrawable(R.drawable.button_temperatureexchange));
                 buttonExchange.setEnabled(true);
             }
             if(selectedTea.getAmount().getValue()!=-500) {
@@ -173,7 +176,7 @@ public class ShowTea extends AppCompatActivity {
             spinnerMinutes.setSelection(minutes);
             seconds = selectedTea.getTime().get(brewCount).getSeconds();
             spinnerSeconds.setSelection(seconds);
-            //wenn nur ein Aufguss vorgesehen ist dann verschwindet der button
+            //wenn nur ein Aufguss vorgesehen ist dann verschwindet der button_calculateamount
             if(selectedTea.getTemperature().size()==1){
                 textViewBrewCount.setVisibility(View.INVISIBLE);
                 buttonBrewCount.setVisibility(View.INVISIBLE);
@@ -298,7 +301,7 @@ public class ShowTea extends AppCompatActivity {
                     maxMilliSec =millisec;
                     //Counter erstellen
                     Intent counter = new Intent(getBaseContext(), CountDownService.class);
-                    counter.putExtra("elementAt", name);
+                    counter.putExtra("elementName", name);
                     counter.putExtra("millisec", millisec);
                     startService(counter);
                 }else if(buttonStartTimer.getText().equals(getResources().getString(R.string.showtea_timer_reset))){
@@ -365,8 +368,7 @@ public class ShowTea extends AppCompatActivity {
         }else if(id == R.id.action_settings){
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(ShowTea.this, NewTea.class);
-            elementAt = MainActivity.teaItems.getPositionByName(name);
-            newteaScreen.putExtra("elementAt", elementAt);
+            newteaScreen.putExtra("elementId", elementId);
             newteaScreen.putExtra("showTea", true);
             // Intent starten und zur zweiten Activity wechseln
             startActivity(newteaScreen);
@@ -547,7 +549,7 @@ public class ShowTea extends AppCompatActivity {
             textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit())));
         }
         if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
-            buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperatureexchange));
+            buttonExchange.setBackground(getResources().getDrawable(R.drawable.button_temperatureexchange));
             buttonExchange.setEnabled(true);
         }else{
             buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperature));

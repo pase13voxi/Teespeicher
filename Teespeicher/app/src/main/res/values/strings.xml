@@ -93,6 +93,7 @@
     <string name="newtea_hint_fahrenheit_fruittea">Temperature (212°F)</string>
     <string name="newtea_hint_fahrenheit_rooibustea">Temperature (212°F)</string>
     <string name="newtea_hint_fahrenheit_other">Temperature (°F)</string>
+    <string name="newtea_hint_cooldowntime">Cooldown time "mm:ss" or "mm"</string>
     <string name="newtea_hint_ts_blacktea">Amount  (3 &#8211; 5ts/l)</string>
     <string name="newtea_hint_ts_greentea">Amount (6 &#8211; 8ts/l)</string>
     <string name="newtea_hint_ts_yellowtea">Amount (4 &#8211; 5ts/l)</string>

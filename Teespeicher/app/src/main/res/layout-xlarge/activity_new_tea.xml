@@ -16,7 +16,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,9 +29,9 @@
                 android:gravity="center_vertical"
                 android:layout_alignBottom="@+id/spinnerTeeart"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="8dip"
-                android:layout_marginLeft="4dip"
-                android:textColor="#494949" />
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/grey" />
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -41,8 +42,8 @@
                 android:prompt="@string/tea_sort"
                 android:spinnerMode="dialog"
                 android:layout_toRightOf="@+id/textViewTeaSort"
-                android:layout_marginTop="30dip"
-                android:layout_marginLeft="30dip"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
                 style="@android:style/Widget.Holo.Light.Spinner" />
 
             <CheckBox
@@ -53,8 +54,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_alignBottom="@id/spinnerTeeart"
                 android:layout_toRightOf="@id/spinnerTeeart"
-                android:layout_marginBottom="5dip"
-                android:textColor="#494949"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/grey"
                 android:textSize="25sp"
                 android:visibility="invisible"/>
 
@@ -79,34 +80,34 @@
                 android:textSize="25sp"
                 android:text="@string/newtea_color_label"
                 android:layout_below="@id/spinnerTeeart"
-                android:layout_marginTop="40dip"
-                android:layout_marginLeft="4dip"
-                android:layout_marginRight="4dip"
-                android:textColor="#494949" />
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textColor="@color/grey" />
 
             <Button
-                android:layout_width="60dip"
-                android:layout_height="60dip"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:id="@+id/buttonColor"
                 android:background="@drawable/button_color"
                 android:layout_below="@id/spinnerTeeart"
                 android:layout_toRightOf="@id/textViewChooseColor"
-                android:layout_marginTop="25dip"
-                android:layout_marginLeft="30dip"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="30dp"
                 style="?android:attr/borderlessButtonStyle" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:hint="Name"
                 android:ems="10"
                 android:id="@+id/editTextName"
                 android:layout_below="@id/buttonColor"
-                android:layout_marginTop="30dip"
-                android:textSize="25sp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textSize="25sp"/>
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -117,109 +118,156 @@
                 style="@android:style/Widget.Holo.Light.Spinner"
                 android:layout_below="@id/editTextName"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="36dip"
+                android:layout_marginTop="36dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="4dp"></Spinner>
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:hint="Menge Tl/L"
                 android:ems="10"
-                android:id="@+id/editTextTeelamass"
+                android:id="@+id/editTextAmount"
                 android:layout_below="@+id/editTextName"
-                android:layout_marginTop="30dip"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="4dp"
                 android:textSize="25sp"
-                android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@id/spinnerAmountUnit"/>
 
             <Button
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:id="@+id/buttonArrowLeft"
-                android:background="@drawable/arrowleft"
-                android:layout_below="@+id/editTextTeelamass"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="30dip"
-                android:layout_marginLeft="4dip"
-                android:enabled="false"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewCountBrew"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="1. Aufguss"
-                android:textSize="25sp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@id/buttonArrowLeft"
-                android:layout_marginBottom="6dip"
-                android:textColor="#494949" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/buttonAddBrew"
+                android:background="@drawable/button_add"
+                android:layout_below="@id/editTextAmount"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentRight="true"/>
 
             <Button
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:id="@+id/buttonArrowRight"
-                android:background="@drawable/arrowright"
-                android:layout_below="@+id/editTextTeelamass"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/buttonDeleteBrew"
+                android:background="@drawable/button_delete"
+                android:layout_below="@id/editTextAmount"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toLeftOf="@id/buttonAddBrew"
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/linearLayoutBrews"
+                android:layout_below="@id/editTextAmount"
+                android:layout_marginTop="30dp"
+                android:layout_toLeftOf="@id/buttonDeleteBrew">
+
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/buttonArrowLeft"
+                    android:background="@drawable/button_arrowleft"
+                    android:enabled="false"
+                    android:layout_marginLeft="4dp"
+                    android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCountBrew"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="1. Aufguss"
+                    android:textSize="25sp"
+                    android:textColor="@color/grey"
+                    android:layout_centerInParent="true"/>
+
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/buttonArrowRight"
+                    android:background="@drawable/button_arrowright"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/buttonShowCoolDownTime"
+                android:background="@drawable/button_arrowdown"
+                android:layout_below="@+id/linearLayoutBrews"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="30dip"
-                android:layout_marginRight="4dip" />
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="20dp" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:hint="Temperatur (°C)"
                 android:ems="10"
-                android:id="@+id/editTextTemperatur"
-                android:layout_below="@+id/textViewCountBrew"
-                android:layout_marginTop="30dip"
+                android:id="@+id/editTextTemperature"
+                android:layout_below="@+id/linearLayoutBrews"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="4dp"
                 android:textSize="25sp"
+                android:layout_toLeftOf="@+id/buttonShowCoolDownTime"/>
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/buttonAutofillCoolDownTime"
+                android:background="@drawable/button_arrowright"
+                android:layout_below="@+id/editTextTemperature"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="4dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:visibility="gone"/>
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:hint="@string/newtea_hint_time_other"
+                android:hint="@string/newtea_hint_cooldowntime"
                 android:ems="10"
-                android:id="@+id/editTextAbkuehlZeit"
-                android:layout_below="@+id/editTextTemperatur"
-                android:layout_marginTop="30dip"
+                android:id="@+id/editTextCoolDownTime"
+                android:layout_below="@+id/editTextTemperature"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="20dp"
                 android:textSize="25sp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_toRightOf="@+id/buttonAutofillCoolDownTime"
+                android:visibility="gone"/>
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="time"
                 android:hint="@string/newtea_hint_time_other"
                 android:ems="10"
                 android:id="@+id/editTextZiehzeit"
-                android:layout_below="@+id/editTextAbkuehlZeit"
-                android:layout_marginTop="30dip"
-                android:textSize="25sp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_below="@+id/editTextCoolDownTime"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textSize="25sp"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="70dip"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
                 android:text="anlegen"
                 android:textSize="25sp"
                 android:textAllCaps="false"
                 android:id="@+id/buttonfertig"
                 android:layout_below="@+id/editTextZiehzeit"
-                android:layout_marginTop="33dip"
-                android:layout_marginLeft="4dip"
-                android:layout_marginRight="4dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:background="@color/colorPrimary"/>
+                android:layout_marginTop="33dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/button_normal"/>
 
         </RelativeLayout>
 

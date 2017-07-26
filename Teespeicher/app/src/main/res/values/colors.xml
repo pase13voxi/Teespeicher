@@ -2,4 +2,9 @@
 <resources>
     <color name="colorPrimary">#329e5f</color>
     <color name="colorPrimaryDark">#277c4b</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#363434</color>
+    <color name="whitepicture">#88FFFFFF</color>
+    <color name="darkpicture">#880d0d0f</color>
+    <color name="darkbutton">#4f4e4e</color>
 </resources>

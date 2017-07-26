@@ -31,7 +31,7 @@
             android:layout_width="30dip"
             android:layout_height="30dip"
             android:id="@+id/toolbar_brewcount"
-            android:background="@drawable/brew"
+            android:background="@drawable/button_brewcount"
             android:layout_gravity="right"
             android:layout_marginRight="5dip"/>
 
@@ -39,7 +39,7 @@
             android:layout_width="30dip"
             android:layout_height="30dip"
             android:id="@+id/toolbar_nextbrew"
-            android:background="@drawable/triangleright"
+            android:background="@drawable/button_nextbrew"
             android:layout_gravity="right"
             android:layout_marginRight="5dip"/>
     </LinearLayout>

@@ -38,7 +38,7 @@ public class CountDownService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final String elementAt = intent.getStringExtra("elementAt");
+        final String elementName = intent.getStringExtra("elementName");
         long millis = intent.getLongExtra("millisec",0);
         countDownTimer = new CountDownTimer(millis, 250) {
             @Override
@@ -69,7 +69,7 @@ public class CountDownService extends Service {
                     Notification notification = new Notification.Builder(getApplicationContext())
                                 .setTicker(getResources().getString(R.string.notification_ticker))
                                 .setContentTitle(getResources().getString(R.string.notification_title))
-                                .setContentText(elementAt)
+                                .setContentText(elementName)
                                 .setSmallIcon(R.mipmap.ic_launcher)
                                 .setContentIntent(pIntent)
                                 .setAutoCancel(true)

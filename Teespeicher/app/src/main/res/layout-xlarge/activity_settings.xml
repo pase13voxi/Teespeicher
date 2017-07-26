@@ -45,7 +45,7 @@
                     android:textAllCaps="false"
                     android:id="@+id/buttonMusicChoice"
                     android:layout_marginLeft="30dp"
-                    android:background="@drawable/buttonshape" />
+                    android:background="@drawable/button_setting" />
 
             </LinearLayout>
 
@@ -102,7 +102,7 @@
                 android:textSize="25sp"
                 android:textAllCaps="false"
                 android:id="@+id/buttonShowHints"
-                android:background="@drawable/buttonshape"
+                android:background="@drawable/button_setting"
                 android:layout_marginTop="70dp"/>
 
             <Button
@@ -112,7 +112,7 @@
                 android:textSize="25sp"
                 android:textAllCaps="false"
                 android:id="@+id/buttonDefaultSettings"
-                android:background="@drawable/buttonshape"
+                android:background="@drawable/button_setting"
                 android:layout_marginTop="70dp"/>
         </LinearLayout>
 

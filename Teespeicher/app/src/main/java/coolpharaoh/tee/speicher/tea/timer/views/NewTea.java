@@ -22,6 +22,7 @@ import android.widget.Toast;
 import net.margaritov.preference.colorpicker.ColorPickerDialog;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
@@ -41,27 +42,34 @@ public class NewTea extends AppCompatActivity {
 
     private Variety variety = Variety.BlackTea;ColorPickerDialog colorPickerDialog;
     int color = SortOfTea.getVariatyColor(Variety.BlackTea);
-    private int brewcount = 1;
+    private int brewIndex = 0;
+    private int brewSize = 1;
     private ArrayList<NTemperature> temperatureList;
-    private ArrayList<Time> steepingTimeList;
+    private ArrayList<Time> coolDownTimeList;
     private ArrayList<Time> timeList;
     private String amountUnit = "Ts";
 
 
-    private TextView textViewTeeArt;
-    private Spinner spinnerTeeArt;
-    private CheckBox checkboxTeeArt;
-    private EditText editTextTeeArt;
+    private TextView textViewTeaSort;
+    private Spinner spinnerTeaSort;
+    private CheckBox checkboxTeaSort;
+    private EditText editTextTeaSort;
     private Button buttonColor;
     private GradientDrawable buttonColorSape;
     private EditText editTextName;
-    private EditText editTextTemperatur;
-    private EditText editTextZiehzeit;
-    private EditText editTextTeelamass;
+    private EditText editTextTemperature;
+    private Button buttonShowCoolDowntime;
+    private EditText editTextCoolDownTime;
+    private Button buttonAutofillCoolDownTime;
+    private EditText editTextSteepingTime;
+    private EditText editTextAmount;
     private Spinner spinnerAmount;
     private TextView textViewBrew;
     private Button leftArrow;
     private Button rightArrow;
+    private Button deleteBrew;
+    private Button addBrew;
+    private UUID elementId;
     private int elementAt;
     private boolean showTea, colorChange;
 
@@ -81,42 +89,49 @@ public class NewTea extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Eingabefelder bestimmen
-        textViewTeeArt = (TextView) findViewById(R.id.textViewTeaSort);
-        spinnerTeeArt = (Spinner) findViewById(R.id.spinnerTeeart);
-        checkboxTeeArt = (CheckBox) findViewById(R.id.checkBoxSelfInput);
-        editTextTeeArt = (EditText) findViewById(R.id.editTextSelfInput);
+        textViewTeaSort = (TextView) findViewById(R.id.textViewTeaSort);
+        spinnerTeaSort = (Spinner) findViewById(R.id.spinnerTeeart);
+        checkboxTeaSort = (CheckBox) findViewById(R.id.checkBoxSelfInput);
+        editTextTeaSort = (EditText) findViewById(R.id.editTextSelfInput);
         buttonColor = (Button) findViewById(R.id.buttonColor);
         buttonColorSape = (GradientDrawable)buttonColor.getBackground();
         editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextTemperatur = (EditText) findViewById(R.id.editTextTemperatur);
-        editTextZiehzeit = (EditText) findViewById(R.id.editTextZiehzeit);
-        editTextTeelamass = (EditText) findViewById(R.id.editTextTeelamass);
+        editTextTemperature = (EditText) findViewById(R.id.editTextTemperature);
+        buttonShowCoolDowntime = (Button) findViewById(R.id.buttonShowCoolDownTime);
+        editTextCoolDownTime = (EditText) findViewById(R.id.editTextCoolDownTime);
+        buttonAutofillCoolDownTime = (Button) findViewById(R.id.buttonAutofillCoolDownTime);
+        editTextSteepingTime = (EditText) findViewById(R.id.editTextZiehzeit);
+        editTextAmount = (EditText) findViewById(R.id.editTextAmount);
         spinnerAmount = (Spinner) findViewById(R.id.spinnerAmountUnit);
         textViewBrew = (TextView) findViewById(R.id.textViewCountBrew);
         leftArrow = (Button) findViewById(R.id.buttonArrowLeft);
         rightArrow = (Button) findViewById(R.id.buttonArrowRight);
+        deleteBrew = (Button) findViewById(R.id.buttonDeleteBrew);
+        addBrew = (Button) findViewById(R.id.buttonAddBrew);
         Button addTea = (Button) findViewById(R.id.buttonfertig);
 
         //feste Texte setzten
-        textViewTeeArt.setText(R.string.tea_sort);
+        textViewTeaSort.setText(R.string.tea_sort);
         editTextName.setHint(getResources().getString(R.string.newtea_hint_name));
         addTea.setText(R.string.newtea_button_create);
-        spinnerTeeArt.setPrompt(getResources().getString(R.string.tea_sort));
-        checkboxTeeArt.setText(R.string.newtea_by_hand);
-        editTextTeeArt.setHint(R.string.tea_sort);
+        spinnerTeaSort.setPrompt(getResources().getString(R.string.tea_sort));
+        checkboxTeaSort.setText(R.string.newtea_by_hand);
+        editTextTeaSort.setHint(R.string.tea_sort);
         buttonColorSape.setColor(color);
-        textViewBrew.setText(String.valueOf(brewcount) + ". " + getResources().getString(R.string.newtea_count_brew));
+        textViewBrew.setText(String.valueOf(brewIndex+1) + ". " + getResources().getString(R.string.newtea_count_brew));
 
-        //Zwei Tempuräre Listen erstellen
+        //drei tempuräre Listen erstellen
         temperatureList = new ArrayList<>();
+        coolDownTimeList = new ArrayList<>();
         timeList = new ArrayList<>();
+        addNewBrew();
 
         //Setzte Spinner Groß
         ArrayAdapter<CharSequence> spinnerSortAdapter = ArrayAdapter.createFromResource(
                     this, R.array.sortsOfTea, R.layout.spinner_item_sortoftea);
 
         spinnerSortAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_sortoftea);
-        spinnerTeeArt.setAdapter(spinnerSortAdapter);
+        spinnerTeaSort.setAdapter(spinnerSortAdapter);
 
         //Setzte Spinner Groß
         ArrayAdapter<CharSequence> spinnerAmountAdapter = ArrayAdapter.createFromResource(
@@ -128,8 +143,9 @@ public class NewTea extends AppCompatActivity {
         //showTea wird übergeben, falls die Navigation von showTea erfolgt
         showTea = this.getIntent().getBooleanExtra("showTea", false);
         //Falls Änderung, dann wird ein Wert übergeben.
-        elementAt  = this.getIntent().getIntExtra("elementAt", -1);
-        if(elementAt!=-1){
+        elementId  = (UUID) this.getIntent().getSerializableExtra("elementId");
+        if(elementId != null){
+            elementAt = MainActivity.teaItems.getPositionById(elementId);
             NTea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
             //richtige SpinnerId bekommen
             int spinnerId = -1;
@@ -144,15 +160,15 @@ public class NewTea extends AppCompatActivity {
             //Werte werden für Änderungen gefüllt
             //wenn Spinner manuell gefüllt wurde
             if(spinnerId==-1){
-                spinnerTeeArt.setVisibility(View.INVISIBLE);
-                spinnerTeeArt.setSelection(spinnerElements.length-1);
-                textViewTeeArt.setVisibility(View.INVISIBLE);
-                checkboxTeeArt.setVisibility(View.VISIBLE);
-                checkboxTeeArt.setChecked(true);
-                editTextTeeArt.setVisibility(View.VISIBLE);
-                editTextTeeArt.setText(selectedTea.getSortOfTea().getType());
+                spinnerTeaSort.setVisibility(View.INVISIBLE);
+                spinnerTeaSort.setSelection(spinnerElements.length-1);
+                textViewTeaSort.setVisibility(View.INVISIBLE);
+                checkboxTeaSort.setVisibility(View.VISIBLE);
+                checkboxTeaSort.setChecked(true);
+                editTextTeaSort.setVisibility(View.VISIBLE);
+                editTextTeaSort.setText(selectedTea.getSortOfTea().getType());
             }else {
-                spinnerTeeArt.setSelection(spinnerId);
+                spinnerTeaSort.setSelection(spinnerId);
             }
             color = selectedTea.getColor();
             buttonColorSape.setColor(color);
@@ -166,18 +182,18 @@ public class NewTea extends AppCompatActivity {
                 case "Gr": spinnerAmount.setSelection(1); break;
             }
             if(selectedTea.getTemperature().get(0).getCelsius()!=-500){
-                editTextTemperatur.setText(String.valueOf(getTemperature(0)));
+                editTextTemperature.setText(String.valueOf(getTemperature(0)));
             }
-            if(!selectedTea.getTime().get(0).getTime().equals("-")) editTextZiehzeit.setText(selectedTea.getTime().get(0).getTime());
+            if(!selectedTea.getTime().get(0).getTime().equals("-")) editTextSteepingTime.setText(selectedTea.getTime().get(0).getTime());
             timeList = selectedTea.getTime();
-            if(selectedTea.getAmount().getValue()!=-500) editTextTeelamass.setText(String.valueOf(selectedTea.getAmount().getValue()));
+            if(selectedTea.getAmount().getValue()!=-500) editTextAmount.setText(String.valueOf(selectedTea.getAmount().getValue()));
             //Button Text ändern
             addTea.setText(R.string.newtea_button_edit);
 
         }
 
         //Spinner Teeart hat sich verändert
-        spinnerTeeArt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerTeaSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 variety = Variety.values()[position];
@@ -189,9 +205,9 @@ public class NewTea extends AppCompatActivity {
                     colorChange = false;
                 }
                 if(variety.equals(Variety.Other)){
-                    checkboxTeeArt.setVisibility(View.VISIBLE);
+                    checkboxTeaSort.setVisibility(View.VISIBLE);
                 }else{
-                    checkboxTeeArt.setVisibility(View.INVISIBLE);
+                    checkboxTeaSort.setVisibility(View.INVISIBLE);
                 }
                 sethints();
             }
@@ -203,17 +219,17 @@ public class NewTea extends AppCompatActivity {
         });
 
         //Checkbox Teeart wurde angeklickt
-        checkboxTeeArt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkboxTeaSort.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    textViewTeeArt.setVisibility(View.INVISIBLE);
-                    spinnerTeeArt.setVisibility(View.INVISIBLE);
-                    editTextTeeArt.setVisibility(View.VISIBLE);
+                    textViewTeaSort.setVisibility(View.INVISIBLE);
+                    spinnerTeaSort.setVisibility(View.INVISIBLE);
+                    editTextTeaSort.setVisibility(View.VISIBLE);
                 }else{
-                    textViewTeeArt.setVisibility(View.VISIBLE);
-                    spinnerTeeArt.setVisibility(View.VISIBLE);
-                    editTextTeeArt.setVisibility(View.INVISIBLE);
+                    textViewTeaSort.setVisibility(View.VISIBLE);
+                    spinnerTeaSort.setVisibility(View.VISIBLE);
+                    editTextTeaSort.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -255,72 +271,59 @@ public class NewTea extends AppCompatActivity {
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean check;
-                //wenn man am Ende der Liste ist, ist es möglich den eingebenen Wert zu löschen
-                if(temperatureList.size() <= brewcount &&
-                        editTextTemperatur.getText().toString().equals("") &&
-                        editTextZiehzeit.getText().toString().equals("")){
-                    if(temperatureList.size() == brewcount){
-                        temperatureList.remove(brewcount-1);
-                    }
-                    check = true;
-                }else {
-                    check = checkTemperatureAndTime();
-                }
-                if(check){
-                    brewcount--;
-                    textViewBrew.setText(String.valueOf(brewcount) + ". " + getResources().getString(R.string.newtea_count_brew));
-                    if(temperatureList.size()<brewcount){
-                        editTextTemperatur.setText("");
-                        editTextZiehzeit.setText("");
-                    }else{
-                        if(temperatureList.get(brewcount-1).getCelsius()!=-500) {
-                            editTextTemperatur.setText(String.valueOf(getTemperature(brewcount - 1)));
-                        }else {
-                            editTextTemperatur.setText("");
-                        }
-                        if(!timeList.get(brewcount-1).getTime().equals("-")) {
-                            editTextZiehzeit.setText(timeList.get(brewcount - 1).getTime());
-                        }else {
-                            editTextZiehzeit.setText("");
-                        }
-                    }
-                    if(brewcount<=1){
-                        leftArrow.setEnabled(false);
-                    }else{
-                        rightArrow.setEnabled(true);
-                    }
-                }
+                changeBrew();
+                brewIndex--;
+                refreshBrewConsole();
+                refreshBrewInformation();
             }
         });
 
         rightArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean check = checkTemperatureAndTime();
-                if(check) {
-                    brewcount++;
-                    textViewBrew.setText(String.valueOf(brewcount) + ". " + getResources().getString(R.string.newtea_count_brew));
-                    if(temperatureList.size()<brewcount){
-                        editTextTemperatur.setText("");
-                        editTextZiehzeit.setText("");
-                    }else{
-                        if(temperatureList.get(brewcount-1).getCelsius()!=-500) {
-                            editTextTemperatur.setText(String.valueOf(getTemperature(brewcount - 1)));
-                        }else {
-                            editTextTemperatur.setText("");
-                        }
-                        if(!timeList.get(brewcount-1).getTime().equals("-")) {
-                            editTextZiehzeit.setText(timeList.get(brewcount - 1).getTime());
-                        }else {
-                            editTextZiehzeit.setText("");
-                        }
-                    }
-                    if (brewcount >= 20) {
-                        rightArrow.setEnabled(false);
-                    } else {
-                        leftArrow.setEnabled(true);
-                    }
+                changeBrew();
+                brewIndex++;
+                refreshBrewConsole();
+                refreshBrewInformation();
+            }
+        });
+
+        deleteBrew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteBrew();
+                if((brewIndex + 1) == brewSize){
+                    brewIndex--;
+                }
+                brewSize--;
+                refreshBrewConsole();
+                refreshBrewInformation();
+            }
+        });
+
+        addBrew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewBrew();
+                changeBrew();
+                brewIndex++;
+                brewSize++;
+                refreshBrewConsole();
+                clearBrewInformation();
+            }
+        });
+
+        buttonShowCoolDowntime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editTextCoolDownTime.getVisibility()==View.VISIBLE){
+                    buttonShowCoolDowntime.setBackground(getResources().getDrawable(R.drawable.button_arrowdown));
+                    editTextCoolDownTime.setVisibility(View.GONE);
+                    buttonAutofillCoolDownTime.setVisibility(View.GONE);
+                }else{
+                    buttonShowCoolDowntime.setBackground(getResources().getDrawable(R.drawable.button_arrowup));
+                    editTextCoolDownTime.setVisibility(View.VISIBLE);
+                    buttonAutofillCoolDownTime.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -334,14 +337,14 @@ public class NewTea extends AppCompatActivity {
                     //Attribute auslesen
                     boolean sortValid = true;
                     String sortOfTea;
-                    if(checkboxTeeArt.isChecked()){
-                        sortOfTea = editTextTeeArt.getText().toString();
+                    if(checkboxTeaSort.isChecked()){
+                        sortOfTea = editTextTeaSort.getText().toString();
                         sortValid = !(sortOfTea.length()>30);
                         if(sortOfTea.length()==0){
                             sortOfTea = "-";
                         }
                     }else {
-                        sortOfTea = (String) spinnerTeeArt.getSelectedItem();
+                        sortOfTea = (String) spinnerTeaSort.getSelectedItem();
                     }
                     //Ist der Name Valide
                     String name = editTextName.getText().toString();
@@ -350,25 +353,25 @@ public class NewTea extends AppCompatActivity {
                     //Ist die Temperatur nicht gesetzt, so ist sie -500
                     int temperature = -500;
                     int checktemperature = 0;
-                    boolean temperatureValid = temperatureValid(editTextTemperatur.getText().toString());
-                    if (temperatureValid && !editTextTemperatur.getText().toString().equals("")) {
-                        temperature = Integer.parseInt(editTextTemperatur.getText().toString());
+                    boolean temperatureValid = temperatureValid(editTextTemperature.getText().toString());
+                    if (temperatureValid && !editTextTemperature.getText().toString().equals("")) {
+                        temperature = Integer.parseInt(editTextTemperature.getText().toString());
                     }
                     if (MainActivity.settings.getTemperatureUnit().equals("Celsius")) checktemperature = temperature;
                     else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) checktemperature = NTemperature.fahrenheitToCelsius(temperature);
 
                     //Ist Zeit nicht gesetzt so ist sie -
                     String time = "-";
-                    boolean timeValid = timeValid(editTextZiehzeit.getText().toString());
-                    if(timeValid && !editTextZiehzeit.getText().toString().equals("")){
-                        time = editTextZiehzeit.getText().toString();
+                    boolean timeValid = timeValid(editTextSteepingTime.getText().toString());
+                    if(timeValid && !editTextSteepingTime.getText().toString().equals("")){
+                        time = editTextSteepingTime.getText().toString();
                     }
 
                     //Ist teelamass nicht gesetzt so ist es -500
                     int teelamass = -500;
-                    boolean teelamassValid = teelamassValid(editTextTeelamass.getText().toString());
-                    if(teelamassValid && !editTextTeelamass.getText().toString().equals("")){
-                        teelamass = Integer.parseInt(editTextTeelamass.getText().toString());
+                    boolean teelamassValid = amountValid(editTextAmount.getText().toString());
+                    if(teelamassValid && !editTextAmount.getText().toString().equals("")){
+                        teelamass = Integer.parseInt(editTextAmount.getText().toString());
                     }
 
                     //Temperatur muss zwischen 100 und 0 sein und die Zeit braucht das richtige Format
@@ -392,48 +395,48 @@ public class NewTea extends AppCompatActivity {
                     } else if(!teelamassValid){
                         Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_amount, Toast.LENGTH_SHORT);
                         toast.show();
-                    }else if(((temperatureList.size() == brewcount && ((time.equals("-") && temperature != -500)||(!time.equals("-") && temperature == -500))) ||
-                            (temperatureList.size() > brewcount && (time.equals("-") || temperature == -500)) ||
-                            (temperatureList.size() < brewcount && ((time.equals("-") && temperature != -500)||(!time.equals("-") && temperature == -500)))) &&
-                            temperatureList.size()!=0 && !(temperatureList.size()==1 && brewcount==1)){
+                    }else if(((temperatureList.size() == brewIndex && ((time.equals("-") && temperature != -500)||(!time.equals("-") && temperature == -500))) ||
+                            (temperatureList.size() > brewIndex && (time.equals("-") || temperature == -500)) ||
+                            (temperatureList.size() < brewIndex && ((time.equals("-") && temperature != -500)||(!time.equals("-") && temperature == -500)))) &&
+                            temperatureList.size()!=0 && !(temperatureList.size()==1 && brewIndex ==1)){
                         Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_data_for_this_brew, Toast.LENGTH_LONG);
                         toast.show();
                     }
                     else {
                         //Time und Temperature
-                        if(temperatureList.size()==0 && brewcount==1){
+                        if(temperatureList.size()==0 && brewIndex ==1){
                             NTemperature temperatureNew = createTemperature(temperature);
                             temperatureList.add(temperatureNew);
-                            steepingTimeList.add(new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
+                            coolDownTimeList.add(new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
                             timeList.add(new Time(time));
-                        }else if(temperatureList.size()==1 && brewcount==1){
+                        }else if(temperatureList.size()==1 && brewIndex ==1){
                             NTemperature temperatureNew = createTemperature(temperature);
-                            temperatureList.set(brewcount-1,temperatureNew);
-                            steepingTimeList.set(brewcount-1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
-                            timeList.set(brewcount-1,new Time(time));
-                        }else if(temperatureList.size()==brewcount){
+                            temperatureList.set(brewIndex -1,temperatureNew);
+                            coolDownTimeList.set(brewIndex -1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
+                            timeList.set(brewIndex -1,new Time(time));
+                        }else if(temperatureList.size()== brewIndex){
                             if(temperature==-500 && time.equals("-")){
-                                temperatureList.remove(brewcount-1);
-                                steepingTimeList.remove(brewcount-1);
-                                timeList.remove(brewcount-1);
+                                temperatureList.remove(brewIndex -1);
+                                coolDownTimeList.remove(brewIndex -1);
+                                timeList.remove(brewIndex -1);
                             }else {
                                 NTemperature temperatureNew = createTemperature(temperature);
-                                temperatureList.set(brewcount-1,temperatureNew);
-                                steepingTimeList.set(brewcount-1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
-                                timeList.set(brewcount-1,new Time(time));
+                                temperatureList.set(brewIndex -1,temperatureNew);
+                                coolDownTimeList.set(brewIndex -1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
+                                timeList.set(brewIndex -1,new Time(time));
                             }
-                        }else if(temperatureList.size()>brewcount){
+                        }else if(temperatureList.size()> brewIndex){
                             if(temperature!=-500 && !time.equals("-")){
                                 NTemperature temperatureNew = createTemperature(temperature);
-                                temperatureList.set(brewcount-1,temperatureNew);
-                                steepingTimeList.set(brewcount-1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
-                                timeList.set(brewcount-1,new Time(time));
+                                temperatureList.set(brewIndex -1,temperatureNew);
+                                coolDownTimeList.set(brewIndex -1,new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
+                                timeList.set(brewIndex -1,new Time(time));
                             }
-                        }else if(temperatureList.size()<brewcount){
+                        }else if(temperatureList.size()< brewIndex){
                             if(temperature!=-500 && !time.equals("-")){
                                 NTemperature temperatureNew = createTemperature(temperature);
                                 temperatureList.add(temperatureNew);
-                                steepingTimeList.add(new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
+                                coolDownTimeList.add(new Time(NTemperature.celsiusToSteepingTime(temperatureNew.getCelsius())));
                                 timeList.add(new Time(time));
                             }
                         }
@@ -455,7 +458,7 @@ public class NewTea extends AppCompatActivity {
                             }
                         } else {
                             //erstelle Tee
-                            NTea tea = new NTea(name, new SortOfTea(sortOfTea), temperatureList, steepingTimeList, timeList,
+                            NTea tea = new NTea(MainActivity.teaItems.nextId(), name, new SortOfTea(sortOfTea), temperatureList, coolDownTimeList, timeList,
                                     createAmount(teelamass), color);
                             tea.setCurrentDate();
                             MainActivity.teaItems.getTeaItems().add(tea);
@@ -477,8 +480,7 @@ public class NewTea extends AppCompatActivity {
                             //Neues Intent anlegen
                             Intent showteaScreen = new Intent(NewTea.this, ShowTea.class);
                             //find out elementAt by Name
-                            elementAt = MainActivity.teaItems.getPositionByName(name);
-                            showteaScreen.putExtra("elementAt", elementAt);
+                            showteaScreen.putExtra("elementId", elementId);
                             // Intent starten und zur zweiten Activity wechseln
                             startActivity(showteaScreen);
                             finish();
@@ -503,7 +505,7 @@ public class NewTea extends AppCompatActivity {
         if(showTea) {
             //Neues Intent anlegen
             Intent showteaScreen = new Intent(NewTea.this, ShowTea.class);
-            showteaScreen.putExtra("elementAt", elementAt);
+            showteaScreen.putExtra("elementId", elementId);
             // Intent starten und zur zweiten Activity wechseln
             startActivity(showteaScreen);
             finish();
@@ -515,12 +517,12 @@ public class NewTea extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Valid Functions
+    //@TODO Funktion wird nicht mehr gebraucht
     private boolean checkTemperatureAndTime(){
         boolean checkValid = true;
-        String tmpTemperature = editTextTemperatur.getText().toString();
+        String tmpTemperature = editTextTemperature.getText().toString();
         int temperature = -500;
-        String time = editTextZiehzeit.getText().toString();
+        String time = editTextSteepingTime.getText().toString();
 
         if(tmpTemperature.equals("") || time.equals("")) {
             Toast toast = Toast.makeText(getApplicationContext(), R.string.newtea_error_no_data_before_next_brew, Toast.LENGTH_LONG);
@@ -561,12 +563,12 @@ public class NewTea extends AppCompatActivity {
                 checkValid = false;
             }
             if (checkValid) {
-                if (temperatureList.size() < brewcount) {
+                if (temperatureList.size() < brewIndex) {
                     temperatureList.add(createTemperature(temperature));
                     timeList.add(new Time(time));
                 } else {
-                    temperatureList.set(brewcount - 1, createTemperature(temperature));
-                    timeList.set(brewcount - 1, new Time(time));
+                    temperatureList.set(brewIndex - 1, createTemperature(temperature));
+                    timeList.set(brewIndex - 1, new Time(time));
                 }
             }
         }
@@ -594,14 +596,14 @@ public class NewTea extends AppCompatActivity {
         return temperatureValid;
     }
 
-    private boolean teelamassValid(String teelamass){
-        boolean teelamassValid = true;
+    private boolean amountValid(String teelamass){
+        boolean amountValid = true;
         if (!teelamass.equals("")) {
             if (teelamass.contains(".") || teelamass.length() > 3) {
-                teelamassValid = false;
+                amountValid = false;
             }
         }
-        return teelamassValid;
+        return amountValid;
     }
 
     private boolean timeValid(String time){
@@ -649,9 +651,115 @@ public class NewTea extends AppCompatActivity {
 
     private void sethints(){
         //set Hint for variety
-        editTextTemperatur.setHint(SortOfTea.getHintTemperature(getApplicationContext(), variety,
+        editTextTemperature.setHint(SortOfTea.getHintTemperature(getApplicationContext(), variety,
                 MainActivity.settings.getTemperatureUnit()));
-        editTextTeelamass.setHint(SortOfTea.getHintAmount(getApplicationContext(), variety, amountUnit));
-        editTextZiehzeit.setHint(SortOfTea.getHintTime(getApplicationContext(), variety));
+        editTextAmount.setHint(SortOfTea.getHintAmount(getApplicationContext(), variety, amountUnit));
+        editTextSteepingTime.setHint(SortOfTea.getHintTime(getApplicationContext(), variety));
+    }
+
+    private void refreshBrewConsole(){
+        //Show Delete or Not
+        if(brewSize > 1){
+            deleteBrew.setVisibility(View.VISIBLE);
+        }else{
+            deleteBrew.setVisibility(View.GONE);
+        }
+        //show Add or Not
+        if(((brewIndex + 1) == brewSize) && (brewSize < 20)){
+            addBrew.setVisibility(View.VISIBLE);
+        }else{
+            addBrew.setVisibility(View.GONE);
+        }
+        //enable Left
+        if(brewIndex == 0){
+            leftArrow.setEnabled(false);
+        }else{
+            leftArrow.setEnabled(true);
+        }
+        //enable Right
+        if((brewIndex + 1) == brewSize){
+            rightArrow.setEnabled(false);
+        }else{
+            rightArrow.setEnabled(true);
+        }
+        //show Text
+        textViewBrew.setText(String.valueOf(brewIndex+1) + ". " + getResources().getString(R.string.newtea_count_brew));
+    }
+
+    private void refreshBrewInformation(){
+        clearBrewInformation();
+        int tmpTemperature = getTemperature(brewIndex);
+        if(tmpTemperature != -500){
+            editTextTemperature.setText(String.valueOf(tmpTemperature));
+        }
+
+        String tmpCoolDownTime = coolDownTimeList.get(brewIndex).getTime();
+        if(!tmpCoolDownTime.equals("-")){
+            editTextCoolDownTime.setText(tmpCoolDownTime);
+        }
+
+        String tmpSteepingTime = timeList.get(brewIndex).getTime();
+        if(!tmpSteepingTime.equals("-")){
+            editTextSteepingTime.setText(tmpSteepingTime);
+        }
+    }
+
+    private void clearBrewInformation(){
+        editTextTemperature.setText("");
+        editTextCoolDownTime.setText("");
+        editTextSteepingTime.setText("");
+    }
+
+    private void addNewBrew(){
+        temperatureList.add(createTemperature(-500));
+        coolDownTimeList.add(new Time("-"));
+        timeList.add(new Time("-"));
+    }
+
+    private void deleteBrew(){
+        temperatureList.remove(brewIndex);
+        coolDownTimeList.remove(brewIndex);
+        timeList.remove(brewIndex);
+    }
+
+    private void changeBrew(){
+        String tmpTemperature = editTextTemperature.getText().toString();
+        if(!tmpTemperature.equals("")) {
+            if(temperatureValid(tmpTemperature)) {
+                temperatureList.set(brewIndex, createTemperature(Integer.parseInt(tmpTemperature)));
+            }else{
+                //Fehlermeldung
+                Toast toast = Toast.makeText(getApplicationContext(), "Fehler Temperatur", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }else{
+            temperatureList.set(brewIndex, createTemperature(-500));
+        }
+
+        String tmpCoolDownTime = editTextCoolDownTime.getText().toString();
+        if(!tmpCoolDownTime.equals("")) {
+            if(timeValid(tmpCoolDownTime)) {
+                coolDownTimeList.set(brewIndex, new Time(tmpCoolDownTime));
+            }else{
+                //Fehlermeldung
+                Toast toast = Toast.makeText(getApplicationContext(), "Fehler Abkühlzeit", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }else{
+            coolDownTimeList.set(brewIndex, new Time("-"));
+        }
+
+        String tmpSteepingTime = editTextSteepingTime.getText().toString();
+        if(!tmpSteepingTime.equals("")) {
+            if(timeValid(tmpSteepingTime)) {
+                timeList.set(brewIndex, new Time(tmpSteepingTime));
+            }else{
+                //Fehlermeldung
+                Toast toast = Toast.makeText(getApplicationContext(), "Fehler Zeit", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }else{
+            coolDownTimeList.set(brewIndex, new Time("-"));
+        }
     }
 }

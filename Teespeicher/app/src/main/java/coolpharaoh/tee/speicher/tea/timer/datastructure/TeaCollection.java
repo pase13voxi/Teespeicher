@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
+import java.util.UUID;
 
 import coolpharaoh.tee.speicher.tea.timer.views.MainActivity;
 import coolpharaoh.tee.speicher.tea.timer.R;
@@ -99,7 +100,7 @@ public class TeaCollection {
                 Time tmpTime = new Time(NTemperature.celsiusToSteepingTime(temperaturesOld.get(o).getCelsius()));
                 steepingTimesNew.add(tmpTime);
             }
-            teaItems.add(new NTea(oldTeaItems.get(i).getName(), oldTeaItems.get(i).getSortOfTea(),
+            teaItems.add(new NTea(nextId(),oldTeaItems.get(i).getName(), oldTeaItems.get(i).getSortOfTea(),
                     temperaturesNew, steepingTimesNew, oldTeaItems.get(i).getTime(),
                     oldTeaItems.get(i).getAmount(), oldTeaItems.get(i).getColor()));
             teaItems.get(i).setDate(oldTeaItems.get(i).getDate());
@@ -142,9 +143,20 @@ public class TeaCollection {
         }
     }
 
-    public int getPositionByName(String name){
+    public UUID nextId(){
+        UUID id = UUID.randomUUID();
+        for (NTea teaItem : teaItems) {
+            if(id.equals(teaItem.getId())){
+                id = nextId();
+                break;
+            }
+        }
+        return id;
+    }
+
+    public int getPositionById(UUID id){
         for(int i=0; i<teaItems.size(); i++){
-            if(name.equals(teaItems.get(i).getName())){
+            if(id.equals(teaItems.get(i).getId())){
                 return i;
             }
         }
