@@ -82,7 +82,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/buttonExchange"
-        android:background="@drawable/temperature"
+        android:background="@drawable/button_temperatureexchange"
         android:layout_above="@id/spinnerSeconds"
         android:layout_marginBottom="55dip"
         android:layout_toLeftOf="@+id/textViewShowTemperatur"

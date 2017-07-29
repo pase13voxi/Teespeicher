@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <supports-screens
         android:largeScreens="true"
@@ -70,6 +69,14 @@
                 android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
         </activity>
         <activity
+            android:name=".views.Languages"
+            android:label="Languages"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
+        </activity>
+        <activity
             android:name=".views.Software"
             android:label="Software"
             android:screenOrientation="portrait">
@@ -80,7 +87,6 @@
 
         <service android:name=".services.MediaService" />
         <service android:name=".services.CountDownService" />
-
     </application>
 
 </manifest>

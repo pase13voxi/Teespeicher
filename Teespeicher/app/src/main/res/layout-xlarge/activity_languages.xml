@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_contact"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="coolpharaoh.tee.speicher.tea.timer.views.Languages">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
+    <TextView
+        android:id="@+id/textViewLanguageInfo"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:text="@string/languages_info_top"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/tool_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="35sp"
+        android:textColor="@color/grey"/>
+
+    <TextView
+        android:id="@+id/textViewLanguageProcedure"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:text="@string/languages_procedure"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/textViewLanguageInfo"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="35sp"
+        android:textColor="@color/grey"/>
+
+    <ImageView
+        android:id="@+id/imageView1BulletPoint"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/bulletpoint"
+        android:layout_below="@+id/textViewLanguageProcedure"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"/>
+
+    <TextView
+        android:id="@+id/textViewStep1Text"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:text="@string/languages_step1_text"
+        android:layout_below="@+id/textViewLanguageProcedure"
+        android:layout_toEndOf="@id/imageView1BulletPoint"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="35sp"
+        android:textColor="@color/grey"/>
+
+    <ImageView
+        android:id="@+id/imageView2BulletPoint"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/bulletpoint"
+        android:layout_below="@+id/textViewStep1Text"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"/>
+
+    <TextView
+        android:id="@+id/textViewStep2Text"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:text="@string/languages_step2_text"
+        android:layout_below="@+id/textViewStep1Text"
+        android:layout_toEndOf="@id/imageView2BulletPoint"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="35sp"
+        android:textColor="@color/grey"/>
+
+    <ImageView
+        android:id="@+id/imageView3BulletPoint"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/bulletpoint"
+        android:layout_below="@+id/textViewStep2Text"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"/>
+
+    <TextView
+        android:id="@+id/textViewStep3Text"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:text="@string/languages_step3_text"
+        android:layout_below="@+id/textViewStep2Text"
+        android:layout_toEndOf="@id/imageView3BulletPoint"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="35sp"
+        android:textColor="@color/grey"/>
+
+
+    <ImageView
+        android:id="@+id/imageView4BulletPoint"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/bulletpoint"
+        android:layout_below="@+id/textViewStep3Text"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"/>
+
+    <TextView
+        android:id="@+id/textViewStep4Text"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:text="@string/languages_step4_text"
+        android:layout_below="@+id/textViewStep3Text"
+        android:layout_toEndOf="@id/imageView4BulletPoint"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="35sp"
+        android:textColor="@color/grey"/>
+
+    <Button
+        android:id="@+id/buttonSendLanguagesEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/email"
+        android:text="@string/languages_email"
+        android:textSize="35sp"
+        android:background="@null"
+        android:layout_below="@id/textViewStep4Text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:textAllCaps="false"
+        />
+
+
+</RelativeLayout>

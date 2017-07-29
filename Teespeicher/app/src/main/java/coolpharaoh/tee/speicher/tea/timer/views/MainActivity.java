@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<NTemperature> tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new NTemperatureCelsius(100));
                 ArrayList<Time> tmpCoolDownTime = new ArrayList<>();
-                tmpCoolDownTime.add(new Time(NTemperature.celsiusToSteepingTime(100)));
+                tmpCoolDownTime.add(new Time(NTemperature.celsiusToCoolDownTime(100)));
                 ArrayList<Time> tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("3:30"));
                 NTea teaExample1 = new NTea(teaItems.nextId(), "Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new NTemperatureCelsius(85));
                 tmpCoolDownTime = new ArrayList<>();
-                tmpCoolDownTime.add(new Time(NTemperature.celsiusToSteepingTime(85)));
+                tmpCoolDownTime.add(new Time(NTemperature.celsiusToCoolDownTime(85)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("2"));
                 NTea teaExample2 = new NTea(teaItems.nextId(), "Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 tmpTemperature = new ArrayList<>();
                 tmpTemperature.add(new NTemperatureCelsius(80));
                 tmpCoolDownTime = new ArrayList<>();
-                tmpCoolDownTime.add(new Time(NTemperature.celsiusToSteepingTime(80)));
+                tmpCoolDownTime.add(new Time(NTemperature.celsiusToCoolDownTime(80)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("1:30"));
                 NTea teaExample3 = new NTea(teaItems.nextId(),"Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
@@ -255,12 +255,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void askPermissions(){
         if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
                 // Show an expanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                 // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         1);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an

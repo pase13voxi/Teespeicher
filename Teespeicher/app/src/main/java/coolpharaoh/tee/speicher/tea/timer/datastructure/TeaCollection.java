@@ -97,13 +97,14 @@ public class TeaCollection {
             for(int o=0; o<temperaturesOld.size(); o++){
                 NTemperature tmpTemperature = new NTemperatureCelsius(temperaturesOld.get(o).getCelsius());
                 temperaturesNew.add(tmpTemperature);
-                Time tmpTime = new Time(NTemperature.celsiusToSteepingTime(temperaturesOld.get(o).getCelsius()));
+                Time tmpTime = new Time(NTemperature.celsiusToCoolDownTime(temperaturesOld.get(o).getCelsius()));
                 steepingTimesNew.add(tmpTime);
             }
             teaItems.add(new NTea(nextId(),oldTeaItems.get(i).getName(), oldTeaItems.get(i).getSortOfTea(),
                     temperaturesNew, steepingTimesNew, oldTeaItems.get(i).getTime(),
                     oldTeaItems.get(i).getAmount(), oldTeaItems.get(i).getColor()));
             teaItems.get(i).setDate(oldTeaItems.get(i).getDate());
+            teaItems.get(i).setNote(oldTeaItems.get(i).getNote());
         }
     }
 

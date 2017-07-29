@@ -27,7 +27,7 @@
         android:id="@+id/textViewAboutMe"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:text="Abc"
+        android:text="@string/contact_about_me"
         android:gravity="center_horizontal"
         android:layout_below="@+id/imageViewMyPicture"
         android:textAppearance="?android:attr/textAppearanceMedium"

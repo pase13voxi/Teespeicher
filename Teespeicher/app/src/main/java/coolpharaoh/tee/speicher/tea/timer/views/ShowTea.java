@@ -156,8 +156,7 @@ public class ShowTea extends AppCompatActivity {
                     textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, "-"));
                 }
             }
-            if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
-                buttonExchange.setBackground(getResources().getDrawable(R.drawable.button_temperatureexchange));
+            if(!selectedTea.getCoolDownTime().get(brewCount).getTime().equals("-")){
                 buttonExchange.setEnabled(true);
             }
             if(selectedTea.getAmount().getValue()!=-500) {
@@ -248,12 +247,9 @@ public class ShowTea extends AppCompatActivity {
                 if(!infoShown){
                     buttonInfo.setVisibility(View.VISIBLE);
                     infoShown = true;
-                    //Temperaturrechnung
-                    float tmp = (100 - (float)selectedTea.getTemperature().get(brewCount).getCelsius()) / 2;
-                    int minute = (int)tmp;
-                    int sek = (int)((tmp - ((float) minute)) * 60);
-                    spinnerMinutes.setSelection(minute);
-                    spinnerSeconds.setSelection(sek);
+                    //Abkühlzeit anzeigen
+                    spinnerMinutes.setSelection(selectedTea.getCoolDownTime().get(brewCount).getMinutes());
+                    spinnerSeconds.setSelection(selectedTea.getCoolDownTime().get(brewCount).getSeconds());
                 }else {
                     buttonInfo.setVisibility(View.INVISIBLE);
                     infoShown = false;
@@ -543,16 +539,22 @@ public class ShowTea extends AppCompatActivity {
     }
 
     private void brewCountChanged(){
-        if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
-            textViewTemperature.setText(getResources().getString(R.string.showtea_display_celsius, String.valueOf(selectedTea.getTemperature().get(brewCount).getCelsius())));
-        }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
-            textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit())));
+        if(selectedTea.getTemperature().get(brewCount).getCelsius()!=-500) {
+            if (MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
+                textViewTemperature.setText(getResources().getString(R.string.showtea_display_celsius, String.valueOf(selectedTea.getTemperature().get(brewCount).getCelsius())));
+            } else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
+                textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, String.valueOf(selectedTea.getTemperature().get(brewCount).getFahrenheit())));
+            }
+        }else {
+            if(MainActivity.settings.getTemperatureUnit().equals("Celsius")) {
+                textViewTemperature.setText(getResources().getString(R.string.showtea_display_celsius, "-"));
+            }else if(MainActivity.settings.getTemperatureUnit().equals("Fahrenheit")) {
+                textViewTemperature.setText(getResources().getString(R.string.showtea_display_fahrenheit, "-"));
+            }
         }
-        if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
-            buttonExchange.setBackground(getResources().getDrawable(R.drawable.button_temperatureexchange));
+        if(!selectedTea.getCoolDownTime().get(brewCount).getTime().equals("-")){
             buttonExchange.setEnabled(true);
         }else{
-            buttonExchange.setBackground(getResources().getDrawable(R.drawable.temperature));
             buttonExchange.setEnabled(false);
         }
         minutes = selectedTea.getTime().get(brewCount).getMinutes();

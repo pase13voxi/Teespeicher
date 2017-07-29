@@ -127,16 +127,16 @@
     <string name="newtea_button_create">Create</string>
     <string name="newtea_button_edit">Edit</string>
     <string name="newtea_error_30Char">The type of tea exceeds the limit number of 30 characters.</string>
-    <string name="newtea_error_name_just_exist">This name already exists.</string>
+    <string name="newtea_error_name">The name exceeds the limit number of 300 characters.</string>
     <string name="newtea_error_wrong_celsius">The temperature should be between 0 °C and 100 °C.</string>
     <string name="newtea_error_wrong_fahrenheit">The temperature should be between 32 °F and 212 °F.</string>
+    <string name="newtea_error_auto_cooldown_time">Cooldown time can not be determined.</string>
+    <string name="newtea_error_cooldown_time">Please follow the format of the cooldown time.</string>
     <string name="newtea_error_time_format">Please follow the format of the steeping time.</string>
-    <string name="newtea_error_amount">The amount should not be four digits.</string>
+    <string name="newtea_error_amount">The amount should not be more than three digits.</string>
     <string name="newtea_error_cant_change">Change could not be performed.</string>
     <string name="newtea_error_cant_save">Store could not be performed.</string>
     <string name="newtea_error_no_name">Please enter the name.</string>
-    <string name="newtea_error_no_data_before_next_brew">Please insert the temperature and steeping time for this brew before you enter the data for the next brew.</string>
-    <string name="newtea_error_no_data_for_this_brew">Please insert the temperature and steeping time for this brew.</string>
     <string name="newtea_count_brew">Brew</string>
     <!--settings_en-->
     <string name="settings_heading">Settings</string>
@@ -164,8 +164,6 @@
     <string name="about_contact_description">Who is behind the Tea Memory?</string>
     <string name="about_rating_heading">Rate this app</string>
     <string name="about_rating_description">Do you like the app? I would look forward to a review.</string>
-    <string name="about_donate_heading">Support</string>
-    <string name="about_donate_description">Support me through my website.</string>
     <string name="about_translation_heading">Languages</string>
     <string name="about_translation_description">You want the app in your language and can help translate?</string>
     <string name="about_software_heading">Software Licences</string>
@@ -175,14 +173,28 @@
     <string name="contact_about_me">Hello, I am Pascal and I have developed the Tea Memory in my spare time. For questions or suggestions write me an email.</string>
     <string name="contact_email">Send me an email.</string>
     <string name="contact_email_address">pase.b@outlook.com</string>
+    <string name="contact_email_subject">Tea Memory Feedback</string>
+    <string name="contact_email_chooser">Send email...</string>
     <!--Software-->
-    <string name="software_heading">Software License</string>
+    <string name="software_heading">Software Licenses</string>
     <string name="software_tesseract_heading">Tesseract</string>
     <string name="software_tesseract_description">Tesseract is an open source software, which makes the text recognition possible.</string>
     <string name="software_cropper_heading">Cropper from Edmodo Inc</string>
     <string name="software_cropper_description">The Cropper by Edmodo Inc is an open source software that is useful for editing images.</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
     <string name="software_colorpicker_description">The ColorPicker is an open source software, which allows the selection of a color.</string>
+    <!--Languages-->
+    <string name="languages_heading">Languages</string>
+    <string name="languages_info_top">You can help me translate the app into another language?</string>
+    <string name="languages_procedure">Procedure:</string>
+    <string name="languages_step1_text">Send me a translation request.</string>
+    <string name="languages_step2_text">I will send you a file with the texts to be translated.</string>
+    <string name="languages_step3_text">You translate the texts and send me back the file.</string>
+    <string name="languages_step4_text">I check the translation and paste it into the program.</string>
+    <string name="languages_email">Contact me.</string>
+    <string name="languages_email_address">pase.b@outlook.com</string>
+    <string name="languages_email_subject">Tea Memory Languages</string>
+    <string name="languages_email_chooser">Send email...</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

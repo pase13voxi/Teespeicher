@@ -1,6 +1,9 @@
 package coolpharaoh.tee.speicher.tea.timer.views;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -32,17 +35,24 @@ public class Contact extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TextView textviewAboutMe = (TextView) findViewById(R.id.textViewAboutMe);
-        textviewAboutMe.setText(R.string.contact_about_me);
-
         Button buttonEmail = (Button) findViewById(R.id.buttonSendEmail);
         buttonEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.contact_email_address) });
-                startActivity(Intent.createChooser(intent, ""));
+                try {
+                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    String versionname = pInfo.versionName;
+                    int versioncode = pInfo.versionCode;
+
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                            "mailto", getResources().getString(R.string.contact_email_address), null));
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.contact_email_subject));
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, "Release: " + versioncode
+                            +"\nApp: " + versionname + "\n\n");
+                    startActivity(Intent.createChooser(emailIntent, getResources().getString(R.string.contact_email_chooser)));
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

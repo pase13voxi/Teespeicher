@@ -127,16 +127,16 @@
     <string name="newtea_button_create">Anlegen</string>
     <string name="newtea_button_edit">Ändern</string>
     <string name="newtea_error_30Char">Die Teesorte überschreitet die Grenzanzahl von 30 Zeichen.</string>
-    <string name="newtea_error_name_just_exist">Diesen Namen gibt es schon.</string>
+    <string name="newtea_error_name">Der Name überschreitet die Grenzanzahl von 300 Zeichen.</string>
     <string name="newtea_error_wrong_celsius">Die Temperatur sollte zwischen 0 °C und 100 °C liegen.</string>
     <string name="newtea_error_wrong_fahrenheit">Die Temperatur sollte zwischen 32 °F und 212 °F liegen.</string>
+    <string name="newtea_error_auto_cooldown_time">Abkühlzeit kann nicht bestimmt werden.</string>
+    <string name="newtea_error_cooldown_time">Bitte halten Sie das Format bei der Abkühlzeit ein.</string>
     <string name="newtea_error_time_format">Bitte halten Sie das Format bei der Ziehzeit ein.</string>
-    <string name="newtea_error_amount">Die Tl/L sollten nicht vierstellig sein.</string>
+    <string name="newtea_error_amount">Die Menge sollte nicht mehr als dreistellig sein</string>
     <string name="newtea_error_cant_change">Änderung konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_cant_save">Speichern konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
-    <string name="newtea_error_no_data_before_next_brew">Bitte geben Sie die Temperatur und Ziehzeit für diesen Aufguss an, bevor Sie den nächsten Aufguss eingeben.</string>
-    <string name="newtea_error_no_data_for_this_brew">Bitte füllen Sie die Temperatur und den Ziehzeit für diesen Aufguss aus.</string>
     <string name="newtea_count_brew">Aufguss</string>
     <!--setting_de-->
     <string name="settings_heading">Einstellungen</string>
@@ -164,8 +164,6 @@
     <string name="about_contact_description">Wer steckt hinter dem Tee Speicher?</string>
     <string name="about_rating_heading">Bewerte die App</string>
     <string name="about_rating_description">Gefällt dir die App? Ich würde mich über eine Bewertung freuen.</string>
-    <string name="about_donate_heading">Unterstützung</string>
-    <string name="about_donate_description">Auf meiner Webseite kannst du mich unterstützen.</string>
     <string name="about_translation_heading">Sprachen</string>
     <string name="about_translation_description">Du möchtest die App in deiner Sprache und kannst helfen, zu übersetzen?</string>
     <string name="about_software_heading">Software Lizenzen</string>
@@ -175,6 +173,8 @@
     <string name="contact_about_me">Hallo, ich bin Pascal und ich habe den Tee Speicher in meiner Freizeit entwickelt. Für Fragen oder Anregungen schreib mir eine E-mail.</string>
     <string name="contact_email">Sende mir eine E-mail.</string>
     <string name="contact_email_address">pase.b@outlook.com</string>
+    <string name="contact_email_subject">Tee Speicher Feedback</string>
+    <string name="contact_email_chooser">Sende eine E-mail...</string>
     <!--Software-->
     <string name="software_heading">Software Lizenzen</string>
     <string name="software_tesseract_heading">Tesseract</string>
@@ -183,6 +183,18 @@
     <string name="software_cropper_description">Der Cropper von Edmodo Inc ist eine Open Source Software, die für das Bearbeiten von Bilder nützlich ist.</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
     <string name="software_colorpicker_description">Der ColorPicker ist eine Open Source Software, welche die Auswahl einer Farbe ermöglicht.</string>
+    <!--Languages-->
+    <string name="languages_heading">Sprachen</string>
+    <string name="languages_info_top">Du kannst mir helfen, die App in eine andere Sprache zu Übersetzen?</string>
+    <string name="languages_procedure">Ablauf:</string>
+    <string name="languages_step1_text">Sende mir eine Anfrage zur Übersetzung.</string>
+    <string name="languages_step2_text">Ich sende dir eine Datei mit den zu übersetzenden Texten.</string>
+    <string name="languages_step3_text">Du übersetzt die Texte und sendest mir die Datei zurück.</string>
+    <string name="languages_step4_text">Ich prüfe die Übersetzung und füge sie in das Programm ein.</string>
+    <string name="languages_email">Kontaktiere mich.</string>
+    <string name="languages_email_address">pase.b@outlook.com</string>
+    <string name="languages_email_subject">Tee Speicher Sprachen</string>
+    <string name="languages_email_chooser">Sende eine E-Mail...</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

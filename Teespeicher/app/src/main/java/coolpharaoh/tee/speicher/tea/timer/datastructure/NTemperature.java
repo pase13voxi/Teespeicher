@@ -1,6 +1,7 @@
 package coolpharaoh.tee.speicher.tea.timer.datastructure;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 /**
  * Created by paseb on 13.07.2017.
@@ -31,11 +32,16 @@ public abstract class NTemperature implements Serializable {
             return Math.round(tmp);
         }
     };
-    public static String celsiusToSteepingTime(int celsius){
-        float tmpTime = (100 - (float)celsius) / 2;
-        int minute = (int)tmpTime;
-        int sek = (int)((tmpTime - ((float) minute)) * 60);
-        String timeText = minute + ":" + sek;
-        return timeText;
-    }
+    public static String celsiusToCoolDownTime(int celsius){
+        if(celsius != 100 && celsius != -500) {
+            float tmpTime = (100 - (float) celsius) / 2;
+            int minute = (int) tmpTime;
+            int sek = (int) ((tmpTime - ((float) minute)) * 60);
+            DecimalFormat df = new DecimalFormat("00");
+            String timeText = minute + ":" + df.format(sek);
+            return timeText;
+        }else{
+            return "-";
+        }
+    };
 }

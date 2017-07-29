@@ -36,10 +36,6 @@ public class Software extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         List<ListRowItem> softwareList = new ArrayList<>();
-        ListRowItem itemTesseract = new ListRowItem(getResources().getString(R.string.software_tesseract_heading),getResources().getString(R.string.software_tesseract_description));
-        softwareList.add(itemTesseract);
-        ListRowItem itemCropper = new ListRowItem(getResources().getString(R.string.software_cropper_heading), getResources().getString(R.string.software_cropper_description));
-        softwareList.add(itemCropper);
         ListRowItem itemPicker = new ListRowItem(getResources().getString(R.string.software_colorpicker_heading), getResources().getString(R.string.software_colorpicker_description));
         softwareList.add(itemPicker);
 

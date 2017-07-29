@@ -24,7 +24,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Teesorte"
                 android:gravity="center_vertical"
-                android:layout_alignBottom="@+id/spinnerTeeart"
+                android:layout_alignBottom="@+id/spinnerTeaSort"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="8dip"
                 android:layout_marginLeft="4dip"
@@ -33,7 +33,7 @@
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerTeeart"
+                android:id="@+id/spinnerTeaSort"
                 android:transitionName="Teeart"
                 android:entries="@array/sortsOfTea"
                 android:prompt="@string/tea_sort"
@@ -49,8 +49,8 @@
                 android:text="manuell"
                 android:id="@+id/checkBoxSelfInput"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_alignBottom="@id/spinnerTeeart"
-                android:layout_toRightOf="@id/spinnerTeeart"
+                android:layout_alignBottom="@id/spinnerTeaSort"
+                android:layout_toRightOf="@id/spinnerTeaSort"
                 android:layout_marginBottom="4dip"
                 android:textColor="@color/grey"
                 android:visibility="invisible"/>
@@ -62,9 +62,9 @@
                 android:hint="Teesorte"
                 android:ems="10"
                 android:id="@+id/editTextSelfInput"
-                android:layout_alignBottom="@id/spinnerTeeart"
+                android:layout_alignBottom="@id/spinnerTeaSort"
                 android:layout_alignParentLeft="true"
-                android:layout_alignRight="@id/spinnerTeeart"
+                android:layout_alignRight="@id/spinnerTeaSort"
                 android:visibility="invisible"/>
 
 
@@ -75,7 +75,7 @@
                 android:id="@+id/textViewChooseColor"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/newtea_color_label"
-                android:layout_below="@id/spinnerTeeart"
+                android:layout_below="@id/spinnerTeaSort"
                 android:layout_marginTop="30dip"
                 android:layout_marginLeft="4dip"
                 android:layout_marginRight="4dip"
@@ -86,7 +86,7 @@
                 android:layout_height="40dip"
                 android:id="@+id/buttonColor"
                 android:background="@drawable/button_color"
-                android:layout_below="@id/spinnerTeeart"
+                android:layout_below="@id/spinnerTeaSort"
                 android:layout_toRightOf="@id/textViewChooseColor"
                 android:layout_marginTop="20dip"
                 android:layout_marginLeft="20dip"
@@ -148,7 +148,8 @@
                 android:layout_below="@id/editTextAmount"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_toLeftOf="@id/buttonAddBrew"
+                android:layout_toStartOf="@id/buttonAddBrew"
+                android:layout_alignWithParentIfMissing="true"
                 android:visibility="gone"/>
 
             <RelativeLayout
@@ -182,6 +183,7 @@
                     android:layout_height="30dp"
                     android:id="@+id/buttonArrowRight"
                     android:background="@drawable/button_arrowright"
+                    android:enabled="false"
                     android:layout_alignParentRight="true"/>
 
             </RelativeLayout>
@@ -222,7 +224,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
+                android:inputType="time"
                 android:hint="@string/newtea_hint_cooldowntime"
                 android:ems="10"
                 android:id="@+id/editTextCoolDownTime"
@@ -239,7 +241,7 @@
                 android:inputType="time"
                 android:hint="@string/newtea_hint_time_other"
                 android:ems="10"
-                android:id="@+id/editTextZiehzeit"
+                android:id="@+id/editTextTime"
                 android:layout_below="@+id/editTextCoolDownTime"
                 android:layout_marginTop="20dip"
                 android:layout_alignParentLeft="true"
@@ -251,8 +253,8 @@
                 android:text="anlegen"
                 android:textSize="20sp"
                 android:textAllCaps="false"
-                android:id="@+id/buttonfertig"
-                android:layout_below="@+id/editTextZiehzeit"
+                android:id="@+id/buttonReady"
+                android:layout_below="@+id/editTextTime"
                 android:layout_marginTop="22dip"
                 android:layout_marginLeft="4dip"
                 android:layout_marginRight="4dip"

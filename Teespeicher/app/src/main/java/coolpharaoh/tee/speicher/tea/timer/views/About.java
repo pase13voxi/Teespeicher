@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 public class About extends AppCompatActivity {
 
     private enum ListItems {
-        Contact, Rating, Donate, Translation, Software
+        Contact, Rating, Translation, Software, Upgrade
     }
 
 
@@ -48,12 +49,12 @@ public class About extends AppCompatActivity {
         aboutList.add(itemContact);
         ListRowItem itemRating = new ListRowItem(getResources().getString(R.string.about_rating_heading), getResources().getString(R.string.about_rating_description));
         aboutList.add(itemRating);
-        ListRowItem itemDonate = new ListRowItem(getResources().getString(R.string.about_donate_heading),getResources().getString(R.string.about_donate_description));
-        aboutList.add(itemDonate);
         ListRowItem itemTranslation = new ListRowItem(getResources().getString(R.string.about_translation_heading),getResources().getString(R.string.about_translation_description));
         aboutList.add(itemTranslation);
         ListRowItem itemSoftware = new ListRowItem(getResources().getString(R.string.about_software_heading),getResources().getString(R.string.about_software_description));
         aboutList.add(itemSoftware);
+        ListRowItem itemUpgrade = new ListRowItem("Upgrade","Mit einem Upgrad darf man mehr als 20 Tees abspeichern.");
+        aboutList.add(itemUpgrade);
 
         //Liste mit Adapter verknüpfen
         AboutListAdapter adapter = new AboutListAdapter(this, aboutList);
@@ -80,21 +81,21 @@ public class About extends AppCompatActivity {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                         }
                         break;
-                    case Donate:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://pbechtoldt.de/")));
-                        break;
                     case Translation:
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.setType("plain/text");
-                        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.contact_email_address) });
-                        intent.putExtra(Intent.EXTRA_SUBJECT, R.string.about_translation_heading);
-                        startActivity(Intent.createChooser(intent, ""));
+                        //Neues Intent anlegen
+                        Intent languagesScreen = new Intent(About.this, Languages.class);
+                        // Intent starten und zur zweiten Activity wechseln
+                        startActivity(languagesScreen);
                         break;
                     case Software:
                         //Neues Intent anlegen
                         Intent softwareScreen = new Intent(About.this, Software.class);
                         // Intent starten und zur zweiten Activity wechseln
                         startActivity(softwareScreen);
+                        break;
+                    case Upgrade:
+                        Toast toast = Toast.makeText(getApplicationContext(), "Diese Funktionen ist zur Zeit noch nicht möglich.", Toast.LENGTH_SHORT);
+                        toast.show();
                         break;
                 }
 
