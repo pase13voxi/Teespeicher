@@ -22,9 +22,13 @@
     <string name="showtea_dialog_note_hint">Write down something.</string>
     <string name="showtea_dialog_note_ok">OK</string>
     <string name="showtea_dialog_note_cancle">Cancle</string>
-    <string name="showtea_action_settings">Edit</string>
-    <string name="showtea_action_vibrate">Vibration</string>
-    <string name="showtea_action_notification">Notification</string>
+    <string name="showtea_action_edit">Edit</string>
+    <string name="showtea_action_counter">Counter</string>
+    <string name="showtea_dialog_counter_day">Day</string>
+    <string name="showtea_dialog_counter_week">Week</string>
+    <string name="showtea_dialog_counter_month">Month</string>
+    <string name="showtea_dialog_counter_overall">Overall</string>
+    <string name="showtea_dialog_counter_ok">OK</string>
     <string name="showtea_dialog_description_header">How to use.</string>
     <string name="showtea_dialog_description_temperature">Calculating the time the boiling water needs to cool to the desired temperature.</string>
     <string name="showtea_dialog_description_amount">Calculate the amount of tea required for the preparation.</string>

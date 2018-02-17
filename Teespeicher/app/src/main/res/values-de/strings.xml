@@ -22,9 +22,13 @@
     <string name="showtea_dialog_note_hint">Notiere dir etwas.</string>
     <string name="showtea_dialog_note_ok">Ok</string>
     <string name="showtea_dialog_note_cancle">Abbrechen</string>
-    <string name="showtea_action_settings">Bearbeiten</string>
-    <string name="showtea_action_vibrate">Vibration</string>
-    <string name="showtea_action_notification">Benachrichtigung</string>
+    <string name="showtea_action_edit">Bearbeiten</string>
+    <string name="showtea_action_counter">Zähler</string>
+    <string name="showtea_dialog_counter_day">Tag</string>
+    <string name="showtea_dialog_counter_week">Woche</string>
+    <string name="showtea_dialog_counter_month">Monat</string>
+    <string name="showtea_dialog_counter_overall">Insgesamt</string>
+    <string name="showtea_dialog_counter_ok">Ok</string>
     <string name="showtea_dialog_description_header">Benutzung</string>
     <string name="showtea_dialog_description_temperature">Berechne die Zeit, die das kochende Wasser auf die gewünschte Temperatur abkühlen muss.</string>
     <string name="showtea_dialog_description_amount">Berechne die benötigte Teemenge für die Zubereitung.</string>

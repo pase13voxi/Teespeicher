@@ -5,13 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.ShowTea">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_edit"
         android:orderInCategory="100"
-        android:title="@string/showtea_action_settings"
+        android:title="@string/showtea_action_edit"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_note"
         android:orderInCategory="100"
         android:title="@string/showtea_action_note"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_counter"
+        android:orderInCategory="100"
+        android:title="@string/showtea_action_counter"
         app:showAsAction="never" />
 </menu>

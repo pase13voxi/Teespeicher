@@ -1,9 +1,9 @@
 package coolpharaoh.tee.speicher.tea.timer.services;
 
-import android.app.Service;
-import android.app.NotificationManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -11,7 +11,6 @@ import android.os.IBinder;
 import android.os.Vibrator;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
-import coolpharaoh.tee.speicher.tea.timer.services.MediaService;
 import coolpharaoh.tee.speicher.tea.timer.views.MainActivity;
 import coolpharaoh.tee.speicher.tea.timer.views.ShowTea;
 

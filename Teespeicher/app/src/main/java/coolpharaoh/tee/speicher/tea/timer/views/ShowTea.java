@@ -22,18 +22,23 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
+import coolpharaoh.tee.speicher.tea.timer.listadapter.CounterListAdapter;
+import coolpharaoh.tee.speicher.tea.timer.listadapter.ListRowItem;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
 import coolpharaoh.tee.speicher.tea.timer.services.MediaService;
 
@@ -290,7 +295,8 @@ public class ShowTea extends AppCompatActivity {
                 if(buttonStartTimer.getText().equals(getResources().getString(R.string.showtea_timer_start))){
                     //Mainlist aktualisieren
                     selectedTea.setCurrentDate();
-                    selectedTea.getCounter().count();
+                    //don't count when waiting for the right temperature
+                    if(!infoShown) selectedTea.getCounter().count();
                     MainActivity.teaItems.sort();
                     MainActivity.teaItems.saveCollection(getApplicationContext());
                     MainActivity.adapter.notifyDataSetChanged();
@@ -375,7 +381,7 @@ public class ShowTea extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.action_note){
             dialogNote();
-        }else if(id == R.id.action_settings){
+        }else if(id == R.id.action_edit){
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(ShowTea.this, NewTea.class);
             newteaScreen.putExtra("elementId", elementId);
@@ -384,6 +390,8 @@ public class ShowTea extends AppCompatActivity {
             startActivity(newteaScreen);
             finish();
             return true;
+        }else if(id == R.id.action_counter){
+            dialogCounter();
         }
 
         if(id == R.id.home){
@@ -620,6 +628,35 @@ public class ShowTea extends AppCompatActivity {
         adb.show();
     }
 
+    private void dialogCounter() {
+
+        List<ListRowItem> counterList = new ArrayList<>();
+        ListRowItem itemToday = new ListRowItem(getResources().getString(R.string.showtea_dialog_counter_day), String.valueOf(selectedTea.getCounter().getDay()));
+        counterList.add(itemToday);
+        ListRowItem itemWeek = new ListRowItem(getResources().getString(R.string.showtea_dialog_counter_week), String.valueOf(selectedTea.getCounter().getWeek()));
+        counterList.add(itemWeek);
+        ListRowItem itemMonth = new ListRowItem(getResources().getString(R.string.showtea_dialog_counter_month), String.valueOf(selectedTea.getCounter().getMonth()));
+        counterList.add(itemMonth);
+        ListRowItem itemAll = new ListRowItem(getResources().getString(R.string.showtea_dialog_counter_overall), String.valueOf(selectedTea.getCounter().getOverall()));
+        counterList.add(itemAll);
+
+        //Liste mit Adapter verknüpfen
+        CounterListAdapter adapter = new CounterListAdapter(this, counterList);
+        //Adapter dem Listview hinzufügen
+        ListView listViewCounter = new ListView(this);
+        listViewCounter.setAdapter(adapter);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(listViewCounter);
+        adb.setTitle(R.string.showtea_action_counter);
+        //adb.setIcon(R.drawable.note);
+        adb.setPositiveButton(R.string.showtea_dialog_counter_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        adb.show();
+    }
+
     private void dialogamount(){
         LayoutInflater inflater = getLayoutInflater();
         View alertLayoutDialogNote = inflater.inflate(R.layout.dialogamount, null);
@@ -656,6 +693,7 @@ public class ShowTea extends AppCompatActivity {
         });
         adb.show();
     }
+
     private void fillAmountPerAmount(int value, TextView textViewAmountPerAmount){
         Amount tmpAmount = selectedTea.getAmount();
         float liter = (float)value/10;
