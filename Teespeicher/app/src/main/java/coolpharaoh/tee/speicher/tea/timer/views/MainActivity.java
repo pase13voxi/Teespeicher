@@ -4,33 +4,38 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.ActualSetting;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTemperature;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTemperatureCelsius;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.TeaCollection;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Time;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.TeaAdapter;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.ActualSetting;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.TeaCollection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +43,12 @@ public class MainActivity extends AppCompatActivity {
     static public TeaCollection teaItems;
     static public ActualSetting settings;
     private TextView mToolbarCustomTitle;
-    private Button newTea;
+    private FloatingActionButton newTea;
+    private Spinner spinnerSort;
+    private ListView tealist;
+    private View rootView;
+    private ArrayList<Tea> searchList = new ArrayList<>();
+    private boolean searching = false;
 
 
     @Override
@@ -55,42 +65,43 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-        //askPermissions();
+        //hole Rootview
+        rootView = findViewById(R.id.coordinatorLayout);
         //hole ListView
-        final ListView tealist = (ListView) findViewById(R.id.listViewTealist);
+        tealist = (ListView) findViewById(R.id.listViewTealist);
         //Liste aller Tees
         teaItems = new TeaCollection();
         if(!teaItems.loadCollection(getApplicationContext())){
             // TODO Auto-generated method stub
             //kann später entfernt werden
             if(!teaItems.loadOldCollection(getApplicationContext())) {
-                ArrayList<NTemperature> tmpTemperature = new ArrayList<>();
-                tmpTemperature.add(new NTemperatureCelsius(100));
+                ArrayList<Temperature> tmpTemperature = new ArrayList<>();
+                tmpTemperature.add(new TemperatureCelsius(100));
                 ArrayList<Time> tmpCoolDownTime = new ArrayList<>();
-                tmpCoolDownTime.add(new Time(NTemperature.celsiusToCoolDownTime(100)));
+                tmpCoolDownTime.add(new Time(Temperature.celsiusToCoolDownTime(100)));
                 ArrayList<Time> tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("3:30"));
-                NTea teaExample1 = new NTea(teaItems.nextId(), "Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
+                Tea teaExample1 = new Tea(teaItems.nextId(), "Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
                         tmpCoolDownTime, tmpTime, new AmountTs(5), SortOfTea.getVariatyColor(Variety.BlackTea));
                 teaExample1.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample1);
                 tmpTemperature = new ArrayList<>();
-                tmpTemperature.add(new NTemperatureCelsius(85));
+                tmpTemperature.add(new TemperatureCelsius(85));
                 tmpCoolDownTime = new ArrayList<>();
-                tmpCoolDownTime.add(new Time(NTemperature.celsiusToCoolDownTime(85)));
+                tmpCoolDownTime.add(new Time(Temperature.celsiusToCoolDownTime(85)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("2"));
-                NTea teaExample2 = new NTea(teaItems.nextId(), "Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
+                Tea teaExample2 = new Tea(teaItems.nextId(), "Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
                         tmpCoolDownTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.WhiteTea));
                 teaExample2.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample2);
                 tmpTemperature = new ArrayList<>();
-                tmpTemperature.add(new NTemperatureCelsius(80));
+                tmpTemperature.add(new TemperatureCelsius(80));
                 tmpCoolDownTime = new ArrayList<>();
-                tmpCoolDownTime.add(new Time(NTemperature.celsiusToCoolDownTime(80)));
+                tmpCoolDownTime.add(new Time(Temperature.celsiusToCoolDownTime(80)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("1:30"));
-                NTea teaExample3 = new NTea(teaItems.nextId(),"Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
+                Tea teaExample3 = new Tea(teaItems.nextId(),"Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
                         tmpCoolDownTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.GreenTea));
                 teaExample3.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample3);
@@ -105,8 +116,10 @@ public class MainActivity extends AppCompatActivity {
         //Settings holen
         settings = new ActualSetting();
         if(!settings.loadSettings(getApplicationContext())){
-            //setzte Default wenn nicht vorhanden
-            settings.saveSettings(getApplicationContext());
+            if(!settings.loadOldSettings(getApplicationContext())) {
+                //setzte Default wenn nicht vorhanden
+                settings.saveSettings(getApplicationContext());
+            }
         }
 
         //herausfinden welche Sprache gesetzt ist und Übersetztung der Liste starten
@@ -125,6 +138,55 @@ public class MainActivity extends AppCompatActivity {
             settings.saveSettings(getApplicationContext());
         }
 
+        //Setzte Spinner Groß
+        spinnerSort = (Spinner) findViewById(R.id.spinner_sort);
+        ArrayAdapter<CharSequence> spinnerVarietyAdapter = ArrayAdapter.createFromResource(
+                this, R.array.main_sort_menu, R.layout.spinner_item_sort);
+
+        spinnerVarietyAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_sort);
+        spinnerSort.setAdapter(spinnerVarietyAdapter);
+
+        //setzte spinner
+        spinnerSort.setSelection(settings.getSort());
+
+        //sortierung hat sich verändert
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        settings.setSort(0);
+                        settings.saveSettings(getApplicationContext());
+                        //Liste sortieren und neu aufbauen
+                        teaItems.sort();
+                        teaItems.saveCollection(getApplicationContext());
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case 1:
+                        settings.setSort(1);
+                        settings.saveSettings(getApplicationContext());
+                        //Liste sortieren und neu aufbauen
+                        teaItems.sort();
+                        teaItems.saveCollection(getApplicationContext());
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case 2:
+                        settings.setSort(2);
+                        settings.saveSettings(getApplicationContext());
+                        //Liste sortieren und neu aufbauen
+                        teaItems.sort();
+                        teaItems.saveCollection(getApplicationContext());
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         //Liste mit Adapter verknüpfen
         adapter = new TeaAdapter(this, teaItems.getTeaItems());
         //Adapter dem Listview hinzufügen
@@ -138,18 +200,25 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Neues Intent anlegen
                 Intent showteaScreen = new Intent(MainActivity.this, ShowTea.class);
-                showteaScreen.putExtra("elementId", teaItems.getTeaItems().get(position).getId());
+
+                //Decision between searchList and normalList
+                if(searching){
+                    rootView.requestFocus();
+                    showteaScreen.putExtra("elementId", searchList.get(position).getId());
+                }else {
+                    showteaScreen.putExtra("elementId", teaItems.getTeaItems().get(position).getId());
+                }
                 // Intent starten und zur zweiten Activity wechseln
                 startActivity(showteaScreen);
             }
         });
 
         //Button NewTea + Aktion
-        newTea = (Button) findViewById(R.id.newtea);
-        newTea.setText(R.string.main_create_tea);
+        newTea = (FloatingActionButton) findViewById(R.id.newtea);
         newTea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rootView.requestFocus();
                 //Neues Intent anlegen
                 Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
                 // Intent starten und zur zweiten Activity wechseln
@@ -159,57 +228,72 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
 
-    public boolean onPrepareOptionsMenu (Menu menu) {
-        for(int i=0; i<menu.size(); i++){
-            MenuItem mi = menu.getItem(i);
-            if(mi.getItemId() == R.id.action_settings){
-                mi.setTitle(R.string.main_action_settings);
-            }else if(mi.getItemId() == R.id.action_about){
-                mi.setTitle(R.string.main_action_about);
-            }else if(mi.getItemId() == R.id.action_sort_date){
-                mi.setTitle(R.string.main_action_sort_date);
-                mi.setChecked(!settings.isSort());
-            }else if(mi.getItemId() == R.id.action_sort_sort){
-                mi.setTitle(R.string.main_action_sort_sort);
-                mi.setChecked(settings.isSort());
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
-        }
-        return true;
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searching = true;
+                searchList.clear();
+
+                for (Tea temp : teaItems.getTeaItems()){
+                    if(temp.getName().toLowerCase().contains(newText.toLowerCase())){
+                        searchList.add(temp);
+                    }
+                }
+                //Liste mit Adapter verknüpfen
+                adapter = new TeaAdapter(MainActivity.this, searchList);
+                //Adapter dem Listview hinzufügen
+                tealist.setAdapter(adapter);
+
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                //wenn nicht mehr gesucht wird
+                if(!queryTextFocused) {
+                    searching = false;
+                    searchView.setQuery("", false);
+                    //Liste mit Adapter verknüpfen
+                    adapter = new TeaAdapter(MainActivity.this, teaItems.getTeaItems());
+                    //Adapter dem Listview hinzufügen
+                    tealist.setAdapter(adapter);
+                }
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
         if(id == R.id.action_settings){
+            rootView.requestFocus();
             //Neues Intent anlegen
             Intent settingScreen = new Intent(MainActivity.this, Settings.class);
             // Intent starten und zur zweiten Activity wechseln
             startActivity(settingScreen);
-            return true;
         }else if(id == R.id.action_about){
+            rootView.requestFocus();
             //Neues Intent anlegen
             Intent aboutScreen = new Intent(MainActivity.this, About.class);
             // Intent starten und zur zweiten Activity wechseln
             startActivity(aboutScreen);
-        }else if(id == R.id.action_sort_date){
-            settings.setSort(false);
-            settings.saveSettings(getApplicationContext());
-            //Liste sortieren und neu aufbauen
-            teaItems.sort();
-            teaItems.saveCollection(getApplicationContext());
-            adapter.notifyDataSetChanged();
-        }else if(id == R.id.action_sort_sort){
-            settings.setSort(true);
-            settings.saveSettings(getApplicationContext());
-            //Liste sortieren und neu aufbauen
-            teaItems.sort();
-            teaItems.saveCollection(getApplicationContext());
-            adapter.notifyDataSetChanged();
         }
 
         return super.onOptionsItemSelected(item);
@@ -239,7 +323,13 @@ public class MainActivity extends AppCompatActivity {
         if(menuItemName.equals(editOption)){
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
-            newteaScreen.putExtra("elementId", teaItems.getTeaItems().get(info.position).getId());
+            //Fallunterscheidung bei Suche
+            if(searching) {
+                newteaScreen.putExtra("elementId", searchList.get(info.position).getId());
+            }else {
+                newteaScreen.putExtra("elementId", teaItems.getTeaItems().get(info.position).getId());
+            }
+
             // Intent starten und zur zweiten Activity wechseln
             startActivity(newteaScreen);
         }else if(menuItemName.equals(deleteOption)){

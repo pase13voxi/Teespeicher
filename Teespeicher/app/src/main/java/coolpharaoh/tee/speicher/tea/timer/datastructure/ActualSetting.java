@@ -17,12 +17,13 @@ public class ActualSetting {
     private String musicName;
     private boolean vibration;
     private boolean notification;
+    private boolean animation;
     private String temperatureUnit;
     private String language;
     private boolean ocrAlert;
     private boolean showteaAlert;
-    //false = sort by Date
-    private boolean sort;
+    //0 = sort by Date, 1 = sort alphabethically, 2 = sort by variety
+    private int sort;
 
     public String getMusicChoice() {
         return musicChoice;
@@ -54,6 +55,14 @@ public class ActualSetting {
 
     public void setNotification(boolean notification) {
         this.notification = notification;
+    }
+
+    public boolean isAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(boolean animation){
+        this.animation = animation;
     }
 
     public String getTemperatureUnit(){
@@ -88,11 +97,11 @@ public class ActualSetting {
         this.showteaAlert = showteaAlert;
     }
 
-    public boolean isSort() {
+    public int getSort() {
         return sort;
     }
 
-    public void setSort(boolean sort) {
+    public void setSort(int sort) {
         this.sort = sort;
     }
 
@@ -102,14 +111,15 @@ public class ActualSetting {
 
     public void setDefault(){
         musicChoice = "content://settings/system/ringtone";
-        musicName = "Sunbeam";
+        musicName = "Default";
         vibration = false;
         notification = true;
+        animation = true;
         temperatureUnit = "Celsius";
         language = "de";
         ocrAlert = true;
         showteaAlert = true;
-        sort = false;
+        sort = 0;
     }
 
     //Save and Load Data
@@ -121,11 +131,12 @@ public class ActualSetting {
             os.writeObject(musicName);
             os.writeBoolean(vibration);
             os.writeBoolean(notification);
+            os.writeBoolean(animation);
             os.writeObject(temperatureUnit);
             os.writeBoolean(ocrAlert);
             os.writeBoolean(showteaAlert);
             os.writeObject(language);
-            os.writeBoolean(sort);
+            os.writeInt(sort);
             os.close();
             fos.close();
             return true;
@@ -146,11 +157,45 @@ public class ActualSetting {
             musicName = (String) is.readObject();
             vibration = is.readBoolean();
             notification = is.readBoolean();
+            animation = is.readBoolean();
             temperatureUnit = (String) is.readObject();
             ocrAlert = is.readBoolean();
             showteaAlert = is.readBoolean();
             language = (String) is.readObject();
-            sort = is.readBoolean();
+            sort = is.readInt(); //muss noch angepasst
+            is.close();
+            fis.close();
+            return true;
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }catch(IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // TODO
+    //kann später entfernt werden
+    public boolean loadOldSettings(Context context) {
+        try {
+            FileInputStream fis = context.openFileInput("ActualSetting");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            musicChoice = (String) is.readObject();
+            musicName = (String) is.readObject();
+            vibration = is.readBoolean();
+            notification = is.readBoolean();
+            temperatureUnit = (String) is.readObject();
+            ocrAlert = is.readBoolean();
+            showteaAlert = is.readBoolean();
+            language = (String) is.readObject();
+            if(is.readBoolean())
+                sort = 0;
+            else
+                sort = 2;
             is.close();
             fis.close();
             return true;

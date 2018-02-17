@@ -51,7 +51,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/imageViewDialogDescriptionBrew"
-            android:src="@drawable/brew"
+            android:src="@drawable/brewdark"
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
             android:layout_margin="5dp"/>
@@ -64,9 +64,11 @@
             android:layout_toRightOf="@+id/imageViewDialogDescriptionBrew"/>
     </RelativeLayout>
     <CheckBox
+        android:theme="@style/CheckBoxStyle"
         android:id="@+id/checkboxDialogShowTeaDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/showtea_dialog_description_checkbox">
+        android:text="@string/showtea_dialog_description_checkbox"
+        android:textSize="14sp">
     </CheckBox>
 </LinearLayout>

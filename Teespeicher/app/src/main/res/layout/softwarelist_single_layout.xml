@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/textAppearanceGrey"
         android:id="@+id/textViewListSoftwareDescription"
         android:text="abc"
         android:layout_marginLeft="5dp"

@@ -44,6 +44,7 @@
                 style="@android:style/Widget.Holo.Light.Spinner" />
 
             <CheckBox
+                android:theme="@style/CheckBoxStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="manuell"
@@ -52,10 +53,10 @@
                 android:layout_alignBottom="@id/spinnerTeaSort"
                 android:layout_toRightOf="@id/spinnerTeaSort"
                 android:layout_marginBottom="4dip"
-                android:textColor="@color/grey"
                 android:visibility="invisible"/>
 
             <EditText
+                android:theme="@style/EditTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
@@ -82,17 +83,19 @@
                 android:textColor="@color/grey" />
 
             <Button
-                android:layout_width="40dip"
-                android:layout_height="40dip"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
                 android:id="@+id/buttonColor"
                 android:background="@drawable/button_color"
                 android:layout_below="@id/spinnerTeaSort"
                 android:layout_toRightOf="@id/textViewChooseColor"
-                android:layout_marginTop="20dip"
+                android:layout_marginTop="27dip"
                 android:layout_marginLeft="20dip"
+                android:layout_marginRight="4dp"
                 style="?android:attr/borderlessButtonStyle" />
 
             <EditText
+                android:theme="@style/EditTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
@@ -118,6 +121,7 @@
                 android:layout_marginRight="4dp"></Spinner>
 
             <EditText
+                android:theme="@style/EditTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
@@ -200,6 +204,7 @@
                 android:layout_marginLeft="20dp" />
 
             <EditText
+                android:theme="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
@@ -222,6 +227,7 @@
                 android:visibility="gone"/>
 
             <EditText
+                android:theme="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="time"
@@ -236,6 +242,7 @@
                 android:visibility="gone"/>
 
             <EditText
+                android:theme="@style/EditTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="time"
@@ -246,21 +253,6 @@
                 android:layout_marginTop="20dip"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="50dip"
-                android:text="anlegen"
-                android:textSize="20sp"
-                android:textAllCaps="false"
-                android:id="@+id/buttonReady"
-                android:layout_below="@+id/editTextTime"
-                android:layout_marginTop="22dip"
-                android:layout_marginLeft="4dip"
-                android:layout_marginRight="4dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/button_normal"/>
 
         </RelativeLayout>
     </ScrollView>

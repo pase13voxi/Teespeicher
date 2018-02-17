@@ -38,7 +38,13 @@ public class CountDownService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final String elementName = intent.getStringExtra("elementName");
+        //Should fix a Nullpointer-Error
+        final String elementName;
+        if(intent.hasExtra("elementName")) {
+            elementName = intent.getStringExtra("elementName");
+        }else {
+            elementName = "-";
+        }
         long millis = intent.getLongExtra("millisec",0);
         countDownTimer = new CountDownTimer(millis, 250) {
             @Override

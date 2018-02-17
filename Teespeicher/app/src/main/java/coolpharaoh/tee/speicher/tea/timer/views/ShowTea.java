@@ -26,15 +26,16 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
 import coolpharaoh.tee.speicher.tea.timer.services.MediaService;
-import coolpharaoh.tee.speicher.tea.timer.R;
 
 public class ShowTea extends AppCompatActivity {
 
@@ -42,6 +43,8 @@ public class ShowTea extends AppCompatActivity {
     private TextView textViewBrewCount;
     private Button buttonBrewCount;
     private Button buttonNextBrew;
+    private ToggleButton toggleVibration;
+    private ToggleButton toggleNotification;
     private Button buttonNote;
     private TextView textViewTemperature;
     private Spinner spinnerMinutes;
@@ -59,7 +62,7 @@ public class ShowTea extends AppCompatActivity {
     private ImageView imageViewSteam;
     private UUID elementId;
     private int elementAt;
-    private NTea selectedTea;
+    private Tea selectedTea;
     private int brewCount = 0;
     private String name;
     private String sortOfTea;
@@ -87,6 +90,8 @@ public class ShowTea extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Hole TextViews
+        toggleVibration = (ToggleButton) findViewById(R.id.buttonVibration);
+        toggleNotification = (ToggleButton) findViewById(R.id.buttonNotification);
         TextView textViewName = (TextView) findViewById(R.id.textViewShowName);
         TextView textViewSortOfTea = (TextView) findViewById(R.id.textViewShowTeesorte);
         buttonNote = (Button) findViewById(R.id.buttonNote);
@@ -119,6 +124,10 @@ public class ShowTea extends AppCompatActivity {
         spinnerTimeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerMinutes.setAdapter(spinnerTimeAdapter);
         spinnerSeconds.setAdapter(spinnerTimeAdapter);
+
+        //Vibration and Notification set
+        toggleVibration.setChecked(MainActivity.settings.isVibration());
+        toggleNotification.setChecked(MainActivity.settings.isNotification());
 
         //show Description
         if(MainActivity.settings.isShowteaAlert()){
@@ -183,6 +192,22 @@ public class ShowTea extends AppCompatActivity {
             }
         }
 
+        toggleVibration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.settings.setVibration(toggleVibration.isChecked());
+                MainActivity.settings.saveSettings(getApplicationContext());
+            }
+        });
+
+        toggleNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.settings.setNotification(toggleNotification.isChecked());
+                MainActivity.settings.saveSettings(getApplicationContext());
+            }
+        });
+
         buttonNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,7 +234,7 @@ public class ShowTea extends AppCompatActivity {
                     }
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setIcon(R.drawable.brew);
+                builder.setIcon(R.drawable.brewdark);
                 builder.setTitle(R.string.showtea_brew_count_title);
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
@@ -265,6 +290,7 @@ public class ShowTea extends AppCompatActivity {
                 if(buttonStartTimer.getText().equals(getResources().getString(R.string.showtea_timer_start))){
                     //Mainlist aktualisieren
                     selectedTea.setCurrentDate();
+                    selectedTea.getCounter().count();
                     MainActivity.teaItems.sort();
                     MainActivity.teaItems.saveCollection(getApplicationContext());
                     MainActivity.adapter.notifyDataSetChanged();
@@ -283,7 +309,7 @@ public class ShowTea extends AppCompatActivity {
                     //Timeranzeige einblenden
                     textViewTimer.setVisibility((View.VISIBLE));
                     //Teetasse anzeigen
-                    if(!infoShown) {
+                    if(!infoShown && MainActivity.settings.isAnimation()) {
                         imageViewCup.setVisibility((View.VISIBLE));
                         imageViewFill.setVisibility((View.VISIBLE));
                         //Farbe des Inhalts der Tasse festlegen
@@ -303,7 +329,7 @@ public class ShowTea extends AppCompatActivity {
                 }else if(buttonStartTimer.getText().equals(getResources().getString(R.string.showtea_timer_reset))){
                     //Button umbenennen
                     buttonStartTimer.setText(R.string.showtea_timer_start);
-                    if(selectedTea.getTemperature().get(brewCount).getCelsius() < 100 && selectedTea.getTemperature().get(brewCount).getCelsius() != -500){
+                    if(!selectedTea.getCoolDownTime().get(brewCount).getTime().equals("-")){
                         buttonExchange.setEnabled(true);
                     }
 
@@ -315,11 +341,11 @@ public class ShowTea extends AppCompatActivity {
                     textViewDoppelPunkt.setVisibility(View.VISIBLE);
                     //Auswahl des Aufgusses wieder erlauben
                     buttonBrewCount.setEnabled(true);
-                    buttonNextBrew.setEnabled(true);
+                    nextBrewEnable();
                     //Timeranzeige ausblenden
                     textViewTimer.setVisibility((View.INVISIBLE));
                     //Teetasse ausblenden
-                    if(!infoShown) {
+                    if(!infoShown && MainActivity.settings.isAnimation()) {
                         imageViewCup.setVisibility((View.INVISIBLE));
                         imageViewFill.setVisibility((View.INVISIBLE));
                         imageViewFill.setImageResource(R.drawable.fill0pr);
@@ -345,18 +371,6 @@ public class ShowTea extends AppCompatActivity {
         return true;
     }
 
-    public boolean onPrepareOptionsMenu (Menu menu) {
-        for(int i=0; i<menu.size(); i++){
-            MenuItem mi = menu.getItem(i);
-            if(mi.getItemId() == R.id.action_vibrate){
-                mi.setChecked(MainActivity.settings.isVibration());
-            }else if(mi.getItemId() == R.id.action_notification){
-                mi.setChecked(MainActivity.settings.isNotification());
-            }
-        }
-        return true;
-    }
-
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         if(id == R.id.action_note){
@@ -370,12 +384,6 @@ public class ShowTea extends AppCompatActivity {
             startActivity(newteaScreen);
             finish();
             return true;
-        }else if(id == R.id.action_vibrate){
-            MainActivity.settings.setVibration(!MainActivity.settings.isVibration());
-            MainActivity.settings.saveSettings(getApplicationContext());
-        }else if(id == R.id.action_notification){
-            MainActivity.settings.setNotification(!MainActivity.settings.isNotification());
-            MainActivity.settings.saveSettings(getApplicationContext());
         }
 
         if(id == R.id.home){
@@ -411,12 +419,12 @@ public class ShowTea extends AppCompatActivity {
         if (intent.getExtras() != null) {
             long millis = intent.getLongExtra("countdown", 0);
             boolean ready = intent.getBooleanExtra("ready", false);
-            if(!infoShown) {
+            if(!infoShown && MainActivity.settings.isAnimation()) {
                 updateImage(millis);
             }
             if(ready){
                 textViewTimer.setText(R.string.showtea_tea_ready);
-                if(!infoShown) {
+                if(!infoShown && MainActivity.settings.isAnimation()) {
                     imageViewFill.setImageResource(R.drawable.fill100pr);
                     imageViewSteam.setVisibility((View.VISIBLE));
                 }
@@ -562,14 +570,19 @@ public class ShowTea extends AppCompatActivity {
         seconds = selectedTea.getTime().get(brewCount).getSeconds();
         spinnerSeconds.setSelection(seconds);
         textViewBrewCount.setText(getResources().getString(R.string.showtea_brea_count_point, (brewCount+1)));
+
+        nextBrewEnable();
+
+        buttonInfo.setVisibility(View.INVISIBLE);
+        infoShown = false;
+    }
+
+    private void nextBrewEnable(){
         if(brewCount==selectedTea.getTemperature().size()-1){
             buttonNextBrew.setEnabled(false);
         }else{
             buttonNextBrew.setEnabled(true);
         }
-
-        buttonInfo.setVisibility(View.INVISIBLE);
-        infoShown = false;
     }
 
     private void dialogNote(){

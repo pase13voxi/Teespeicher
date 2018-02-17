@@ -3,14 +3,18 @@
     <!--German-->
     <!--main_de-->
     <string name="main_action_settings">Einstellungen</string>
-    <string name="main_action_sort_date">Sortiere nach Aktivität</string>
-    <string name="main_action_sort_sort">Sortiere nach Sorte</string>
+    <string name="main_action_statistics">Statistik</string>
     <string name="main_action_about">Über den Tee Speicher</string>
+    <string name="main_sort">Sortierung</string>
+    <string-array name="main_sort_menu">
+        <item>Sortiere nach Aktivität</item>
+        <item>Sortiere alphabetisch</item>
+        <item>Sortiere nach Sorte</item>
+    </string-array>
     <string-array name="itemMenu">
         <item>Bearbeiten</item>
         <item>Löschen</item>
     </string-array>
-    <string name="main_create_tea">Tee erstellen</string>
     <string name="main_error_deletion">Löschung konnte nicht durchgeführt werden.</string>
     <!--showtea_de-->
     <string name="showtea_heading">Information</string>
@@ -44,7 +48,7 @@
     <string name="showtea_brew_count_title">Bitte wähle deinen Aufguss</string>
     <string name="showtea_brew_count_content">Aufguss</string>
     <string name="showtea_cooldown_title">Abkühlzeiten</string>
-    <string name="showtea_cooldown_text">Bei Grünem oder Weißem Tee sollte man vor dem Aufguss das kochende Wasser abkühlen lassen. Mit dieser Option wird die ungefähre Abkühlzeit berechnet.</string>
+    <string name="showtea_cooldown_text">Bei Grünem oder Weißem Tee sollte man vor dem Aufguss das kochende Wasser abkühlen lassen.</string>
     <string name="showtea_cooldown_ok">Ok</string>
     <string name="showtea_error_text">Fehler beim Anzeigen des Elements.</string>
     <string name="showtea_timer_start">Start</string>
@@ -124,8 +128,6 @@
     <string name="newtea_hint_time_fruittea">Ziehzeit "mm:ss" oder "mm" (5 &#8211; 10min)</string>
     <string name="newtea_hint_time_rooibustea">Ziehzeit "mm:ss" oder "mm" (5 &#8211; 10min)</string>
     <string name="newtea_hint_time_other">Ziehzeit "mm:ss" oder "mm"</string>
-    <string name="newtea_button_create">Anlegen</string>
-    <string name="newtea_button_edit">Ändern</string>
     <string name="newtea_error_30Char">Die Teesorte überschreitet die Grenzanzahl von 30 Zeichen.</string>
     <string name="newtea_error_name">Der Name überschreitet die Grenzanzahl von 300 Zeichen.</string>
     <string name="newtea_error_wrong_celsius">Die Temperatur sollte zwischen 0 °C und 100 °C liegen.</string>
@@ -141,17 +143,25 @@
     <!--setting_de-->
     <string name="settings_heading">Einstellungen</string>
     <string name="settings_alarm">Alarmsound</string>
-    <string name="setting_alarm_selection_title">Alarmsound auswählen</string>
+    <string name="settings_alarm_selection_title">Alarmsound auswählen</string>
     <string name="settings_vibration">Vibration</string>
     <string name="settings_notification">Benachrichtigung</string>
+    <string name="settings_animation">Animation</string>
+    <array name="settings_options">
+        <item>An</item>
+        <item>Aus</item>
+    </array>
+    <string name="settings_cancle">Abbrechen</string>
     <string name="settings_temperature_unit">Temperatur Einheit</string>
     <array name="settings_temperature_units">
         <item>Celsius</item>
         <item>Fahrenheit</item>
     </array>
-    <string name="settings_show_hints">Hinweise aktivieren</string>
+    <string name="settings_show_hints">Hinweise</string>
+    <string name="settings_show_hints_description">Alle Hinweise aktivieren</string>
     <string name="settings_show_hints_text">Hinweise sind wieder aktiv.</string>
-    <string name="settings_factory_settings">Zurücksetzen auf Werkseinstellungen</string>
+    <string name="settings_factory_settings">Werkseinstellungen</string>
+    <string name="settings_factory_settings_description">Zurücksetzen auf Werkseinstellungen</string>
     <string name="settings_factory_settings_text">Es werden alle Tees gelöscht und die Einstellungen zurückgesetzt.</string>
     <string name="settings_factory_settings_ok">Ok</string>
     <string name="settings_factory_settings_cancel">Abbrechen</string>
@@ -185,7 +195,7 @@
     <string name="software_colorpicker_description">Der ColorPicker ist eine Open Source Software, welche die Auswahl einer Farbe ermöglicht.</string>
     <!--Languages-->
     <string name="languages_heading">Sprachen</string>
-    <string name="languages_info_top">Du kannst mir helfen, die App in eine andere Sprache zu Übersetzen?</string>
+    <string name="languages_info_top">Du kannst mir helfen, die App in eine andere Sprache zu übersetzen?</string>
     <string name="languages_procedure">Ablauf:</string>
     <string name="languages_step1_text">Sende mir eine Anfrage zur Übersetzung.</string>
     <string name="languages_step2_text">Ich sende dir eine Datei mit den zu übersetzenden Texten.</string>

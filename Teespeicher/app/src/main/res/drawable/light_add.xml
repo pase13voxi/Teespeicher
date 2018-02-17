@@ -3,10 +3,6 @@
     <item android:drawable="@drawable/add"/>
     <item>
         <shape android:shape="oval">
-            <stroke
-                android:width="2dp"
-                android:color="@color/grey"
-                />
         </shape>
     </item>
 </layer-list>

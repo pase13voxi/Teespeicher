@@ -10,9 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Toolbar Title"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:id="@+id/toolbar_title"
-        android:textColor="#000000" />
+        android:textColor="@color/white" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -23,8 +23,8 @@
             android:layout_height="30dip"
             android:id="@+id/toolbar_text_brewcount"
             android:text="1."
-            android:textSize="20sp"
-            android:textColor="#363434"
+            android:textSize="22sp"
+            android:textColor="@color/white"
             android:gravity="center_vertical"/>
 
         <Button

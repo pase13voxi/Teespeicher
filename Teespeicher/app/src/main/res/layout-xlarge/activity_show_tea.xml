@@ -10,6 +10,35 @@
         android:id="@id/tool_bar"
         layout="@layout/tool_bar_show_tea" />
 
+
+    <ToggleButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonNotification"
+        android:background="@drawable/button_notification"
+        android:textOn=""
+        android:textOff=""
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/tool_bar"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"/>
+
+    <ToggleButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonVibration"
+        android:background="@drawable/button_vibration"
+        android:textOn=""
+        android:textOff=""
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/tool_bar"
+        android:layout_toLeftOf="@+id/buttonNotification"
+        android:layout_margin="10dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,9 +153,10 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text="Start"
+        android:textColor="@color/white"
        android:textSize="40sp"
        android:id="@+id/buttonStartTimer"
-       android:background="@drawable/button_normal"
+       android:background="@drawable/button_start"
        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
        android:layout_alignParentBottom="true"
        android:layout_marginBottom="80dip"

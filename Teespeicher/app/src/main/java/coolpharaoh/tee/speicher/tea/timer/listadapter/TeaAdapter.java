@@ -4,22 +4,25 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 
 public class TeaAdapter extends BaseAdapter
 {
 
     private LayoutInflater inflater;
-    private List<NTea> items;
+    private List<Tea> items;
 
-    public TeaAdapter(Activity context, List<NTea> items) {
+    public TeaAdapter(Activity context, List<Tea> items) {
         super();
 
         this.items = items;
@@ -44,7 +47,7 @@ public class TeaAdapter extends BaseAdapter
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        NTea item = items.get(position);
+        Tea item = items.get(position);
 
         View vi=convertView;
 

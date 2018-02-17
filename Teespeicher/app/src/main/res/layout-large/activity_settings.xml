@@ -1,116 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="coolpharaoh.tee.speicher.tea.timer.views.Settings">
 
     <include
         android:id="@id/tool_bar"
         layout="@layout/tool_bar" />
 
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar">
+        android:id="@+id/listView_settings" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="70dp"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Alarmsound"
-                    android:id="@+id/textViewMusic"
-                    android:textColor="#010101" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Keine"
-                    android:textSize="20sp"
-                    android:textAllCaps="false"
-                    android:id="@+id/buttonMusicChoice"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/button_setting" />
-
-            </LinearLayout>
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Vibration"
-                android:id="@+id/checkBoxVibration"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginTop="70dp" />
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Benachrichtigung"
-                android:id="@+id/checkBoxNotification"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginTop="70dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="70dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Alarmsound"
-                    android:id="@+id/textViewTempUnit"
-                    android:textColor="#010101" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:id="@+id/spinnerTempUnit"
-                    android:spinnerMode="dropdown"
-                    android:entries="@array/settings_temperature_units"
-                    style="@android:style/Widget.Holo.Light.Spinner"
-                    android:layout_marginLeft="20dp"></Spinner>
-
-            </LinearLayout>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_show_hints"
-                android:textSize="20sp"
-                android:textAllCaps="false"
-                android:id="@+id/buttonShowHints"
-                android:background="@drawable/button_setting"
-                android:layout_marginTop="70dp" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Zurücksetzen auf Werkseinstellungen"
-                android:textSize="20sp"
-                android:textAllCaps="false"
-                android:id="@+id/buttonDefaultSettings"
-                android:background="@drawable/button_setting"
-                android:layout_marginTop="70dp"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</RelativeLayout>
+</LinearLayout>

@@ -10,6 +10,34 @@
         android:id="@id/tool_bar"
         layout="@layout/tool_bar_show_tea" />
 
+    <ToggleButton
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:id="@+id/buttonNotification"
+        android:background="@drawable/button_notification"
+        android:textOn=""
+        android:textOff=""
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/tool_bar"
+        android:layout_alignParentRight="true"
+        android:layout_margin="4dp"/>
+
+    <ToggleButton
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:id="@+id/buttonVibration"
+        android:background="@drawable/button_vibration"
+        android:textOn=""
+        android:textOff=""
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/tool_bar"
+        android:layout_toLeftOf="@+id/buttonNotification"
+        android:layout_margin="4dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,8 +151,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
+        android:textColor="@color/white"
         android:id="@+id/buttonStartTimer"
-        android:background="@drawable/button_normal"
+        android:background="@drawable/button_start"
         android:textSize="17sp"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"
@@ -146,6 +175,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+         android:textColor="@color/textAppearanceGrey"
         android:text="@string/showtea_display_min"
         android:id="@+id/textViewMin"
         android:layout_above="@id/buttonStartTimer"
@@ -157,6 +187,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+         android:textColor="@color/textAppearanceGrey"
         android:text="@string/showtea_display_sec"
         android:id="@+id/textViewSec"
         android:layout_above="@+id/buttonStartTimer"
