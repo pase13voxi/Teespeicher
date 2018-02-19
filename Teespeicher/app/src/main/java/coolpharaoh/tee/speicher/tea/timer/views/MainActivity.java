@@ -1,6 +1,7 @@
 package coolpharaoh.tee.speicher.tea.timer.views;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView tealist;
     private View rootView;
     private ArrayList<Tea> searchList = new ArrayList<>();
-    private boolean searching = false;
+    private boolean searching = false, changeWindowHelper = false;
 
 
     @Override
@@ -203,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
 
                 //Decision between searchList and normalList
                 if(searching){
-                    rootView.requestFocus();
                     showteaScreen.putExtra("elementId", searchList.get(position).getId());
                 }else {
                     showteaScreen.putExtra("elementId", teaItems.getTeaItems().get(position).getId());
@@ -218,7 +219,10 @@ public class MainActivity extends AppCompatActivity {
         newTea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rootView.requestFocus();
+                if(searching) {
+                    changeWindowHelper = true;
+                    rootView.requestFocus();
+                }
                 //Neues Intent anlegen
                 Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
                 // Intent starten und zur zweiten Activity wechseln
@@ -233,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -244,7 +248,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searching = true;
                 searchList.clear();
 
                 for (Tea temp : teaItems.getTeaItems()){
@@ -257,6 +260,8 @@ public class MainActivity extends AppCompatActivity {
                 //Adapter dem Listview hinzufügen
                 tealist.setAdapter(adapter);
 
+                searching = true;
+
                 return true;
             }
         });
@@ -266,12 +271,22 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean queryTextFocused) {
                 //wenn nicht mehr gesucht wird
                 if(!queryTextFocused) {
-                    searching = false;
+                    //don't collapse onbackpress because it will crash
+                    if(changeWindowHelper) {
+                        searchItem.collapseActionView();
+                        changeWindowHelper = false;
+                    }else{
+                        //close keyboard on backpress
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
                     searchView.setQuery("", false);
-                    //Liste mit Adapter verknüpfen
+                    //bind TeaItems to adapter again
                     adapter = new TeaAdapter(MainActivity.this, teaItems.getTeaItems());
-                    //Adapter dem Listview hinzufügen
+                    //add adapter to ListView
                     tealist.setAdapter(adapter);
+                    //Don't use searchList
+                    searching = false;
                 }
             }
         });
@@ -282,14 +297,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
-        if(id == R.id.action_edit){
-            rootView.requestFocus();
+        if(id == R.id.action_settings){
             //Neues Intent anlegen
             Intent settingScreen = new Intent(MainActivity.this, Settings.class);
             // Intent starten und zur zweiten Activity wechseln
             startActivity(settingScreen);
         }else if(id == R.id.action_about){
-            rootView.requestFocus();
             //Neues Intent anlegen
             Intent aboutScreen = new Intent(MainActivity.this, About.class);
             // Intent starten und zur zweiten Activity wechseln
@@ -326,6 +339,9 @@ public class MainActivity extends AppCompatActivity {
             //Fallunterscheidung bei Suche
             if(searching) {
                 newteaScreen.putExtra("elementId", searchList.get(info.position).getId());
+                //searching requires some extra options
+                changeWindowHelper = true;
+                rootView.requestFocus();
             }else {
                 newteaScreen.putExtra("elementId", teaItems.getTeaItems().get(info.position).getId());
             }
@@ -333,7 +349,13 @@ public class MainActivity extends AppCompatActivity {
             // Intent starten und zur zweiten Activity wechseln
             startActivity(newteaScreen);
         }else if(menuItemName.equals(deleteOption)){
-            teaItems.getTeaItems().remove(info.position);
+            int position = info.position;
+            if(searching){
+                //find position in teaitems
+                position = teaItems.getPositionById(searchList.get(info.position).getId());
+                searchList.remove(info.position);
+            }
+            teaItems.getTeaItems().remove(position);
             if(!teaItems.saveCollection(getApplicationContext())){
                 Toast toast = Toast.makeText(getApplicationContext(), R.string.main_error_deletion, Toast.LENGTH_SHORT);
                 toast.show();

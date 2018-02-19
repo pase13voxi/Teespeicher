@@ -381,7 +381,7 @@ public class ShowTea extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.action_note){
             dialogNote();
-        }else if(id == R.id.action_edit){
+        }else if(id == R.id.action_settings){
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(ShowTea.this, NewTea.class);
             newteaScreen.putExtra("elementId", elementId);
@@ -629,6 +629,8 @@ public class ShowTea extends AppCompatActivity {
     }
 
     private void dialogCounter() {
+        //aktualisiere den Counter
+        selectedTea.getCounter().refresh();
 
         List<ListRowItem> counterList = new ArrayList<>();
         ListRowItem itemToday = new ListRowItem(getResources().getString(R.string.showtea_dialog_counter_day), String.valueOf(selectedTea.getCounter().getDay()));
@@ -649,7 +651,7 @@ public class ShowTea extends AppCompatActivity {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setView(listViewCounter);
         adb.setTitle(R.string.showtea_action_counter);
-        //adb.setIcon(R.drawable.note);
+        adb.setIcon(R.drawable.ic_action_counter);
         adb.setPositiveButton(R.string.showtea_dialog_counter_ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             }

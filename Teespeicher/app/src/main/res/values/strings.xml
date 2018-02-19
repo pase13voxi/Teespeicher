@@ -23,10 +23,10 @@
     <string name="showtea_dialog_note_ok">OK</string>
     <string name="showtea_dialog_note_cancle">Cancle</string>
     <string name="showtea_action_edit">Edit</string>
-    <string name="showtea_action_counter">Counter</string>
-    <string name="showtea_dialog_counter_day">Day</string>
-    <string name="showtea_dialog_counter_week">Week</string>
-    <string name="showtea_dialog_counter_month">Month</string>
+    <string name="showtea_action_counter">Drinking behavior</string>
+    <string name="showtea_dialog_counter_day">Today</string>
+    <string name="showtea_dialog_counter_week">This week</string>
+    <string name="showtea_dialog_counter_month">This month</string>
     <string name="showtea_dialog_counter_overall">Overall</string>
     <string name="showtea_dialog_counter_ok">OK</string>
     <string name="showtea_dialog_description_header">How to use.</string>

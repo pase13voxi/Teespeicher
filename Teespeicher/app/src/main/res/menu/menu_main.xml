@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.MainActivity">
     <item
-        android:id="@+id/action_edit"
+        android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/main_action_settings"
         app:showAsAction="never" />
@@ -18,6 +18,6 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_action_search"
         android:title="Search"
-        app:showAsAction="always|collapseActionView"
+        app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.widget.SearchView" />
 </menu>

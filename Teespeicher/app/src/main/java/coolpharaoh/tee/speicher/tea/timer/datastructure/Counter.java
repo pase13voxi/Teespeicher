@@ -66,13 +66,20 @@ public class Counter implements Serializable {
         this.overall++;
     }
 
-    public void refreshDay(Date currentDate){
+    public void refresh(){
+        Date currentDate = Calendar.getInstance().getTime();
+        refreshDay(currentDate);
+        refreshWeek(currentDate);
+        refreshMonth(currentDate);
+    }
+
+    private void refreshDay(Date currentDate){
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
         int currentDay = cal.get(Calendar.DAY_OF_MONTH);
         int currentMonth = cal.get(Calendar.MONTH);
         int currentYear = cal.get(Calendar.YEAR);
-        cal.setTime(monthDate);
+        cal.setTime(dayDate);
         int countDay = cal.get(Calendar.DAY_OF_MONTH);
         int countMonth = cal.get(Calendar.MONTH);
         int countYear = cal.get(Calendar.YEAR);
@@ -82,7 +89,7 @@ public class Counter implements Serializable {
         }
     }
 
-    public void refreshWeek(Date currentDate){
+    private void refreshWeek(Date currentDate){
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
         int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
@@ -96,7 +103,7 @@ public class Counter implements Serializable {
         }
     }
 
-    public void refreshMonth(Date currentDate){
+    private void refreshMonth(Date currentDate){
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
         int currentMonth = cal.get(Calendar.MONTH);
