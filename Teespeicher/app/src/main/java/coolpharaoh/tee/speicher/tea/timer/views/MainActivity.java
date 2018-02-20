@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,12 +20,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
@@ -48,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton newTea;
     private Spinner spinnerSort;
     private ListView tealist;
+    //Important for SearchView
     private View rootView;
+    private ImageView searchCloseButton;
     private ArrayList<Tea> searchList = new ArrayList<>();
     private boolean searching = false, changeWindowHelper = false;
 
@@ -238,7 +243,41 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_main, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.action_search);
+
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        //editText gets focus
+        searchView.setIconified(false);
+        //closebutton
+        try {
+            Field searchField = SearchView.class.getDeclaredField("mCloseButton");
+            searchField.setAccessible(true);
+            searchCloseButton = (ImageView) searchField.get(searchView);
+        } catch (Exception e) {
+            //Log.e(TAG, "Error finding close button", e);
+        }
+
+        searchCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Clear query
+                searchView.setQuery("", false);
+            }
+        });
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                //editText gets focus
+                searchView.setIconified(false);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -248,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 searchList.clear();
 
                 for (Tea temp : teaItems.getTeaItems()){
