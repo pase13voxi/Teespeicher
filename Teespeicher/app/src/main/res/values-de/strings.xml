@@ -182,6 +182,8 @@
     <string name="about_translation_description">Du möchtest die App in deiner Sprache und kannst helfen, zu übersetzen?</string>
     <string name="about_software_heading">Software Lizenzen</string>
     <string name="about_software_description">Welche Open Source Software wird von dem Tee Speicher genutzt?</string>
+    <string name="about_billing_heading">Bezahlung</string>
+    <string name="about_billing_description">Zahle so viel wie dir die App wert ist.</string>
     <!--Contact-->
     <string name="contact_heading">Kontakt</string>
     <string name="contact_about_me">Hallo, ich bin Pascal und ich habe den Tee Speicher in meiner Freizeit entwickelt. Für Fragen oder Anregungen schreib mir eine E-mail.</string>
@@ -209,6 +211,8 @@
     <string name="languages_email_address">pase.b@outlook.com</string>
     <string name="languages_email_subject">Tee Speicher Sprachen</string>
     <string name="languages_email_chooser">Sende eine E-Mail...</string>
+    <!--Billing-->
+    <string name="billing_heading">Bezahlung</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

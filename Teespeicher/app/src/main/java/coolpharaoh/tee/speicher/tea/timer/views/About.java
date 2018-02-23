@@ -24,7 +24,7 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 public class About extends AppCompatActivity {
 
     private enum ListItems {
-        Contact, Rating, Translation, Software, Upgrade
+        Contact, Rating, Translation, Software, Billing
     }
 
 
@@ -53,8 +53,8 @@ public class About extends AppCompatActivity {
         aboutList.add(itemTranslation);
         ListRowItem itemSoftware = new ListRowItem(getResources().getString(R.string.about_software_heading),getResources().getString(R.string.about_software_description));
         aboutList.add(itemSoftware);
-        ListRowItem itemUpgrade = new ListRowItem("Upgrade","Mit einem Upgrad darf man mehr als 20 Tees abspeichern.");
-        aboutList.add(itemUpgrade);
+        ListRowItem itemBilling = new ListRowItem(getResources().getString(R.string.about_billing_heading),getResources().getString(R.string.about_billing_description));
+        aboutList.add(itemBilling);
 
         //Liste mit Adapter verknüpfen
         AboutListAdapter adapter = new AboutListAdapter(this, aboutList);
@@ -93,9 +93,13 @@ public class About extends AppCompatActivity {
                         // Intent starten und zur zweiten Activity wechseln
                         startActivity(softwareScreen);
                         break;
-                    case Upgrade:
-                        Toast toast = Toast.makeText(getApplicationContext(), "Diese Funktionen ist zur Zeit noch nicht möglich.", Toast.LENGTH_SHORT);
-                        toast.show();
+                    case Billing:
+                        /*Toast toast = Toast.makeText(getApplicationContext(), "Diese Funktionen ist zur Zeit noch nicht möglich.", Toast.LENGTH_SHORT);
+                        toast.show();*/
+                        //Neues Intent anlegen
+                        Intent billingScreen = new Intent(About.this, Payment.class);
+                        // Intent starten und zur zweiten Activity wechseln
+                        startActivity(billingScreen);
                         break;
                 }
 

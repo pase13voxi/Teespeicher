@@ -182,6 +182,8 @@
     <string name="about_translation_description">You want the app in your language and can help translate?</string>
     <string name="about_software_heading">Software Licences</string>
     <string name="about_software_description">Which open source software is used by the Tea Memory?</string>
+    <string name="about_billing_heading">Payment</string>
+    <string name="about_billing_description">Pay as much as the app is worth to you.</string>
     <!--Contact-->
     <string name="contact_heading">Contact</string>
     <string name="contact_about_me">Hello, I am Pascal and I have developed the Tea Memory in my spare time. For questions or suggestions write me an email.</string>
@@ -209,6 +211,8 @@
     <string name="languages_email_address">pase.b@outlook.com</string>
     <string name="languages_email_subject">Tea Memory Languages</string>
     <string name="languages_email_chooser">Send email...</string>
+    <!--Billing-->
+    <string name="billing_heading">Payment</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

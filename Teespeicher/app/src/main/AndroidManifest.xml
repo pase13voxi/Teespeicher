@@ -84,9 +84,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
         </activity>
+        <activity
+            android:name=".views.Payment"
+            android:label="Payment"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
+        </activity>
 
         <service android:name=".services.MediaService" />
         <service android:name=".services.CountDownService" />
+
     </application>
 
 </manifest>
