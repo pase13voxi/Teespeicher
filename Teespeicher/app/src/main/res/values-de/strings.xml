@@ -182,8 +182,8 @@
     <string name="about_translation_description">Du möchtest die App in deiner Sprache und kannst helfen, zu übersetzen?</string>
     <string name="about_software_heading">Software Lizenzen</string>
     <string name="about_software_description">Welche Open Source Software wird von dem Tee Speicher genutzt?</string>
-    <string name="about_billing_heading">Bezahlung</string>
-    <string name="about_billing_description">Zahle so viel wie dir die App wert ist.</string>
+    <string name="about_billing_heading">Unterstützung</string>
+    <string name="about_billing_description">Zahle so viel, wie dir die App wert ist.</string>
     <!--Contact-->
     <string name="contact_heading">Kontakt</string>
     <string name="contact_about_me">Hallo, ich bin Pascal und ich habe den Tee Speicher in meiner Freizeit entwickelt. Für Fragen oder Anregungen schreib mir eine E-mail.</string>
@@ -193,12 +193,10 @@
     <string name="contact_email_chooser">Sende eine E-mail...</string>
     <!--Software-->
     <string name="software_heading">Software Lizenzen</string>
-    <string name="software_tesseract_heading">Tesseract</string>
-    <string name="software_tesseract_description">Tesseract ist eine Open Source Software, welche die Texterkennung ermöglicht.</string>
-    <string name="software_cropper_heading">Cropper von Edmodo Inc</string>
-    <string name="software_cropper_description">Der Cropper von Edmodo Inc ist eine Open Source Software, die für das Bearbeiten von Bilder nützlich ist.</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
     <string name="software_colorpicker_description">Der ColorPicker ist eine Open Source Software, welche die Auswahl einer Farbe ermöglicht.</string>
+    <string name="software_billing_heading">Android In-App Billing v3 Library</string>
+    <string name="software_billing_description">Die Android In-App Billing v3 Library ist eine Open Source Software, welche In-App-Käufe ermöglicht.</string>
     <!--Languages-->
     <string name="languages_heading">Sprachen</string>
     <string name="languages_info_top">Du kannst mir helfen, die App in eine andere Sprache zu übersetzen?</string>
@@ -212,7 +210,18 @@
     <string name="languages_email_subject">Tee Speicher Sprachen</string>
     <string name="languages_email_chooser">Sende eine E-Mail...</string>
     <!--Billing-->
-    <string name="billing_heading">Bezahlung</string>
+    <string name="billing_heading">Unterstützung</string>
+    <string name="billing_info">Zahle so viel, wie dir die App wert ist. Du hilfst mir damit sehr.</string>
+    <string name="billing_zero">Das ist kein Problem. Diese App ist komplett kostenlos.</string>
+    <string name="billing_support_me">Viele Dank für deine Unterstützung.</string>
+    <string-array name="billing_prices">
+        <item>0,00 €</item>
+        <item>1,00 €</item>
+        <item>2,00 €</item>
+        <item>3,00 €</item>
+        <item>5,00 €</item>
+        <item>10,00 €</item>
+    </string-array>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

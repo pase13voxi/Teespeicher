@@ -182,7 +182,7 @@
     <string name="about_translation_description">You want the app in your language and can help translate?</string>
     <string name="about_software_heading">Software Licences</string>
     <string name="about_software_description">Which open source software is used by the Tea Memory?</string>
-    <string name="about_billing_heading">Payment</string>
+    <string name="about_billing_heading">Support</string>
     <string name="about_billing_description">Pay as much as the app is worth to you.</string>
     <!--Contact-->
     <string name="contact_heading">Contact</string>
@@ -193,12 +193,10 @@
     <string name="contact_email_chooser">Send email...</string>
     <!--Software-->
     <string name="software_heading">Software Licenses</string>
-    <string name="software_tesseract_heading">Tesseract</string>
-    <string name="software_tesseract_description">Tesseract is an open source software, which makes the text recognition possible.</string>
-    <string name="software_cropper_heading">Cropper from Edmodo Inc</string>
-    <string name="software_cropper_description">The Cropper by Edmodo Inc is an open source software that is useful for editing images.</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
     <string name="software_colorpicker_description">The ColorPicker is an open source software, which allows the selection of a color.</string>
+    <string name="software_billing_heading">Android In-App Billing v3 Library</string>
+    <string name="software_billing_description">The Android In-App Billing v3 Library is an open source software, which allows In-App-Billing.</string>
     <!--Languages-->
     <string name="languages_heading">Languages</string>
     <string name="languages_info_top">You can help me translate the app into another language?</string>
@@ -212,7 +210,18 @@
     <string name="languages_email_subject">Tea Memory Languages</string>
     <string name="languages_email_chooser">Send email...</string>
     <!--Billing-->
-    <string name="billing_heading">Payment</string>
+    <string name="billing_heading">Support</string>
+    <string name="billing_info">Pay as much as the app is worth to you. This will help me a lot.</string>
+    <string name="billing_zero">No problem. The Tea Memory is completly free.</string>
+    <string name="billing_support_me">Thank you for your support.</string>
+    <string-array name="billing_prices">
+        <item>0,00 €</item>
+        <item>1,00 €</item>
+        <item>2,00 €</item>
+        <item>3,00 €</item>
+        <item>5,00 €</item>
+        <item>10,00 €</item>
+    </string-array>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>
