@@ -20,6 +20,10 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 
 public class Payment extends AppCompatActivity implements BillingProcessor.IBillingHandler {
 
+    private enum ListItems {
+        Zero, One, Two, Three, Five, Ten
+    }
+
     private BillingProcessor bp;
     private String[] prices;
     private int currentPrice;
@@ -89,7 +93,28 @@ public class Payment extends AppCompatActivity implements BillingProcessor.IBill
             @Override
             public void onClick(View view) {
                 //bp.purchase(Payment.this, "android.test.purchased");
-                bp.purchase(Payment.this, "supportone");
+                ListItems item = ListItems.values()[currentPrice];
+                switch (item){
+                    case Zero:
+                        textViewPurchaseInfo.setText(R.string.billing_zero);
+                        purchaseDone();
+                        break;
+                    case One:
+                        bp.purchase(Payment.this, "supportone");
+                        break;
+                    case Two:
+                        bp.purchase(Payment.this, "supporttwo");
+                        break;
+                    case Three:
+                        bp.purchase(Payment.this, "supportthree");
+                        break;
+                    case Five:
+                        bp.purchase(Payment.this, "supportfive");
+                        break;
+                    case Ten:
+                        bp.purchase(Payment.this, "supportten");
+                        break;
+                }
             }
         });
 
@@ -117,10 +142,7 @@ public class Payment extends AppCompatActivity implements BillingProcessor.IBill
     * Called when requested PRODUCT ID was successfully purchased
     */
         textViewPurchaseInfo.setText(R.string.billing_support_me);
-        buttonNavigateLeft.setVisibility(View.INVISIBLE);
-        textViewPurchaseAmount.setVisibility(View.INVISIBLE);
-        buttonNavigateRight.setVisibility(View.INVISIBLE);
-        buttonPurchase.setVisibility(View.INVISIBLE);
+        purchaseDone();
         bp.consumePurchase(productId);
     }
 
@@ -162,5 +184,12 @@ public class Payment extends AppCompatActivity implements BillingProcessor.IBill
             bp.release();
         }
         super.onDestroy();
+    }
+
+    private void purchaseDone(){
+        buttonNavigateLeft.setVisibility(View.INVISIBLE);
+        textViewPurchaseAmount.setVisibility(View.INVISIBLE);
+        buttonNavigateRight.setVisibility(View.INVISIBLE);
+        buttonPurchase.setVisibility(View.INVISIBLE);
     }
 }
