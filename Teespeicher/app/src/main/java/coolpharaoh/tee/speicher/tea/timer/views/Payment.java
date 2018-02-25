@@ -88,7 +88,8 @@ public class Payment extends AppCompatActivity implements BillingProcessor.IBill
         buttonPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(Payment.this, "android.test.purchased");
+                //bp.purchase(Payment.this, "android.test.purchased");
+                bp.purchase(Payment.this, "supportone");
             }
         });
 
