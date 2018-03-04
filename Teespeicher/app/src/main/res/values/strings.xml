@@ -154,6 +154,7 @@
     <string name="newtea_error_cant_save">Store could not be performed.</string>
     <string name="newtea_error_no_name">Please enter the name.</string>
     <string name="newtea_count_brew">Brew</string>
+    <string name="newtea_tooltip_choosecolor">Choose color</string>
     <string name="newtea_tooltip_arrowleft">Previous brew</string>
     <string name="newtea_tooltip_arrowright">Next brew</string>
     <string name="newtea_tooltip_deletebrew">Delete brew</string>

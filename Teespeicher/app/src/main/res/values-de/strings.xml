@@ -154,6 +154,7 @@
     <string name="newtea_error_cant_save">Speichern konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
     <string name="newtea_count_brew">Aufguss</string>
+    <string name="newtea_tooltip_choosecolor">Farbe auswählen</string>
     <string name="newtea_tooltip_arrowleft">Vorheriger Aufguss</string>
     <string name="newtea_tooltip_arrowright">Nächster Aufguss</string>
     <string name="newtea_tooltip_deletebrew">Aufguss löschen</string>

@@ -266,6 +266,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
                 colorPickerDialog.show();
             }
         });
+        buttonColor.setOnLongClickListener(this);
 
         //unit hat sich verändert
         spinnerAmount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -740,7 +741,9 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
     //choose which tooltip will be shown
     @Override
     public boolean onLongClick(View view) {
-        if (view.getId() == R.id.buttonArrowLeft) {
+        if (view.getId() == R.id.buttonColor) {
+            showTooltip(view, Gravity.TOP,getResources().getString(R.string.newtea_tooltip_choosecolor));
+        }else if (view.getId() == R.id.buttonArrowLeft) {
             showTooltip(view, Gravity.TOP,getResources().getString(R.string.newtea_tooltip_arrowleft));
         } else if (view.getId() == R.id.buttonArrowRight) {
             showTooltip(view, Gravity.TOP,getResources().getString(R.string.newtea_tooltip_arrowright));
@@ -762,7 +765,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
     private void showTooltip(View v, int gravity, String text){
         Tooltip tooltip = new Tooltip.Builder(v)
                 .setText(text)
-                .setTextColor(Color.WHITE)
+                .setTextColor(getResources().getColor(R.color.white))
                 .setGravity(gravity)
                 .setCornerRadius(8f)
                 .setCancelable(true)

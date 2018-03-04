@@ -763,7 +763,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     private void showTooltip(View v, int gravity, String text){
         Tooltip tooltip = new Tooltip.Builder(v)
                 .setText(text)
-                .setTextColor(Color.WHITE)
+                .setTextColor(getResources().getColor(R.color.white))
                 .setGravity(gravity)
                 .setCornerRadius(8f)
                 .setCancelable(true)
