@@ -8,11 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.tooltip.Tooltip;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +46,7 @@ import coolpharaoh.tee.speicher.tea.timer.listadapter.ListRowItem;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
 import coolpharaoh.tee.speicher.tea.timer.services.MediaService;
 
-public class ShowTea extends AppCompatActivity {
+public class ShowTea extends AppCompatActivity implements View.OnLongClickListener {
 
     private Toolbar toolbar;
     private TextView textViewBrewCount;
@@ -204,6 +208,7 @@ public class ShowTea extends AppCompatActivity {
                 MainActivity.settings.saveSettings(getApplicationContext());
             }
         });
+        toggleVibration.setOnLongClickListener(this);
 
         toggleNotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +217,7 @@ public class ShowTea extends AppCompatActivity {
                 MainActivity.settings.saveSettings(getApplicationContext());
             }
         });
+        toggleNotification.setOnLongClickListener(this);
 
         buttonNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,6 +225,7 @@ public class ShowTea extends AppCompatActivity {
                 dialogNote();
             }
         });
+        buttonNote.setOnLongClickListener(this);
 
         buttonCalcAmount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,6 +233,7 @@ public class ShowTea extends AppCompatActivity {
                 dialogamount();
             }
         });
+        buttonCalcAmount.setOnLongClickListener(this);
 
         buttonBrewCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,6 +260,7 @@ public class ShowTea extends AppCompatActivity {
 
             }
         });
+        buttonBrewCount.setOnLongClickListener(this);
 
         buttonNextBrew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,6 +269,7 @@ public class ShowTea extends AppCompatActivity {
                 brewCountChanged();
             }
         });
+        buttonNextBrew.setOnLongClickListener(this);
 
         buttonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -288,6 +298,8 @@ public class ShowTea extends AppCompatActivity {
                 }
             }
         });
+        buttonExchange.setOnLongClickListener(this);
+
         buttonStartTimer = (Button) findViewById(R.id.buttonStartTimer);
         buttonStartTimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -725,5 +737,37 @@ public class ShowTea extends AppCompatActivity {
             }
         });
         adb.show();
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        if (view.getId() == R.id.buttonNotification) {
+            showTooltip(view, Gravity.BOTTOM,getResources().getString(R.string.showtea_tooltip_notification));
+        } else if (view.getId() == R.id.buttonVibration) {
+            showTooltip(view, Gravity.BOTTOM,getResources().getString(R.string.showtea_tooltip_vibration));
+        } else if (view.getId() == R.id.buttonNote) {
+            showTooltip(view, Gravity.TOP,getResources().getString(R.string.showtea_tooltip_note));
+        } else if (view.getId() == R.id.buttonExchange) {
+            showTooltip(view, Gravity.TOP,getResources().getString(R.string.showtea_tooltip_exchange));
+        } else if (view.getId() == R.id.buttonCalculateAmount) {
+            showTooltip(view, Gravity.BOTTOM,getResources().getString(R.string.showtea_tooltip_calculateamount));
+        } else if (view.getId() == R.id.toolbar_brewcount) {
+            showTooltip(view, Gravity.BOTTOM,getResources().getString(R.string.showtea_tooltip_brewcount));
+        } else if (view.getId() == R.id.toolbar_nextbrew) {
+            showTooltip(view, Gravity.BOTTOM,getResources().getString(R.string.showtea_tooltip_nextbrew));
+        }
+        return true;
+    }
+
+    //creates a Tooltip
+    private void showTooltip(View v, int gravity, String text){
+        Tooltip tooltip = new Tooltip.Builder(v)
+                .setText(text)
+                .setTextColor(Color.WHITE)
+                .setGravity(gravity)
+                .setCornerRadius(8f)
+                .setCancelable(true)
+                .setDismissOnClick(true)
+                .show();
     }
 }

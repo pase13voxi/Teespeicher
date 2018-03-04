@@ -4,6 +4,7 @@
     <!--main_de-->
     <string name="main_action_settings">Einstellungen</string>
     <string name="main_action_statistics">Statistik</string>
+    <string name="main_action_search">Suche</string>
     <string name="main_action_about">Über den Tee Speicher</string>
     <string name="main_sort">Sortierung</string>
     <string-array name="main_sort_menu">
@@ -16,6 +17,8 @@
         <item>Löschen</item>
     </string-array>
     <string name="main_error_deletion">Löschung konnte nicht durchgeführt werden.</string>
+    <string name="main_tooltip_search">Suchen</string>
+    <string name="main_tooltip_newtea">Tee hinzufügen</string>
     <!--showtea_de-->
     <string name="showtea_heading">Information</string>
     <string name="showtea_action_note">Notiz</string>
@@ -37,14 +40,14 @@
     <string name="showtea_dialog_description_ok">Ok</string>
     <string name="showtea_display_celsius">%1$s °C</string>
     <string name="showtea_display_fahrenheit">%1$s °F</string>
-    <string name="showtea_display_ts">%1$s TL/l</string>
-    <string name="showtea_display_gr">%1$s g/l</string>
+    <string name="showtea_display_ts">%1$s TL/L</string>
+    <string name="showtea_display_gr">%1$s g/L</string>
     <string name="showtea_dialog_amount">Menge</string>
     <string name="showtea_dialog_amount_scala_left">0.0l</string>
     <string name="showtea_dialog_amount_scala_center">1.0l</string>
     <string name="showtea_dialog_amount_scala_right">2.0l</string>
-    <string name="showtea_dialog_amount_per_amount_ts">%1$.1f TL / %2$.1f l</string>
-    <string name="showtea_dialog_amount_per_amount_gr">%1$.1f g / %2$.1f l</string>
+    <string name="showtea_dialog_amount_per_amount_ts">%1$.1f TL / %2$.1f L</string>
+    <string name="showtea_dialog_amount_per_amount_gr">%1$.1f g / %2$.1f L</string>
     <string name="showtea_dialog_amount_ok">Ok</string>
     <string name="showtea_display_min">Min</string>
     <string name="showtea_display_sec">Sek</string>
@@ -58,6 +61,13 @@
     <string name="showtea_timer_start">Start</string>
     <string name="showtea_timer_reset">Reset</string>
     <string name="showtea_tea_ready">Fertig</string>
+    <string name="showtea_tooltip_notification">Benachrichtigung</string>
+    <string name="showtea_tooltip_vibration">Vibration</string>
+    <string name="showtea_tooltip_note">Notiz</string>
+    <string name="showtea_tooltip_exchange">Abkühlzeit</string>
+    <string name="showtea_tooltip_calculateamount">Menge berechnen</string>
+    <string name="showtea_tooltip_brewcount">Aufguss auswählen</string>
+    <string name="showtea_tooltip_nextbrew">Nächster Aufguss</string>
     <!--newtea_de-->
     <string name="newtea_heading">Tee erstellen/bearbeiten</string>
     <string name="tea_sort">Teesorte</string>
@@ -74,8 +84,8 @@
         <item>Sonstiges</item>
     </string-array>
     <array name="newtea_amount">
-        <item>TL/l</item>
-        <item>g/l</item>
+        <item>TL/L</item>
+        <item>g/L</item>
     </array>
     <string name="newtea_by_hand">manuell</string>
     <string name="newtea_hint_name">Name</string>
@@ -102,26 +112,26 @@
     <string name="newtea_hint_fahrenheit_rooibustea">Temperatur (212°F)</string>
     <string name="newtea_hint_fahrenheit_other">Temperatur (°F)</string>
     <string name="newtea_hint_cooldowntime">Abkühlzeit "mm:ss" oder "mm"</string>
-    <string name="newtea_hint_ts_blacktea">Menge (3 &#8211; 5TL/l)</string>
-    <string name="newtea_hint_ts_greentea">Menge (6 &#8211; 8TL/l)</string>
-    <string name="newtea_hint_ts_yellowtea">Menge (4 &#8211; 5TL/l)</string>
-    <string name="newtea_hint_ts_whitetea">Menge (3 &#8211; 4TL/l)</string>
-    <string name="newtea_hint_ts_oolongtea">Menge (4 &#8211; 6TL/l)</string>
-    <string name="newtea_hint_ts_puerhtea">Menge (4 &#8211; 6TL/l)</string>
-    <string name="newtea_hint_ts_herbaltea">Menge (4 &#8211; 6TL/l)</string>
-    <string name="newtea_hint_ts_fruittea">Menge (8 &#8211; 10TL/l)</string>
-    <string name="newtea_hint_ts_rooibustea">Menge (4 &#8211; 6TL/l)</string>
-    <string name="newtea_hint_ts_other">Menge TL/l</string>
-    <string name="newtea_hint_gr_blacktea">Menge  (8 &#8211; 14g/l)</string>
-    <string name="newtea_hint_gr_greentea">Menge (10 &#8211; 14g/l)</string>
-    <string name="newtea_hint_gr_yellowtea">Menge (10 &#8211; 12g/l)</string>
-    <string name="newtea_hint_gr_whitetea">Menge (8 &#8211; 12g/l)</string>
-    <string name="newtea_hint_gr_oolongtea">Menge (10 &#8211; 12g/l)</string>
-    <string name="newtea_hint_gr_puerhtea">Menge (8 &#8211; 12g/l)</string>
-    <string name="newtea_hint_gr_herbaltea">Menge (10 &#8211; 15g/l)</string>
-    <string name="newtea_hint_gr_fruittea">Menge (15 &#8211; 20g/l)</string>
-    <string name="newtea_hint_gr_rooibustea">Menge (12 &#8211; 15g/l)</string>
-    <string name="newtea_hint_gr_other">Menge g/l</string>
+    <string name="newtea_hint_ts_blacktea">Menge (3 &#8211; 5TL/L)</string>
+    <string name="newtea_hint_ts_greentea">Menge (6 &#8211; 8TL/L)</string>
+    <string name="newtea_hint_ts_yellowtea">Menge (4 &#8211; 5TL/L)</string>
+    <string name="newtea_hint_ts_whitetea">Menge (3 &#8211; 4TL/L)</string>
+    <string name="newtea_hint_ts_oolongtea">Menge (4 &#8211; 6TL/L)</string>
+    <string name="newtea_hint_ts_puerhtea">Menge (4 &#8211; 6TL/L)</string>
+    <string name="newtea_hint_ts_herbaltea">Menge (4 &#8211; 6TL/L)</string>
+    <string name="newtea_hint_ts_fruittea">Menge (8 &#8211; 10TL/L)</string>
+    <string name="newtea_hint_ts_rooibustea">Menge (4 &#8211; 6TL/L)</string>
+    <string name="newtea_hint_ts_other">Menge TL/L</string>
+    <string name="newtea_hint_gr_blacktea">Menge  (8 &#8211; 14g/L)</string>
+    <string name="newtea_hint_gr_greentea">Menge (10 &#8211; 14g/L)</string>
+    <string name="newtea_hint_gr_yellowtea">Menge (10 &#8211; 12g/L)</string>
+    <string name="newtea_hint_gr_whitetea">Menge (8 &#8211; 12g/L)</string>
+    <string name="newtea_hint_gr_oolongtea">Menge (10 &#8211; 12g/L)</string>
+    <string name="newtea_hint_gr_puerhtea">Menge (8 &#8211; 12g/L)</string>
+    <string name="newtea_hint_gr_herbaltea">Menge (10 &#8211; 15g/L)</string>
+    <string name="newtea_hint_gr_fruittea">Menge (15 &#8211; 20g/L)</string>
+    <string name="newtea_hint_gr_rooibustea">Menge (12 &#8211; 15g/L)</string>
+    <string name="newtea_hint_gr_other">Menge g/L</string>
     <string name="newtea_hint_time_blacktea">Ziehzeit "mm:ss" oder "mm" (3 &#8211; 5min)</string>
     <string name="newtea_hint_time_greentea">Ziehzeit "mm:ss" oder "mm" (1 &#8211; 3min)</string>
     <string name="newtea_hint_time_yellowtea">Ziehzeit "mm:ss" oder "mm" (1 &#8211; 3min)</string>
@@ -144,6 +154,13 @@
     <string name="newtea_error_cant_save">Speichern konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
     <string name="newtea_count_brew">Aufguss</string>
+    <string name="newtea_tooltip_arrowleft">Vorheriger Aufguss</string>
+    <string name="newtea_tooltip_arrowright">Nächster Aufguss</string>
+    <string name="newtea_tooltip_deletebrew">Aufguss löschen</string>
+    <string name="newtea_tooltip_addbrew">Aufguss hinzufügen</string>
+    <string name="newtea_tooltip_showcooldowntime">Abkühlfunktion zeigen</string>
+    <string name="newtea_tooltip_autofillcooldowntime">Abkühlzeit berechnen</string>
+    <string name="newtea_tooltip_done">Tee speichern</string>
     <!--setting_de-->
     <string name="settings_heading">Einstellungen</string>
     <string name="settings_alarm">Alarmsound</string>
@@ -197,6 +214,8 @@
     <string name="software_colorpicker_description">Der ColorPicker ist eine Open Source Software, welche die Auswahl einer Farbe ermöglicht.</string>
     <string name="software_billing_heading">Android In-App Billing v3 Library</string>
     <string name="software_billing_description">Die Android In-App Billing v3 Library ist eine Open Source Software, welche In-App-Käufe ermöglicht.</string>
+    <string name="software_tooltip_heading">Android Tooltips</string>
+    <string name="software_tooltip_description">Android Tooltips ist eine Open Source Software, welche schöne Kurzinfos zur Verfügung stellt.</string>
     <!--Languages-->
     <string name="languages_heading">Sprachen</string>
     <string name="languages_info_top">Du kannst mir helfen, die App in eine andere Sprache zu übersetzen?</string>
@@ -212,7 +231,7 @@
     <!--Billing-->
     <string name="billing_heading">Unterstützung</string>
     <string name="billing_info">Zahle so viel, wie dir die App wert ist. Du hilfst mir damit sehr.</string>
-    <string name="billing_zero">Das ist kein Problem. Diese App ist komplett kostenlos.</string>
+    <string name="billing_zero">Das ist kein Problem. Der Teespeicher ist komplett kostenlos.</string>
     <string name="billing_support_me">Viele Dank für deine Unterstützung.</string>
     <string-array name="billing_prices">
         <item>0,00 €</item>
@@ -222,6 +241,7 @@
         <item>5,00 €</item>
         <item>10,00 €</item>
     </string-array>
+    <string name="billing_pay">unterstützen</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

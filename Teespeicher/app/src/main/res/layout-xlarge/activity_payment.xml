@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context="coolpharaoh.tee.speicher.tea.timer.views.Payment">
 
     <include
@@ -67,7 +68,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
         android:background="@drawable/button_start"
-        android:text="Unterstützen"
+        android:text="@string/billing_pay"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="35sp" />

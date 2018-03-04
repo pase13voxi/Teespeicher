@@ -63,7 +63,7 @@
         android:id="@+id/buttonPurchase"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Unterstützen"
+        android:text="@string/billing_pay"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:textAllCaps="false"

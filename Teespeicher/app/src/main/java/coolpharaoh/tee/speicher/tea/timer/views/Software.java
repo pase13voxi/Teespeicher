@@ -40,6 +40,8 @@ public class Software extends AppCompatActivity {
         softwareList.add(itemPicker);
         ListRowItem itemBilling = new ListRowItem(getResources().getString(R.string.software_billing_heading), getResources().getString(R.string.software_billing_description));
         softwareList.add(itemBilling);
+        ListRowItem itemTooltips = new ListRowItem(getResources().getString(R.string.software_tooltip_heading), getResources().getString(R.string.software_tooltip_description));
+        softwareList.add(itemTooltips);
 
         //Liste mit Adapter verknüpfen
         SoftwareListAdapter adapter = new SoftwareListAdapter(this, softwareList);

@@ -4,15 +4,21 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +32,8 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tooltip.Tooltip;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -42,7 +50,7 @@ import coolpharaoh.tee.speicher.tea.timer.datastructure.Time;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.TeaAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnLongClickListener{
 
     static public TeaAdapter adapter;
     static public TeaCollection teaItems;
@@ -234,13 +242,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(newteaScreen);
             }
         });
-
+        newTea.setOnLongClickListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                View view = findViewById(R.id.action_search);
+
+                if (view != null) {
+                    view.setOnLongClickListener(MainActivity.this);
+                }
+            }
+        });
 
         final MenuItem searchItem = menu.findItem(R.id.action_search);
 
@@ -275,6 +294,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        View view = findViewById(R.id.action_search);
+
+                        if (view != null) {
+                            view.setOnLongClickListener(MainActivity.this);
+                        }
+                    }
+                });
                 return true;
             }
         });
@@ -455,5 +484,26 @@ public class MainActivity extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        if (view.getId() == R.id.newtea) {
+            showTooltip(view, Gravity.TOP,getResources().getString(R.string.main_tooltip_newtea));
+        } else if (view.getId() == R.id.action_search) {
+            showTooltip(view, Gravity.BOTTOM,getResources().getString(R.string.main_tooltip_search));
+        }
+        return true;
+    }
+
+    private void showTooltip(View v, int gravity, String text){
+        Tooltip tooltip = new Tooltip.Builder(v)
+                .setText(text)
+                .setTextColor(Color.WHITE)
+                .setGravity(gravity)
+                .setCornerRadius(8f)
+                .setCancelable(true)
+                .setDismissOnClick(true)
+                .show();
     }
 }

@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            debuggable false
+            debuggable true
         }
     }
 }
@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.android.support:design:25.0.0'
     implementation 'com.anjlab.android.iab.v3:library:1.0.44'
     implementation 'com.github.attenzione:android-ColorPickerPreference:9cbe9e7757'
+    implementation 'com.github.vihtarb:tooltip:0.1.9'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
 }

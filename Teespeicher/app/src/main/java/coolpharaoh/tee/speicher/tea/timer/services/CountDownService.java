@@ -75,7 +75,7 @@ public class CountDownService extends Service {
                                 .setTicker(getResources().getString(R.string.notification_ticker))
                                 .setContentTitle(getResources().getString(R.string.notification_title))
                                 .setContentText(elementName)
-                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setSmallIcon(R.drawable.iconnotification)
                                 .setContentIntent(pIntent)
                                 .setAutoCancel(true)
                                 .build();
