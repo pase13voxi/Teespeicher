@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- <uses-permission android:name="com.android.vending.BILLING" /> -->
 
     <supports-screens
         android:largeScreens="true"
@@ -77,6 +77,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
         </activity>
+
+        <activity
+            android:name=".views.Statistics"
+            android:label="Statistics"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
+        </activity>
         <activity
             android:name=".views.Software"
             android:label="Software"
@@ -93,10 +102,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
         </activity>
+        <activity
+            android:name=".views.Problems"
+            android:label="Problems"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
+        </activity>
 
         <service android:name=".services.MediaService" />
         <service android:name=".services.CountDownService" />
-
     </application>
 
 </manifest>

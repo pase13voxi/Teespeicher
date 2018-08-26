@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.Problems">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
+    <TextView
+        android:id="@+id/textViewProblemsInfo"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/problems_question"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/tool_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/grey"/>
+
+    <TextView
+        android:id="@+id/textViewProblemSolve"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/problems_solve"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/textViewProblemsInfo"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/grey"/>
+
+    <ImageView
+        android:id="@+id/imageView1BulletPoint"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/bulletpoint"
+        android:layout_below="@+id/textViewProblemSolve"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/textViewStep1Text"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:text="@string/problems_description"
+        android:layout_below="@+id/textViewProblemSolve"
+        android:layout_toEndOf="@id/imageView1BulletPoint"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/grey"/>
+
+
+    <ImageView
+        android:id="@+id/imageView2BulletPoint"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/bulletpoint"
+        android:layout_below="@+id/textViewStep1Text"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/textViewStep2Text"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:text="@string/problems_result"
+        android:layout_below="@+id/textViewStep1Text"
+        android:layout_toEndOf="@id/imageView2BulletPoint"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/grey"/>
+
+
+    <ImageView
+        android:id="@+id/imageView3BulletPoint"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/bulletpoint"
+        android:layout_below="@+id/textViewStep2Text"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/textViewStep3Text"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:text="@string/problems_hope"
+        android:layout_below="@+id/textViewStep2Text"
+        android:layout_toEndOf="@id/imageView3BulletPoint"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/grey"/>
+
+    <Button
+        android:id="@+id/buttonToSettings"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/problems_action"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_start"
+        android:layout_below="@id/textViewStep3Text"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="false"
+        />
+
+</RelativeLayout>

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Teespeicher.iml" filepath="$PROJECT_DIR$/Teespeicher.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/horizontalbargraph/horizontalbargraph.iml" filepath="$PROJECT_DIR$/horizontalbargraph/horizontalbargraph.iml" />
     </modules>
   </component>
 </project>

@@ -68,6 +68,8 @@
     <string name="showtea_tooltip_calculateamount">Calculate amount</string>
     <string name="showtea_tooltip_brewcount">Choose brew</string>
     <string name="showtea_tooltip_nextbrew">Next brew</string>
+    <string name="showtea_channel_name">Finished tea</string>
+    <string name="showtea_channel_description">Will be shown when the tea is ready.</string>
     <!--newtea_en-->
     <string name="newtea_heading">Create/Edit tea</string>
     <string name="tea_sort">Tea variety</string>
@@ -183,10 +185,11 @@
     <string name="settings_show_hints_description">Activate all hints</string>
     <string name="settings_show_hints_text">Hints are active again.</string>
     <string name="settings_factory_settings">Factory setting</string>
-    <string name="settings_factory_settings_description">Reset to everything factory setting</string>
+    <string name="settings_factory_settings_description">Reset everything to factory setting</string>
     <string name="settings_factory_settings_text">Every tea will be deleted and the settings will be reseted.</string>
     <string name="settings_factory_settings_ok">OK</string>
     <string name="settings_factory_settings_cancel">Cancel</string>
+    <string name="settings_factory_settings_toast">Reset to factory setting</string>
     <!--Notification-->
     <string name="notification_ticker">Tea Time!</string>
     <string name="notification_title">Your tea is ready.</string>
@@ -198,6 +201,8 @@
     <string name="about_rating_description">Do you like the app? I would look forward to a review.</string>
     <string name="about_translation_heading">Languages</string>
     <string name="about_translation_description">You want the app in your language and can help translate?</string>
+    <string name="about_problems_heading">Problems</string>
+    <string name="about_problems_description">Is the timer no longer running in the background?</string>
     <string name="about_software_heading">Software Licences</string>
     <string name="about_software_description">Which open source software is used by the Tea Memory?</string>
     <string name="about_billing_heading">Support</string>
@@ -208,7 +213,7 @@
     <string name="contact_email">Send me an email.</string>
     <string name="contact_email_address">pase.b@outlook.com</string>
     <string name="contact_email_subject">Tea Memory Feedback</string>
-    <string name="contact_email_chooser">Send email...</string>
+    <string name="contact_email_chooser">Send email&#8230;</string>
     <!--Software-->
     <string name="software_heading">Software Licenses</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
@@ -228,7 +233,7 @@
     <string name="languages_email">Contact me.</string>
     <string name="languages_email_address">pase.b@outlook.com</string>
     <string name="languages_email_subject">Tea Memory Languages</string>
-    <string name="languages_email_chooser">Send email...</string>
+    <string name="languages_email_chooser">Send email&#8230;</string>
     <!--Billing-->
     <string name="billing_heading">Support</string>
     <string name="billing_info">Pay as much as the app is worth to you. This will help me a lot.</string>
@@ -243,6 +248,15 @@
         <item>10,00 €</item>
     </string-array>
     <string name="billing_pay">support</string>
+    <!--Problems-->
+    <string name="problems_heading">Problem</string>
+    <string name="problems_question">Is the timer no longer running in the background?</string>
+    <string name="problems_solve">Solve the problem</string>
+    <string name="problems_description">The latest update of Android automatically stops all background processes after a few minutes as an energy-saving feature.</string>
+    <string name="problems_result">Set the Tea Memory as an exception to the power-saving function.</string>
+    <string name="problems_hope">After that, the timer should work in the background again.</string>
+    <string name="problems_action">To the setting</string>
+    <string name="problems_error">This setting is not available on your Android version.</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

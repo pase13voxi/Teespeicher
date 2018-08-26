@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -86,39 +85,41 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_tea);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        toolbar = findViewById(R.id.tool_bar);
+        TextView mToolbarCustomTitle = findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.showtea_heading);
-        buttonBrewCount = (Button) findViewById(R.id.toolbar_brewcount);
-        textViewBrewCount = (TextView) findViewById(R.id.toolbar_text_brewcount);
-        buttonNextBrew  = (Button) findViewById(R.id.toolbar_nextbrew);
+        buttonBrewCount = findViewById(R.id.toolbar_brewcount);
+        textViewBrewCount = findViewById(R.id.toolbar_text_brewcount);
+        buttonNextBrew  = findViewById(R.id.toolbar_nextbrew);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+        }
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Hole TextViews
-        toggleVibration = (ToggleButton) findViewById(R.id.buttonVibration);
-        toggleNotification = (ToggleButton) findViewById(R.id.buttonNotification);
-        TextView textViewName = (TextView) findViewById(R.id.textViewShowName);
-        TextView textViewSortOfTea = (TextView) findViewById(R.id.textViewShowTeesorte);
-        buttonNote = (Button) findViewById(R.id.buttonNote);
-        textViewTemperature = (TextView) findViewById(R.id.textViewShowTemperatur);
-        buttonInfo = (Button) findViewById(R.id.buttonInfo);
-        buttonExchange = (Button) findViewById(R.id.buttonExchange);
-        TextView textViewTeelamass = (TextView) findViewById(R.id.textViewShowTeelamass);
-        buttonCalcAmount = (Button) findViewById(R.id.buttonCalculateAmount);
+        toggleVibration = findViewById(R.id.buttonVibration);
+        toggleNotification = findViewById(R.id.buttonNotification);
+        TextView textViewName = findViewById(R.id.textViewShowName);
+        TextView textViewSortOfTea = findViewById(R.id.textViewShowTeesorte);
+        buttonNote = findViewById(R.id.buttonNote);
+        textViewTemperature = findViewById(R.id.textViewShowTemperatur);
+        buttonInfo = findViewById(R.id.buttonInfo);
+        buttonExchange = findViewById(R.id.buttonExchange);
+        TextView textViewTeelamass = findViewById(R.id.textViewShowTeelamass);
+        buttonCalcAmount = findViewById(R.id.buttonCalculateAmount);
 
-        spinnerMinutes = (Spinner) findViewById(R.id.spinnerMinutes);
-        spinnerSeconds = (Spinner) findViewById(R.id.spinnerSeconds);
-        textViewMin = (TextView) findViewById(R.id.textViewMin);
-        textViewSec = (TextView) findViewById(R.id.textViewSec);
-        textViewDoppelPunkt = (TextView) findViewById(R.id.textViewDoppelPunkt);
-        textViewTimer = (TextView) findViewById(R.id.textViewTimer);
-        imageViewCup = (ImageView) findViewById(R.id.imageViewCup);
-        imageViewFill = (ImageView) findViewById(R.id.imageViewFill);
-        imageViewSteam = (ImageView) findViewById(R.id.imageViewSteam);
+        spinnerMinutes = findViewById(R.id.spinnerMinutes);
+        spinnerSeconds = findViewById(R.id.spinnerSeconds);
+        textViewMin = findViewById(R.id.textViewMin);
+        textViewSec = findViewById(R.id.textViewSec);
+        textViewDoppelPunkt = findViewById(R.id.textViewDoppelPunkt);
+        textViewTimer = findViewById(R.id.textViewTimer);
+        imageViewCup = findViewById(R.id.imageViewCup);
+        imageViewFill = findViewById(R.id.imageViewFill);
+        imageViewSteam = findViewById(R.id.imageViewSteam);
 
         //setzt Tranparenz der Textviews
         int alpha = 130;
@@ -300,7 +301,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
         });
         buttonExchange.setOnLongClickListener(this);
 
-        buttonStartTimer = (Button) findViewById(R.id.buttonStartTimer);
+        buttonStartTimer = findViewById(R.id.buttonStartTimer);
         buttonStartTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -311,7 +312,6 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
                     if(!infoShown) selectedTea.getCounter().count();
                     MainActivity.teaItems.sort();
                     MainActivity.teaItems.saveCollection(getApplicationContext());
-                    MainActivity.adapter.notifyDataSetChanged();
                     //Button umbenennen
                     buttonStartTimer.setText(R.string.showtea_timer_reset);
                     buttonExchange.setEnabled(false);
@@ -378,6 +378,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
                     stopService(new Intent(getBaseContext(),MediaService.class));
                     //Nofications zurücksetzten
                     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    assert notificationManager != null : "NotificationManager is null.";
                     notificationManager.cancelAll();
                 }
             }
@@ -431,6 +432,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
         stopService(new Intent(this, CountDownService.class));
         stopService(new Intent(getBaseContext(),MediaService.class));
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        assert notificationManager != null : "NotificationManager is null.";
         notificationManager.cancelAll();
         super.onDestroy();
     }
@@ -609,7 +611,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
 
         LayoutInflater inflater = getLayoutInflater();
         View alertLayoutDialogNote = inflater.inflate(R.layout.dialognote, null);
-        final EditText editTextNote = (EditText) alertLayoutDialogNote.findViewById(R.id.editTextNote);
+        final EditText editTextNote = alertLayoutDialogNote.findViewById(R.id.editTextNote);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setView(alertLayoutDialogNote);
@@ -674,8 +676,8 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     private void dialogamount(){
         LayoutInflater inflater = getLayoutInflater();
         View alertLayoutDialogNote = inflater.inflate(R.layout.dialogamount, null);
-        final SeekBar seekBarAmountPerAmount = (SeekBar) alertLayoutDialogNote.findViewById(R.id.seekBarAmountPerAmount);
-        final TextView textViewAmountPerAmount = (TextView) alertLayoutDialogNote.findViewById(R.id.textViewShowAmountPerAmount);
+        final SeekBar seekBarAmountPerAmount = alertLayoutDialogNote.findViewById(R.id.seekBarAmountPerAmount);
+        final TextView textViewAmountPerAmount = alertLayoutDialogNote.findViewById(R.id.textViewShowAmountPerAmount);
         // 10 for 1 liter
         fillAmountPerAmount(10, textViewAmountPerAmount);
 
@@ -723,7 +725,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     private void dialogShowTeaDescription(){
         LayoutInflater inflater = getLayoutInflater();
         View alertLayoutDialogNote = inflater.inflate(R.layout.dialogshowteadescription, null);
-        final CheckBox dontshowagain = (CheckBox) alertLayoutDialogNote.findViewById(R.id.checkboxDialogShowTeaDescription);
+        final CheckBox dontshowagain = alertLayoutDialogNote.findViewById(R.id.checkboxDialogShowTeaDescription);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setView(alertLayoutDialogNote);

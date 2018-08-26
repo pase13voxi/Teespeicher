@@ -68,6 +68,8 @@
     <string name="showtea_tooltip_calculateamount">Menge berechnen</string>
     <string name="showtea_tooltip_brewcount">Aufguss auswählen</string>
     <string name="showtea_tooltip_nextbrew">Nächster Aufguss</string>
+    <string name="showtea_channel_name">Fertiger Tee</string>
+    <string name="showtea_channel_description">Wird gezeigt wenn der Tee Fertig ist.</string>
     <!--newtea_de-->
     <string name="newtea_heading">Tee erstellen/bearbeiten</string>
     <string name="tea_sort">Teesorte</string>
@@ -187,6 +189,7 @@
     <string name="settings_factory_settings_text">Es werden alle Tees gelöscht und die Einstellungen zurückgesetzt.</string>
     <string name="settings_factory_settings_ok">Ok</string>
     <string name="settings_factory_settings_cancel">Abbrechen</string>
+    <string name="settings_factory_settings_toast">Zurückgesetzt auf Werkseinstellungen</string>
     <!--Notification-->
     <string name="notification_ticker">Tea Time!</string>
     <string name="notification_title">Ihr Tee ist fertig.</string>
@@ -198,6 +201,8 @@
     <string name="about_rating_description">Gefällt dir die App? Ich würde mich über eine Bewertung freuen.</string>
     <string name="about_translation_heading">Sprachen</string>
     <string name="about_translation_description">Du möchtest die App in deiner Sprache und kannst helfen, zu übersetzen?</string>
+    <string name="about_problems_heading">Probleme</string>
+    <string name="about_problems_description">Läuft der Timer nicht mehr im Hintergrund?</string>
     <string name="about_software_heading">Software Lizenzen</string>
     <string name="about_software_description">Welche Open Source Software wird von dem Tee Speicher genutzt?</string>
     <string name="about_billing_heading">Unterstützung</string>
@@ -208,7 +213,7 @@
     <string name="contact_email">Sende mir eine E-mail.</string>
     <string name="contact_email_address">pase.b@outlook.com</string>
     <string name="contact_email_subject">Tee Speicher Feedback</string>
-    <string name="contact_email_chooser">Sende eine E-mail...</string>
+    <string name="contact_email_chooser">Sende eine E-mail&#8230;</string>
     <!--Software-->
     <string name="software_heading">Software Lizenzen</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
@@ -228,7 +233,7 @@
     <string name="languages_email">Kontaktiere mich.</string>
     <string name="languages_email_address">pase.b@outlook.com</string>
     <string name="languages_email_subject">Tee Speicher Sprachen</string>
-    <string name="languages_email_chooser">Sende eine E-Mail...</string>
+    <string name="languages_email_chooser">Sende eine E-Mail&#8230;</string>
     <!--Billing-->
     <string name="billing_heading">Unterstützung</string>
     <string name="billing_info">Zahle so viel, wie dir die App wert ist. Du hilfst mir damit sehr.</string>
@@ -243,6 +248,15 @@
         <item>10,00 €</item>
     </string-array>
     <string name="billing_pay">unterstützen</string>
+    <!--Problems-->
+    <string name="problems_heading">Problem</string>
+    <string name="problems_question">Läuft der Timer nicht mehr im Hintergrund?</string>
+    <string name="problems_solve">Behebe das Problem</string>
+    <string name="problems_description">Die neuste Version von Android (Oreo) beendet alle Hintergrundprozesse nach wenigen Minuten automatisch als Energiesparfunktion.</string>
+    <string name="problems_result">Stelle den Tee Speicher als Ausnahme von der Sparfunktion ein.</string>
+    <string name="problems_hope">Danach sollte der Timer auch wieder im Hintergrund funktionieren.</string>
+    <string name="problems_action">Zur Einstellung</string>
+    <string name="problems_error">Diese Einstellung ist bei deiner Android Version nicht vorhanden.</string>
     <!--Time-->
     <string-array name="itemsTimer">
         <item>00</item>

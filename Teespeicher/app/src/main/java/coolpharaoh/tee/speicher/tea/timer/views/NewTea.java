@@ -1,7 +1,6 @@
 package coolpharaoh.tee.speicher.tea.timer.views;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +11,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,36 +84,40 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_tea);
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         //Toolbar definieren und erstellen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
+        TextView mToolbarCustomTitle = findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.newtea_heading);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+        }
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Eingabefelder bestimmen
-        textViewTeaSort = (TextView) findViewById(R.id.textViewTeaSort);
-        spinnerTeaVariety = (Spinner) findViewById(R.id.spinnerTeaSort);
-        checkboxTeaSort = (CheckBox) findViewById(R.id.checkBoxSelfInput);
-        editTextTeaSort = (EditText) findViewById(R.id.editTextSelfInput);
-        buttonColor = (Button) findViewById(R.id.buttonColor);
+        textViewTeaSort = findViewById(R.id.textViewTeaSort);
+        spinnerTeaVariety = findViewById(R.id.spinnerTeaSort);
+        checkboxTeaSort = findViewById(R.id.checkBoxSelfInput);
+        editTextTeaSort = findViewById(R.id.editTextSelfInput);
+        buttonColor = findViewById(R.id.buttonColor);
         buttonColorSape = (GradientDrawable) buttonColor.getBackground();
-        editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextTemperature = (EditText) findViewById(R.id.editTextTemperature);
-        buttonShowCoolDowntime = (Button) findViewById(R.id.buttonShowCoolDownTime);
-        editTextCoolDownTime = (EditText) findViewById(R.id.editTextCoolDownTime);
-        buttonAutofillCoolDownTime = (Button) findViewById(R.id.buttonAutofillCoolDownTime);
-        editTextSteepingTime = (EditText) findViewById(R.id.editTextTime);
-        editTextAmount = (EditText) findViewById(R.id.editTextAmount);
-        spinnerAmount = (Spinner) findViewById(R.id.spinnerAmountUnit);
-        textViewBrew = (TextView) findViewById(R.id.textViewCountBrew);
-        leftArrow = (Button) findViewById(R.id.buttonArrowLeft);
-        rightArrow = (Button) findViewById(R.id.buttonArrowRight);
-        deleteBrew = (Button) findViewById(R.id.buttonDeleteBrew);
-        addBrew = (Button) findViewById(R.id.buttonAddBrew);
+        editTextName = findViewById(R.id.editTextName);
+        editTextTemperature = findViewById(R.id.editTextTemperature);
+        buttonShowCoolDowntime = findViewById(R.id.buttonShowCoolDownTime);
+        editTextCoolDownTime = findViewById(R.id.editTextCoolDownTime);
+        buttonAutofillCoolDownTime = findViewById(R.id.buttonAutofillCoolDownTime);
+        editTextSteepingTime = findViewById(R.id.editTextTime);
+        editTextAmount = findViewById(R.id.editTextAmount);
+        spinnerAmount = findViewById(R.id.spinnerAmountUnit);
+        textViewBrew = findViewById(R.id.textViewCountBrew);
+        leftArrow = findViewById(R.id.buttonArrowLeft);
+        rightArrow = findViewById(R.id.buttonArrowRight);
+        deleteBrew = findViewById(R.id.buttonDeleteBrew);
+        addBrew = findViewById(R.id.buttonAddBrew);
 
         //feste Texte setzten
         textViewTeaSort.setText(R.string.tea_sort);
@@ -436,27 +440,6 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
             String name = editTextName.getText().toString();
             boolean nameValid = nameValid(name);
 
-            //Ist die Temperatur nicht gesetzt, so ist sie -500
-            int temperature = -500;
-            boolean temperatureValid = temperatureStringValid(editTextTemperature.getText().toString());
-            if (temperatureValid && !editTextTemperature.getText().toString().equals("")) {
-                temperature = Integer.parseInt(editTextTemperature.getText().toString());
-            }
-
-            //Ist Zeit nicht gesetzt so ist sie -
-            String coolDownTime = "-";
-            boolean coolDownTimeValid = timeValid(editTextCoolDownTime.getText().toString());
-            if (coolDownTimeValid && !editTextCoolDownTime.getText().toString().equals("")) {
-                coolDownTime = editTextSteepingTime.getText().toString();
-            }
-
-            //Ist Zeit nicht gesetzt so ist sie -
-            String time = "-";
-            boolean timeValid = timeValid(editTextSteepingTime.getText().toString());
-            if (timeValid && !editTextSteepingTime.getText().toString().equals("")) {
-                time = editTextSteepingTime.getText().toString();
-            }
-
             //Ist teelamass nicht gesetzt so ist es -500
             int amount = -500;
             boolean amountValid = amountValid(editTextAmount.getText().toString());
@@ -506,13 +489,9 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
                     }
                 }
                 if (!showTea) {
-                    //Adapter hat sich verändert
-                    MainActivity.adapter.notifyDataSetChanged();
                     //wechsel das Fenster
                     finish();
                 } else {
-                    //Adapter hat sich verändert
-                    MainActivity.adapter.notifyDataSetChanged();
                     //Neues Intent anlegen
                     Intent showteaScreen = new Intent(NewTea.this, ShowTea.class);
                     //find out elementAt by Name

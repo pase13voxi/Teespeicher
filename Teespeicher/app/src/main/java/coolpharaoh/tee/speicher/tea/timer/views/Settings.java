@@ -41,11 +41,13 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         //Toolbar als ActionBar festlegen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
+        TextView mToolbarCustomTitle = findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.settings_heading);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+        }
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,50 +55,13 @@ public class Settings extends AppCompatActivity {
         //write ListView
         settingList = new ArrayList<>();
 
-        ListRowItem itemSound = new ListRowItem(getResources().getString(R.string.settings_alarm),MainActivity.settings.getMusicName());
-        settingList.add(itemSound);
-
-        //Decision for Animation, Vibration and Notification
-        String[] itemsOnOff = getResources().getStringArray(R.array.settings_options);
-
-        //Get Option for the Vibration
-        int vibrationOption = -1;
-        if(MainActivity.settings.isVibration()){vibrationOption = 0;
-        }else {vibrationOption = 1;}
-        ListRowItem itemVibration = new ListRowItem(getResources().getString(R.string.settings_vibration),itemsOnOff[vibrationOption]);
-        settingList.add(itemVibration);
-
-        //Get Option for the Notification
-        int notificationOption = -1;
-        if(MainActivity.settings.isNotification()){notificationOption = 0;
-        }else {notificationOption = 1;}
-        ListRowItem itemNotification = new ListRowItem(getResources().getString(R.string.settings_notification),itemsOnOff[notificationOption]);
-        settingList.add(itemNotification);
-
-        //Get Option for the Animation
-        int animationOption = -1;
-        if(MainActivity.settings.isAnimation()){animationOption = 0;
-        }else {animationOption = 1;}
-        ListRowItem itemAnimation = new ListRowItem(getResources().getString(R.string.settings_animation),itemsOnOff[animationOption]);
-        settingList.add(itemAnimation);
-
-        //TemperatureUnit
-        ListRowItem itemTemperatureUnit = new ListRowItem(getResources().getString(R.string.settings_temperature_unit),MainActivity.settings.getTemperatureUnit());
-        settingList.add(itemTemperatureUnit);
-
-        //Hints
-        ListRowItem itemHints = new ListRowItem(getResources().getString(R.string.settings_show_hints),getResources().getString(R.string.settings_show_hints_description));
-        settingList.add(itemHints);
-
-        //Factory Setting
-        ListRowItem itemFactorySettings = new ListRowItem(getResources().getString(R.string.settings_factory_settings),getResources().getString(R.string.settings_factory_settings_description));
-        settingList.add(itemFactorySettings);
+        refreshWindow();
 
 
         //Liste mit Adapter verknüpfen
         adapter = new SettingListAdapter(this, settingList);
         //Adapter dem Listview hinzufügen
-        ListView listViewSetting = (ListView) findViewById(R.id.listView_settings);
+        ListView listViewSetting = findViewById(R.id.listView_settings);
         listViewSetting.setAdapter(adapter);
 
         listViewSetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -143,7 +108,7 @@ public class Settings extends AppCompatActivity {
         final String[] items = getResources().getStringArray(R.array.settings_options);
 
         //Get CheckedItem
-        int checkedItem = -1;
+        int checkedItem;
         if(MainActivity.settings.isVibration()){checkedItem = 0;
         }else {checkedItem = 1;}
 
@@ -163,7 +128,7 @@ public class Settings extends AppCompatActivity {
                         break;
                 }
                 MainActivity.settings.saveSettings(getApplicationContext());
-                settingList.get(1).setDescription(items[item]);
+                refreshWindow();
                 adapter.notifyDataSetChanged();
                 radioButtonDialog.dismiss();
             }
@@ -176,7 +141,7 @@ public class Settings extends AppCompatActivity {
         final String[] items = getResources().getStringArray(R.array.settings_options);
 
         //Get CheckedItem
-        int checkedItem = -1;
+        int checkedItem;
         if(MainActivity.settings.isNotification()){checkedItem = 0;
         }else {checkedItem = 1;}
 
@@ -196,7 +161,7 @@ public class Settings extends AppCompatActivity {
                         break;
                 }
                 MainActivity.settings.saveSettings(getApplicationContext());
-                settingList.get(2).setDescription(items[item]);
+                refreshWindow();
                 adapter.notifyDataSetChanged();
                 radioButtonDialog.dismiss();
             }
@@ -209,7 +174,7 @@ public class Settings extends AppCompatActivity {
         final String[] items = getResources().getStringArray(R.array.settings_options);
 
         //Get CheckedItem
-        int checkedItem = -1;
+        int checkedItem;
         if(MainActivity.settings.isAnimation()){checkedItem = 0;
         }else {checkedItem = 1;}
 
@@ -229,7 +194,7 @@ public class Settings extends AppCompatActivity {
                         break;
                 }
                 MainActivity.settings.saveSettings(getApplicationContext());
-                settingList.get(3).setDescription(items[item]);
+                refreshWindow();
                 adapter.notifyDataSetChanged();
                 radioButtonDialog.dismiss();
             }
@@ -242,7 +207,7 @@ public class Settings extends AppCompatActivity {
         final String[] items = getResources().getStringArray(R.array.settings_temperature_units);
 
         //Get CheckedItem
-        int checkedItem = -1;
+        int checkedItem;
         if(MainActivity.settings.getTemperatureUnit().equals(items[0])){checkedItem = 0;
         }else {checkedItem = 1;}
 
@@ -254,7 +219,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 MainActivity.settings.setTemperatureUnit(items[item]);
                 MainActivity.settings.saveSettings(getApplicationContext());
-                settingList.get(4).setDescription(items[item]);
+                refreshWindow();
                 adapter.notifyDataSetChanged();
                 radioButtonDialog.dismiss();
             }
@@ -281,22 +246,11 @@ public class Settings extends AppCompatActivity {
                         MainActivity.settings.saveSettings(getApplicationContext());
                         MainActivity.teaItems.deleteCollection();
                         MainActivity.teaItems.saveCollection(getApplicationContext());
-                        //Adapter hat sich verändert
-                        MainActivity.adapter.notifyDataSetChanged();
                         //Felder ändern
-                        /*buttonMusicChoice.setText(MainActivity.settings.getMusicName());
-                        checkBoxVibration.setChecked(MainActivity.settings.isVibration());
-                        checkBoxNotification.setChecked(MainActivity.settings.isNotification());
-                        //richtige SpinnerId bekommen
-                        int spinnerId = -1;
-                        String[] spinnerElements = getResources().getStringArray(R.array.settings_temperature_units);
-                        for(int i=0; i<spinnerElements.length; i++){
-                            if(spinnerElements[i].equals(MainActivity.settings.getTemperatureUnit())){
-                                spinnerId = i;
-                                break;
-                            }
-                        }
-                        //spinnerTempUnit.setSelection(spinnerId);*/
+                        refreshWindow();
+                        adapter.notifyDataSetChanged();
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.settings_factory_settings_toast, Toast.LENGTH_SHORT);
+                        toast.show();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -311,6 +265,49 @@ public class Settings extends AppCompatActivity {
                 .setTitle(R.string.settings_factory_settings)
                 .setPositiveButton(R.string.settings_factory_settings_ok, dialogClickListener)
                 .setNegativeButton(R.string.settings_factory_settings_cancel, dialogClickListener).show();
+    }
+
+    private void refreshWindow(){
+        settingList.clear();
+
+        ListRowItem itemSound = new ListRowItem(getResources().getString(R.string.settings_alarm),MainActivity.settings.getMusicName());
+        settingList.add(itemSound);
+
+        //Decision for Animation, Vibration and Notification
+        String[] itemsOnOff = getResources().getStringArray(R.array.settings_options);
+
+        //Get Option for the Vibration
+        int vibrationOption;
+        if(MainActivity.settings.isVibration()){vibrationOption = 0;
+        }else {vibrationOption = 1;}
+        ListRowItem itemVibration = new ListRowItem(getResources().getString(R.string.settings_vibration),itemsOnOff[vibrationOption]);
+        settingList.add(itemVibration);
+
+        //Get Option for the Notification
+        int notificationOption = -1;
+        if(MainActivity.settings.isNotification()){notificationOption = 0;
+        }else {notificationOption = 1;}
+        ListRowItem itemNotification = new ListRowItem(getResources().getString(R.string.settings_notification),itemsOnOff[notificationOption]);
+        settingList.add(itemNotification);
+
+        //Get Option for the Animation
+        int animationOption = -1;
+        if(MainActivity.settings.isAnimation()){animationOption = 0;
+        }else {animationOption = 1;}
+        ListRowItem itemAnimation = new ListRowItem(getResources().getString(R.string.settings_animation),itemsOnOff[animationOption]);
+        settingList.add(itemAnimation);
+
+        //TemperatureUnit
+        ListRowItem itemTemperatureUnit = new ListRowItem(getResources().getString(R.string.settings_temperature_unit),MainActivity.settings.getTemperatureUnit());
+        settingList.add(itemTemperatureUnit);
+
+        //Hints
+        ListRowItem itemHints = new ListRowItem(getResources().getString(R.string.settings_show_hints),getResources().getString(R.string.settings_show_hints_description));
+        settingList.add(itemHints);
+
+        //Factory Setting
+        ListRowItem itemFactorySettings = new ListRowItem(getResources().getString(R.string.settings_factory_settings),getResources().getString(R.string.settings_factory_settings_description));
+        settingList.add(itemFactorySettings);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -338,13 +335,12 @@ public class Settings extends AppCompatActivity {
             if (uri != null) {
                 MainActivity.settings.setMusicChoice(uri.toString());
                 MainActivity.settings.setMusicName(name);
-                settingList.get(0).setDescription(name);
             }else {
                 MainActivity.settings.setMusicChoice(null);
                 MainActivity.settings.setMusicName("-");
-                settingList.get(0).setDescription("-");
             }
             MainActivity.settings.saveSettings(getApplicationContext());
+            refreshWindow();
             adapter.notifyDataSetChanged();
         }
     }

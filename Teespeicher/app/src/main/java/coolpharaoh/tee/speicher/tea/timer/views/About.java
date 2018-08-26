@@ -12,19 +12,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.AboutListAdapter;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.ListRowItem;
-import coolpharaoh.tee.speicher.tea.timer.R;
 
 public class About extends AppCompatActivity {
 
     private enum ListItems {
-        Contact, Rating, Translation, Software, Billing
+        Contact, Rating, Statistics, Translation, Problems, Software, Billing
     }
 
 
@@ -34,11 +33,13 @@ public class About extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
         //Toolbar als ActionBar festlegen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        TextView mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
+        TextView mToolbarCustomTitle = findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.about_heading);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+        }
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,17 +50,21 @@ public class About extends AppCompatActivity {
         aboutList.add(itemContact);
         ListRowItem itemRating = new ListRowItem(getResources().getString(R.string.about_rating_heading), getResources().getString(R.string.about_rating_description));
         aboutList.add(itemRating);
+        ListRowItem itemStatistics = new ListRowItem("Statistiken","bla bla");
+        aboutList.add(itemStatistics);
         ListRowItem itemTranslation = new ListRowItem(getResources().getString(R.string.about_translation_heading),getResources().getString(R.string.about_translation_description));
         aboutList.add(itemTranslation);
+        ListRowItem itemProblems = new ListRowItem(getResources().getString(R.string.about_problems_heading),getResources().getString(R.string.about_problems_description));
+        aboutList.add(itemProblems);
         ListRowItem itemSoftware = new ListRowItem(getResources().getString(R.string.about_software_heading),getResources().getString(R.string.about_software_description));
         aboutList.add(itemSoftware);
-        ListRowItem itemBilling = new ListRowItem(getResources().getString(R.string.about_billing_heading),getResources().getString(R.string.about_billing_description));
-        aboutList.add(itemBilling);
+        //ListRowItem itemBilling = new ListRowItem(getResources().getString(R.string.about_billing_heading),getResources().getString(R.string.about_billing_description));
+        //aboutList.add(itemBilling);
 
         //Liste mit Adapter verknüpfen
         AboutListAdapter adapter = new AboutListAdapter(this, aboutList);
         //Adapter dem Listview hinzufügen
-        ListView listViewAbout = (ListView) findViewById(R.id.listview_about);
+        ListView listViewAbout = findViewById(R.id.listview_about);
         listViewAbout.setAdapter(adapter);
 
         listViewAbout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,24 +86,26 @@ public class About extends AppCompatActivity {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                         }
                         break;
+                    case Statistics:
+                        Intent statisticsScreen = new Intent(About.this, Statistics.class);
+                        startActivity(statisticsScreen);
+                        break;
                     case Translation:
                         //Neues Intent anlegen
                         Intent languagesScreen = new Intent(About.this, Languages.class);
                         // Intent starten und zur zweiten Activity wechseln
                         startActivity(languagesScreen);
                         break;
+                    case Problems:
+                        Intent problemsScreen = new Intent(About.this, Problems.class);
+                        startActivity(problemsScreen);
+                        break;
                     case Software:
-                        //Neues Intent anlegen
                         Intent softwareScreen = new Intent(About.this, Software.class);
-                        // Intent starten und zur zweiten Activity wechseln
                         startActivity(softwareScreen);
                         break;
                     case Billing:
-                        /*Toast toast = Toast.makeText(getApplicationContext(), "Diese Funktionen ist zur Zeit noch nicht möglich.", Toast.LENGTH_SHORT);
-                        toast.show();*/
-                        //Neues Intent anlegen
                         Intent billingScreen = new Intent(About.this, Payment.class);
-                        // Intent starten und zur zweiten Activity wechseln
                         startActivity(billingScreen);
                         break;
                 }

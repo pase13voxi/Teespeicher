@@ -1,41 +1,29 @@
 package coolpharaoh.tee.speicher.tea.timer.views;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tooltip.Tooltip;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
@@ -52,19 +40,14 @@ import coolpharaoh.tee.speicher.tea.timer.listadapter.TeaAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener{
 
-    static public TeaAdapter adapter;
     static public TeaCollection teaItems;
     static public ActualSetting settings;
+
     private TextView mToolbarCustomTitle;
     private FloatingActionButton newTea;
     private Spinner spinnerSort;
     private ListView tealist;
-    //Important for SearchView
-    private View rootView;
-    private ImageView searchCloseButton;
-    private ArrayList<Tea> searchList = new ArrayList<>();
-    private boolean searching = false, changeWindowHelper = false;
-
+    private TeaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +57,16 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         askPermissions();
 
         //Toolbar als ActionBar festlegen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbarCustomTitle = (TextView) findViewById(R.id.toolbar_title);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
+        mToolbarCustomTitle = findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.app_name);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+        }
 
-        //hole Rootview
-        rootView = findViewById(R.id.coordinatorLayout);
         //hole ListView
-        tealist = (ListView) findViewById(R.id.listViewTealist);
+        tealist = findViewById(R.id.listViewTealist);
         //Liste aller Tees
         teaItems = new TeaCollection();
         if(!teaItems.loadCollection(getApplicationContext())){
@@ -154,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         }
 
         //Setzte Spinner Groß
-        spinnerSort = (Spinner) findViewById(R.id.spinner_sort);
+        spinnerSort = findViewById(R.id.spinner_sort);
         ArrayAdapter<CharSequence> spinnerVarietyAdapter = ArrayAdapter.createFromResource(
                 this, R.array.main_sort_menu, R.layout.spinner_item_sort);
 
@@ -216,26 +199,17 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 //Neues Intent anlegen
                 Intent showteaScreen = new Intent(MainActivity.this, ShowTea.class);
 
-                //Decision between searchList and normalList
-                if(searching){
-                    showteaScreen.putExtra("elementId", searchList.get(position).getId());
-                }else {
-                    showteaScreen.putExtra("elementId", teaItems.getTeaItems().get(position).getId());
-                }
+                showteaScreen.putExtra("elementId", teaItems.getTeaItems().get(position).getId());
                 // Intent starten und zur zweiten Activity wechseln
                 startActivity(showteaScreen);
             }
         });
 
         //Button NewTea + Aktion
-        newTea = (FloatingActionButton) findViewById(R.id.newtea);
+        newTea = findViewById(R.id.newtea);
         newTea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(searching) {
-                    changeWindowHelper = true;
-                    rootView.requestFocus();
-                }
                 //Neues Intent anlegen
                 Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
                 // Intent starten und zur zweiten Activity wechseln
@@ -249,121 +223,10 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                View view = findViewById(R.id.action_search);
-
-                if (view != null) {
-                    view.setOnLongClickListener(MainActivity.this);
-                }
-            }
-        });
-
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        //editText gets focus
-        searchView.setIconified(false);
-        //closebutton
-        try {
-            Field searchField = SearchView.class.getDeclaredField("mCloseButton");
-            searchField.setAccessible(true);
-            searchCloseButton = (ImageView) searchField.get(searchView);
-        } catch (Exception e) {
-            //Log.e(TAG, "Error finding close button", e);
-        }
-
-        searchCloseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Clear query
-                searchView.setQuery("", false);
-            }
-        });
-
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                //editText gets focus
-                searchView.setIconified(false);
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        View view = findViewById(R.id.action_search);
-
-                        if (view != null) {
-                            view.setOnLongClickListener(MainActivity.this);
-                        }
-                    }
-                });
-                return true;
-            }
-        });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                searchList.clear();
-
-                for (Tea temp : teaItems.getTeaItems()){
-                    if(temp.getName().toLowerCase().contains(newText.toLowerCase())){
-                        searchList.add(temp);
-                    }
-                }
-                //Liste mit Adapter verknüpfen
-                adapter = new TeaAdapter(MainActivity.this, searchList);
-                //Adapter dem Listview hinzufügen
-                tealist.setAdapter(adapter);
-
-                searching = true;
-
-                return true;
-            }
-        });
-
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean queryTextFocused) {
-                //wenn nicht mehr gesucht wird
-                if(!queryTextFocused) {
-                    //don't collapse onbackpress because it will crash
-                    if(changeWindowHelper) {
-                        searchItem.collapseActionView();
-                        changeWindowHelper = false;
-                    }else{
-                        //close keyboard on backpress
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    }
-                    searchView.setQuery("", false);
-                    //bind TeaItems to adapter again
-                    adapter = new TeaAdapter(MainActivity.this, teaItems.getTeaItems());
-                    //add adapter to ListView
-                    tealist.setAdapter(adapter);
-                    //Don't use searchList
-                    searching = false;
-                }
-            }
-        });
-
         return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
+        public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
         if(id == R.id.action_settings){
@@ -386,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         if(v.getId() == R.id.listViewTealist){
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
             menu.setHeaderTitle(teaItems.getTeaItems().get(info.position).getName());
+
             //Übersetzung Englisch Deutsch
             String[] menuItems = getResources().getStringArray(R.array.itemMenu);
             for(int i=0; i<menuItems.length; i++){
@@ -405,25 +269,13 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         if(menuItemName.equals(editOption)){
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
-            //Fallunterscheidung bei Suche
-            if(searching) {
-                newteaScreen.putExtra("elementId", searchList.get(info.position).getId());
-                //searching requires some extra options
-                changeWindowHelper = true;
-                rootView.requestFocus();
-            }else {
-                newteaScreen.putExtra("elementId", teaItems.getTeaItems().get(info.position).getId());
-            }
+            newteaScreen.putExtra("elementId", teaItems.getTeaItems().get(info.position).getId());
+
 
             // Intent starten und zur zweiten Activity wechseln
             startActivity(newteaScreen);
         }else if(menuItemName.equals(deleteOption)){
             int position = info.position;
-            if(searching){
-                //find position in teaitems
-                position = teaItems.getPositionById(searchList.get(info.position).getId());
-                searchList.remove(info.position);
-            }
             teaItems.getTeaItems().remove(position);
             if(!teaItems.saveCollection(getApplicationContext())){
                 Toast toast = Toast.makeText(getApplicationContext(), R.string.main_error_deletion, Toast.LENGTH_SHORT);
@@ -490,10 +342,14 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     public boolean onLongClick(View view) {
         if (view.getId() == R.id.newtea) {
             showTooltip(view, Gravity.TOP,getResources().getString(R.string.main_tooltip_newtea));
-        } else if (view.getId() == R.id.action_search) {
-            showTooltip(view, Gravity.BOTTOM,getResources().getString(R.string.main_tooltip_search));
         }
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 
     private void showTooltip(View v, int gravity, String text){

@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.UUID;
 
-import coolpharaoh.tee.speicher.tea.timer.views.MainActivity;
 import coolpharaoh.tee.speicher.tea.timer.R;
+import coolpharaoh.tee.speicher.tea.timer.views.MainActivity;
 
 /**
  * Created by paseb on 06.02.2016.
@@ -94,7 +94,7 @@ public class TeaCollection {
             ArrayList<NTemperature> temperaturesOld = oldTeaItems.get(i).getTemperature();
             ArrayList<Temperature> temperaturesNew = new ArrayList<>();
             for(int o=0; o<temperaturesOld.size(); o++){
-                Temperature tmpTemperature = null;
+                Temperature tmpTemperature;
                 if(NTemperatureCelsius.class.equals(temperaturesOld.get(o).getClass())){
                     tmpTemperature = new TemperatureCelsius(temperaturesOld.get(o).getCelsius());
                 }else{
@@ -136,7 +136,7 @@ public class TeaCollection {
     }
 
     public void deleteCollection(){
-        teaItems = new ArrayList<>();
+        teaItems.clear();
     }
 
     public void sort(){
