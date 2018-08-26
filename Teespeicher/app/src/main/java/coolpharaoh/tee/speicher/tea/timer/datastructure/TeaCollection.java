@@ -25,14 +25,14 @@ public class TeaCollection {
 
     // TODO Auto-generated method stub
     //kann später entfernt werden
-    private ArrayList<NTea> oldTeaItems;
-    private ArrayList<Tea> teaItems;
+    private ArrayList<Tea> oldTeaItems;
+    private ArrayList<NTea> teaItems;
 
-    public ArrayList<Tea> getTeaItems() {
+    public ArrayList<NTea> getTeaItems() {
         return teaItems;
     }
 
-    public void setTeaItems(ArrayList<Tea> teaItems) {
+    public void setTeaItems(ArrayList<NTea> teaItems) {
         this.teaItems = teaItems;
     }
 
@@ -45,7 +45,7 @@ public class TeaCollection {
     //Save and Load Data
     public boolean saveCollection(Context context){
         try {
-            FileOutputStream fos = context.openFileOutput("teacollection_1.2", Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput("teacollection_1.3", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(teaItems);
             os.close();
@@ -66,9 +66,9 @@ public class TeaCollection {
     @SuppressWarnings("unchecked")
     public boolean loadOldCollection(Context context) {
         try {
-            FileInputStream fis = context.openFileInput("teacollection_1.1");
+            FileInputStream fis = context.openFileInput("teacollection_1.2");
             ObjectInputStream is = new ObjectInputStream(fis);
-            oldTeaItems = (ArrayList<NTea>) is.readObject();
+            oldTeaItems = (ArrayList<Tea>) is.readObject();
             if(oldTeaItems == null) {
                 oldTeaItems = new ArrayList<>();
             }
@@ -89,34 +89,23 @@ public class TeaCollection {
 
     // TODO Auto-generated method stub
     //kann später entfernt werden
-    public void convertCollectionToNew(Context context){
+    public void convertCollectionToNew(){
         for(int i=0; i<oldTeaItems.size(); i++){
-            ArrayList<NTemperature> temperaturesOld = oldTeaItems.get(i).getTemperature();
-            ArrayList<Temperature> temperaturesNew = new ArrayList<>();
-            for(int o=0; o<temperaturesOld.size(); o++){
-                Temperature tmpTemperature;
-                if(NTemperatureCelsius.class.equals(temperaturesOld.get(o).getClass())){
-                    tmpTemperature = new TemperatureCelsius(temperaturesOld.get(o).getCelsius());
-                }else{
-                    tmpTemperature = new TemperatureFahrenheit(temperaturesOld.get(o).getFahrenheit());
-                }
-
-                temperaturesNew.add(tmpTemperature);
-            }
-            teaItems.add(new Tea(nextId(),oldTeaItems.get(i).getName(), oldTeaItems.get(i).getSortOfTea(),
-                    temperaturesNew, oldTeaItems.get(i).getCoolDownTime(), oldTeaItems.get(i).getTime(),
-                    oldTeaItems.get(i).getAmount(), oldTeaItems.get(i).getColor()));
+            teaItems.add(new NTea(nextId(),oldTeaItems.get(i).getName(), oldTeaItems.get(i).getSortOfTea(),
+                    oldTeaItems.get(i).getTemperature(), oldTeaItems.get(i).getCoolDownTime(), oldTeaItems.get(i).getTime(),
+                    oldTeaItems.get(i).getAmount(), new Coloring(oldTeaItems.get(i).getColor())));
             teaItems.get(i).setDate(oldTeaItems.get(i).getDate());
             teaItems.get(i).setNote(oldTeaItems.get(i).getNote());
+            teaItems.get(i).setCounter(oldTeaItems.get(i).getCounter());
         }
     }
 
     @SuppressWarnings("unchecked")
     public boolean loadCollection(Context context) {
         try {
-            FileInputStream fis = context.openFileInput("teacollection_1.2");
+            FileInputStream fis = context.openFileInput("teacollection_1.3");
             ObjectInputStream is = new ObjectInputStream(fis);
-            teaItems = (ArrayList<Tea>) is.readObject();
+            teaItems = (ArrayList<NTea>) is.readObject();
             if(teaItems == null) {
                 teaItems = new ArrayList<>();
             }
@@ -142,21 +131,21 @@ public class TeaCollection {
     public void sort(){
         switch(MainActivity.settings.getSort()){
             case 0:
-                Collections.sort(teaItems,Tea.TeaSortDate);
+                Collections.sort(teaItems,NTea.TeaSortDate);
                 break;
             case 1:
-                Collections.sort(teaItems,Tea.TeaSortTea);
+                Collections.sort(teaItems,NTea.TeaSortTea);
                 break;
             case 2:
-                Collections.sort(teaItems,Tea.TeaSortTea);
-                Collections.sort(teaItems,Tea.TeaSortSortofTea);
+                Collections.sort(teaItems,NTea.TeaSortTea);
+                Collections.sort(teaItems,NTea.TeaSortSortofTea);
                 break;
         }
     }
 
     public UUID nextId(){
         UUID id = UUID.randomUUID();
-        for (Tea teaItem : teaItems) {
+        for (NTea teaItem : teaItems) {
             if(id.equals(teaItem.getId())){
                 id = nextId();
                 break;

@@ -155,7 +155,7 @@
     <string name="newtea_error_cant_change">Change could not be performed.</string>
     <string name="newtea_error_cant_save">Store could not be performed.</string>
     <string name="newtea_error_no_name">Please enter the name.</string>
-    <string name="newtea_count_brew">Brew</string>
+    <string name="newtea_count_brew">%1$d%2$s Brew</string>
     <string name="newtea_tooltip_choosecolor">Choose color</string>
     <string name="newtea_tooltip_arrowleft">Previous brew</string>
     <string name="newtea_tooltip_arrowright">Next brew</string>
@@ -199,6 +199,8 @@
     <string name="about_contact_description">Who is behind the Tea Memory?</string>
     <string name="about_rating_heading">Rate this app</string>
     <string name="about_rating_description">Do you like the app? I would look forward to a review.</string>
+    <string name="about_statistics_heading">Statistics</string>
+    <string name="about_statistics_description">Look at your drinking behavior in the overview.</string>
     <string name="about_translation_heading">Languages</string>
     <string name="about_translation_description">You want the app in your language and can help translate?</string>
     <string name="about_problems_heading">Problems</string>
@@ -214,6 +216,8 @@
     <string name="contact_email_address">pase.b@outlook.com</string>
     <string name="contact_email_subject">Tea Memory Feedback</string>
     <string name="contact_email_chooser">Send email&#8230;</string>
+    <!--Statistics-->
+    <string name="statistics_heading">Statistics</string>
     <!--Software-->
     <string name="software_heading">Software Licenses</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>

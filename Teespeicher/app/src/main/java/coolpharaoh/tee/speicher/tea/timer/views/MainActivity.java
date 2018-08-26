@@ -29,8 +29,9 @@ import java.util.ArrayList;
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.ActualSetting;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Coloring;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TeaCollection;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
@@ -79,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 tmpCoolDownTime.add(new Time(Temperature.celsiusToCoolDownTime(100)));
                 ArrayList<Time> tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("3:30"));
-                Tea teaExample1 = new Tea(teaItems.nextId(), "Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
-                        tmpCoolDownTime, tmpTime, new AmountTs(5), SortOfTea.getVariatyColor(Variety.BlackTea));
+                NTea teaExample1 = new NTea(teaItems.nextId(), "Earl Grey", new SortOfTea("Schwarzer Tee"), tmpTemperature,
+                        tmpCoolDownTime, tmpTime, new AmountTs(5), new Coloring(SortOfTea.getVariatyColor(Variety.BlackTea)));
                 teaExample1.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample1);
                 tmpTemperature = new ArrayList<>();
@@ -89,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 tmpCoolDownTime.add(new Time(Temperature.celsiusToCoolDownTime(85)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("2"));
-                Tea teaExample2 = new Tea(teaItems.nextId(), "Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
-                        tmpCoolDownTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.WhiteTea));
+                NTea teaExample2 = new NTea(teaItems.nextId(), "Pai Mu Tan", new SortOfTea("Weißer Tee"), tmpTemperature,
+                        tmpCoolDownTime, tmpTime, new AmountTs(4), new Coloring(SortOfTea.getVariatyColor(Variety.WhiteTea)));
                 teaExample2.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample2);
                 tmpTemperature = new ArrayList<>();
@@ -99,14 +100,14 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 tmpCoolDownTime.add(new Time(Temperature.celsiusToCoolDownTime(80)));
                 tmpTime = new ArrayList<>();
                 tmpTime.add(new Time("1:30"));
-                Tea teaExample3 = new Tea(teaItems.nextId(),"Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
-                        tmpCoolDownTime, tmpTime, new AmountTs(4), SortOfTea.getVariatyColor(Variety.GreenTea));
+                NTea teaExample3 = new NTea(teaItems.nextId(),"Sencha", new SortOfTea("Grüner Tee"), tmpTemperature,
+                        tmpCoolDownTime, tmpTime, new AmountTs(4), new Coloring(SortOfTea.getVariatyColor(Variety.GreenTea)));
                 teaExample3.setCurrentDate();
                 teaItems.getTeaItems().add(teaExample3);
 
                 teaItems.saveCollection(getApplicationContext());
             }else{
-                teaItems.convertCollectionToNew(getApplicationContext());
+                teaItems.convertCollectionToNew();
                 teaItems.saveCollection(getApplicationContext());
             }
         }

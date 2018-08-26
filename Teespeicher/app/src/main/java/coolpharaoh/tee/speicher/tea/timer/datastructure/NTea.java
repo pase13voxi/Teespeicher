@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * Created by paseb on 13.07.2017.
- * Class, that describes a NTea.
+ * Class, that describes a Tea.
  */
 
 public class NTea implements Serializable {
@@ -18,13 +18,14 @@ public class NTea implements Serializable {
     private UUID id;
     private String name;
     private SortOfTea sortOfTea;
-    private ArrayList<NTemperature> temperature;
+    private ArrayList<Temperature> temperature;
     private ArrayList<Time> coolDownTime;
     private ArrayList<Time> time;
     private Amount amount;
-    private int color;
+    private Coloring coloring;
     private Date date;
     private String note;
+    private Counter counter;
 
     //Getter Setter
     public UUID getId() {
@@ -51,11 +52,11 @@ public class NTea implements Serializable {
         this.sortOfTea = sortOfTea;
     }
 
-    public ArrayList<NTemperature> getTemperature() {
+    public ArrayList<Temperature> getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(ArrayList<NTemperature> temperature) {
+    public void setTemperature(ArrayList<Temperature> temperature) {
         this.temperature = temperature;
     }
 
@@ -83,12 +84,12 @@ public class NTea implements Serializable {
         this.amount = amount;
     }
 
-    public int getColor(){
-        return color;
+    public Coloring getColoring(){
+        return coloring;
     }
 
-    public void setColor(int color){
-        this.color = color;
+    public void setColoring(Coloring coloring){
+        this.coloring = coloring;
     }
 
     public Date getDate() {
@@ -112,9 +113,17 @@ public class NTea implements Serializable {
         this.note = note;
     }
 
+    public Counter getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Counter counter) {
+        this.counter = counter;
+    }
+
     //Konstruktor
-    public NTea(UUID id, String name, SortOfTea sortOfTea, ArrayList<NTemperature> temperature, ArrayList<Time> coolDownTime,
-                ArrayList<Time> time, Amount amount, int color) {
+    public NTea(UUID id, String name, SortOfTea sortOfTea, ArrayList<Temperature> temperature, ArrayList<Time> coolDownTime,
+               ArrayList<Time> time, Amount amount, Coloring coloring) {
         this.id = id;
         this.name = name;
         this.sortOfTea = sortOfTea;
@@ -122,12 +131,24 @@ public class NTea implements Serializable {
         this.coolDownTime = coolDownTime;
         this.time = time;
         this.amount = amount;
-        this.color = color;
+        this.coloring = coloring;
         setCurrentDate();
         this.note = "";
+        this.counter = new Counter();
     }
 
-    static Comparator<NTea> TeaSortSortofTea = new Comparator<NTea>() {
+    public static Comparator<NTea> TeaSortTea = new Comparator<NTea>() {
+
+        public int compare(NTea tea1, NTea tea2) {
+
+            String sortno1 = tea1.getName().toLowerCase();
+            String sortno2 = tea2.getName().toLowerCase();
+
+            return sortno1.compareTo(sortno2);
+        }
+    };
+
+    public static Comparator<NTea> TeaSortSortofTea = new Comparator<NTea>() {
 
         public int compare(NTea tea1, NTea tea2) {
 
@@ -138,7 +159,7 @@ public class NTea implements Serializable {
         }
     };
 
-    static Comparator<NTea> TeaSortDate = new Comparator<NTea>() {
+    public static Comparator<NTea> TeaSortDate = new Comparator<NTea>() {
 
         public int compare(NTea tea1, NTea tea2) {
 
@@ -149,5 +170,15 @@ public class NTea implements Serializable {
         }
     };
 
+    public static Comparator<NTea> TeaSortDrinkingBehavior = new Comparator<NTea>() {
+
+        public int compare(NTea tea1, NTea tea2) {
+
+            Long dateno1 = tea1.getCounter().getOverall();
+            Long dateno2 = tea2.getCounter().getOverall();
+
+            return dateno2.compareTo(dateno1);
+        }
+    };
 
 }

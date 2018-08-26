@@ -31,5 +31,7 @@ dependencies {
     implementation 'com.github.vihtarb:tooltip:0.1.9'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation project(":horizontalbargraph")
+    compileOnly "org.projectlombok:lombok:1.18.2"
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
     testImplementation 'junit:junit:4.12'
 }

@@ -34,8 +34,9 @@ import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountGramm;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.Coloring;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureFahrenheit;
@@ -126,7 +127,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
         checkboxTeaSort.setText(R.string.newtea_by_hand);
         editTextTeaSort.setHint(R.string.tea_sort);
         buttonColorSape.setColor(color);
-        textViewBrew.setText(String.valueOf(brewIndex + 1) + ". " + getResources().getString(R.string.newtea_count_brew));
+        textViewBrew.setText(getResources().getString(R.string.newtea_count_brew,brewIndex + 1,". "));
 
         //drei tempuräre Listen erstellen
         temperatureList = new ArrayList<>();
@@ -154,7 +155,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
         elementId = (UUID) this.getIntent().getSerializableExtra("elementId");
         if (elementId != null) {
             elementAt = MainActivity.teaItems.getPositionById(elementId);
-            Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
+            NTea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
             //richtige SpinnerId bekommen
             int spinnerId = -1;
             String[] spinnerElements = getResources().getStringArray(R.array.sortsOfTea);
@@ -178,7 +179,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
             } else {
                 spinnerTeaVariety.setSelection(spinnerId);
             }
-            color = selectedTea.getColor();
+            color = selectedTea.getColoring().getColor();
             buttonColorSape.setColor(color);
             colorChange = true;
             editTextName.setText(selectedTea.getName());
@@ -467,7 +468,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
                     MainActivity.teaItems.getTeaItems().get(elementAt).setCoolDownTime(coolDownTimeList);
                     MainActivity.teaItems.getTeaItems().get(elementAt).setTime(timeList);
                     MainActivity.teaItems.getTeaItems().get(elementAt).setAmount(createAmount(amount));
-                    MainActivity.teaItems.getTeaItems().get(elementAt).setColor(color);
+                    MainActivity.teaItems.getTeaItems().get(elementAt).setColoring(new Coloring(color));
                     MainActivity.teaItems.getTeaItems().get(elementAt).setCurrentDate();
                     //teaItems persistent speichern
                     MainActivity.teaItems.sort();
@@ -477,8 +478,8 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
                     }
                 } else {
                     //erstelle Tee
-                    Tea tea = new Tea(MainActivity.teaItems.nextId(), name, new SortOfTea(sortOfTea), temperatureList, coolDownTimeList, timeList,
-                            createAmount(amount), color);
+                    NTea tea = new NTea(MainActivity.teaItems.nextId(), name, new SortOfTea(sortOfTea), temperatureList, coolDownTimeList, timeList,
+                            createAmount(amount), new Coloring(color));
                     tea.setCurrentDate();
                     MainActivity.teaItems.getTeaItems().add(tea);
                     //teaItems persistent speichern
@@ -629,7 +630,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
             rightArrow.setEnabled(true);
         }
         //show Text
-        textViewBrew.setText(String.valueOf(brewIndex + 1) + ". " + getResources().getString(R.string.newtea_count_brew));
+        textViewBrew.setText(getResources().getString(R.string.newtea_count_brew,brewIndex + 1,". "));
     }
 
     private void refreshBrewInformation() {

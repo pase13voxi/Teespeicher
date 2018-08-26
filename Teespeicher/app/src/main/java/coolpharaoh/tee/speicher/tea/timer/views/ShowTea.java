@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,12 +35,13 @@ import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.Tea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.CounterListAdapter;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.ListRowItem;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
@@ -70,7 +72,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     private ImageView imageViewSteam;
     private UUID elementId;
     private int elementAt;
-    private Tea selectedTea;
+    private NTea selectedTea;
     private int brewCount = 0;
     private String name;
     private String sortOfTea;
@@ -331,7 +333,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
                         imageViewCup.setVisibility((View.VISIBLE));
                         imageViewFill.setVisibility((View.VISIBLE));
                         //Farbe des Inhalts der Tasse festlegen
-                        imageViewFill.setColorFilter(selectedTea.getColor(), PorterDuff.Mode.SRC_ATOP);
+                        imageViewFill.setColorFilter(selectedTea.getColoring().getColor(), PorterDuff.Mode.SRC_ATOP);
                     }
                     //In millisekunden umrechnen
                     int min = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
@@ -451,7 +453,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
                     imageViewSteam.setVisibility((View.VISIBLE));
                 }
             }else {
-                String ms = String.format("%02d : %02d",
+                String ms = String.format(Locale.getDefault(),"%02d : %02d",
                         TimeUnit.MILLISECONDS.toMinutes(millis),
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 textViewTimer.setText(ms);
@@ -608,9 +610,10 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     }
 
     private void dialogNote(){
+        ViewGroup parent = findViewById(R.id.showtea_parent);
 
         LayoutInflater inflater = getLayoutInflater();
-        View alertLayoutDialogNote = inflater.inflate(R.layout.dialognote, null);
+        View alertLayoutDialogNote = inflater.inflate(R.layout.dialognote,parent,false);
         final EditText editTextNote = alertLayoutDialogNote.findViewById(R.id.editTextNote);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -674,8 +677,10 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     }
 
     private void dialogamount(){
+        ViewGroup parent = findViewById(R.id.showtea_parent);
+
         LayoutInflater inflater = getLayoutInflater();
-        View alertLayoutDialogNote = inflater.inflate(R.layout.dialogamount, null);
+        View alertLayoutDialogNote = inflater.inflate(R.layout.dialogamount,parent,false);
         final SeekBar seekBarAmountPerAmount = alertLayoutDialogNote.findViewById(R.id.seekBarAmountPerAmount);
         final TextView textViewAmountPerAmount = alertLayoutDialogNote.findViewById(R.id.textViewShowAmountPerAmount);
         // 10 for 1 liter
@@ -723,8 +728,10 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     }
 
     private void dialogShowTeaDescription(){
+        ViewGroup parent = findViewById(R.id.showtea_parent);
+
         LayoutInflater inflater = getLayoutInflater();
-        View alertLayoutDialogNote = inflater.inflate(R.layout.dialogshowteadescription, null);
+        View alertLayoutDialogNote = inflater.inflate(R.layout.dialogshowteadescription,parent,false);
         final CheckBox dontshowagain = alertLayoutDialogNote.findViewById(R.id.checkboxDialogShowTeaDescription);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);

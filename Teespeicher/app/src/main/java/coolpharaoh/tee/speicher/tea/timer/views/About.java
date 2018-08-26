@@ -50,7 +50,7 @@ public class About extends AppCompatActivity {
         aboutList.add(itemContact);
         ListRowItem itemRating = new ListRowItem(getResources().getString(R.string.about_rating_heading), getResources().getString(R.string.about_rating_description));
         aboutList.add(itemRating);
-        ListRowItem itemStatistics = new ListRowItem("Statistiken","bla bla");
+        ListRowItem itemStatistics = new ListRowItem(getResources().getString(R.string.about_statistics_heading), getResources().getString(R.string.about_statistics_description));
         aboutList.add(itemStatistics);
         ListRowItem itemTranslation = new ListRowItem(getResources().getString(R.string.about_translation_heading),getResources().getString(R.string.about_translation_description));
         aboutList.add(itemTranslation);

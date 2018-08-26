@@ -155,7 +155,7 @@
     <string name="newtea_error_cant_change">Änderung konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_cant_save">Speichern konnte nicht durchgeführt werden.</string>
     <string name="newtea_error_no_name">Geben Sie bitte den Namen an.</string>
-    <string name="newtea_count_brew">Aufguss</string>
+    <string name="newtea_count_brew">%1$d%2$s Aufguss</string>
     <string name="newtea_tooltip_choosecolor">Farbe auswählen</string>
     <string name="newtea_tooltip_arrowleft">Vorheriger Aufguss</string>
     <string name="newtea_tooltip_arrowright">Nächster Aufguss</string>
@@ -199,6 +199,8 @@
     <string name="about_contact_description">Wer steckt hinter dem Tee Speicher?</string>
     <string name="about_rating_heading">Bewerte die App</string>
     <string name="about_rating_description">Gefällt dir die App? Ich würde mich über eine Bewertung freuen.</string>
+    <string name="about_statistics_heading">Statistiken</string>
+    <string name="about_statistics_description">Schau dir dein Trinkverhalten in der Übersicht an.</string>
     <string name="about_translation_heading">Sprachen</string>
     <string name="about_translation_description">Du möchtest die App in deiner Sprache und kannst helfen, zu übersetzen?</string>
     <string name="about_problems_heading">Probleme</string>
@@ -214,6 +216,8 @@
     <string name="contact_email_address">pase.b@outlook.com</string>
     <string name="contact_email_subject">Tee Speicher Feedback</string>
     <string name="contact_email_chooser">Sende eine E-mail&#8230;</string>
+    <!--Statistics-->
+    <string name="statistics_heading">Statistiken</string>
     <!--Software-->
     <string name="software_heading">Software Lizenzen</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
