@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 import coolpharaoh.tee.speicher.tea.timer.R;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.N2Tea;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.CounterListAdapter;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.ListRowItem;
 import coolpharaoh.tee.speicher.tea.timer.services.CountDownService;
@@ -72,7 +72,7 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
     private ImageView imageViewSteam;
     private UUID elementId;
     private int elementAt;
-    private NTea selectedTea;
+    private N2Tea selectedTea;
     private int brewCount = 0;
     private String name;
     private String sortOfTea;
@@ -380,8 +380,11 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
                     stopService(new Intent(getBaseContext(),MediaService.class));
                     //Nofications zurücksetzten
                     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    assert notificationManager != null : "NotificationManager is null.";
-                    notificationManager.cancelAll();
+                    if (notificationManager==null){
+                        throw new AssertionError("NotificationManager is null.");
+                    } else {
+                        notificationManager.cancelAll();
+                    }
                 }
             }
         });
@@ -434,8 +437,12 @@ public class ShowTea extends AppCompatActivity implements View.OnLongClickListen
         stopService(new Intent(this, CountDownService.class));
         stopService(new Intent(getBaseContext(),MediaService.class));
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        assert notificationManager != null : "NotificationManager is null.";
-        notificationManager.cancelAll();
+        if (notificationManager==null){
+            throw new AssertionError("NotificationManager is null.");
+        } else {
+            notificationManager.cancelAll();
+        }
+
         super.onDestroy();
     }
 

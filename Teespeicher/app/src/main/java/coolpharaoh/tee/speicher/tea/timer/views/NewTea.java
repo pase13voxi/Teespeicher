@@ -35,7 +35,7 @@ import coolpharaoh.tee.speicher.tea.timer.datastructure.Amount;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountGramm;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.AmountTs;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Coloring;
-import coolpharaoh.tee.speicher.tea.timer.datastructure.NTea;
+import coolpharaoh.tee.speicher.tea.timer.datastructure.N2Tea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.SortOfTea;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Temperature;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.TemperatureCelsius;
@@ -155,7 +155,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
         elementId = (UUID) this.getIntent().getSerializableExtra("elementId");
         if (elementId != null) {
             elementAt = MainActivity.teaItems.getPositionById(elementId);
-            NTea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
+            N2Tea selectedTea = MainActivity.teaItems.getTeaItems().get(elementAt);
             //richtige SpinnerId bekommen
             int spinnerId = -1;
             String[] spinnerElements = getResources().getStringArray(R.array.sortsOfTea);
@@ -478,7 +478,7 @@ public class NewTea extends AppCompatActivity implements View.OnLongClickListene
                     }
                 } else {
                     //erstelle Tee
-                    NTea tea = new NTea(MainActivity.teaItems.nextId(), name, new SortOfTea(sortOfTea), temperatureList, coolDownTimeList, timeList,
+                    N2Tea tea = new N2Tea(MainActivity.teaItems.nextId(), name, new SortOfTea(sortOfTea), temperatureList, coolDownTimeList, timeList,
                             createAmount(amount), new Coloring(color));
                     tea.setCurrentDate();
                     MainActivity.teaItems.getTeaItems().add(tea);

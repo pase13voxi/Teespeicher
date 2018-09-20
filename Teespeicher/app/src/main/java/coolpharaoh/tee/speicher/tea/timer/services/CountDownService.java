@@ -126,8 +126,11 @@ public class CountDownService extends Service {
                     Vibrator vibrator = (Vibrator) getBaseContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 1000 milliseconds
                     long[] twice = { 0, 500, 400, 500 };
-                    assert vibrator != null : "Vibrator is null.";
-                    vibrator.vibrate(twice,-1);
+                    if (vibrator==null){
+                        throw new AssertionError("Vibrator is null.");
+                    } else {
+                        vibrator.vibrate(twice, -1);
+                    }
                 }
                 //ausführen wenn die Notification aktiviert ist
                 if(MainActivity.settings.isNotification()){
@@ -157,9 +160,12 @@ public class CountDownService extends Service {
                         // hide the notification after its selected
 
                         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        assert notificationManager != null : "NotificationManager is null.";
-                        notificationManager.createNotificationChannel(channel);
-                        notificationManager.notify(0, notification.build());
+                        if (notificationManager==null){
+                            throw new AssertionError("NotificationManager is null.");
+                        } else {
+                            notificationManager.createNotificationChannel(channel);
+                            notificationManager.notify(0, notification.build());
+                        }
                     }else {
                         // Build notification
                         Notification.Builder notification = new Notification.Builder(getApplicationContext())
@@ -172,8 +178,11 @@ public class CountDownService extends Service {
                         // hide the notification after its selected
 
                         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        assert notificationManager != null : "NotificationManager is null.";
-                        notificationManager.notify(0, notification.build());
+                        if (notificationManager==null){
+                            throw new AssertionError("NotificationManager is null.");
+                        } else {
+                            notificationManager.notify(0, notification.build());
+                        }
                     }
 
                 }

@@ -218,6 +218,12 @@
     <string name="contact_email_chooser">Send email&#8230;</string>
     <!--Statistics-->
     <string name="statistics_heading">Statistics</string>
+    <string-array name="statistics_category">
+        <item>Overall</item>
+        <item>This month</item>
+        <item>This week</item>
+        <item>Today</item>
+    </string-array>
     <!--Software-->
     <string name="software_heading">Software Licenses</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>

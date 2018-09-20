@@ -14,7 +14,11 @@
         android:layout_width="70dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Jan 2017" />
+        android:text="Jan 2017"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
