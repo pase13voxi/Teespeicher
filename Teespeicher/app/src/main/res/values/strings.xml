@@ -228,10 +228,10 @@
     <string name="software_heading">Software Licenses</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
     <string name="software_colorpicker_description">The ColorPicker is an open source software, which allows the selection of a color.</string>
-    <string name="software_billing_heading">Android In-App Billing v3 Library</string>
-    <string name="software_billing_description">The Android In-App Billing v3 Library is an open source software, which allows In-App-Billing.</string>
     <string name="software_tooltip_heading">Android Tooltips</string>
     <string name="software_tooltip_description">Android Tooltips is an open source software, which provides nice tooltips.</string>
+    <string name="software_statistic_heading">Horizontal Bar Graph</string>
+    <string name="software_statistic_description">Horizontal Bar Graph is an open source software that can be used to display graphics.</string>
     <!--Languages-->
     <string name="languages_heading">Languages</string>
     <string name="languages_info_top">You can help me translate the app into another language?</string>
@@ -244,20 +244,6 @@
     <string name="languages_email_address">pase.b@outlook.com</string>
     <string name="languages_email_subject">Tea Memory Languages</string>
     <string name="languages_email_chooser">Send email&#8230;</string>
-    <!--Billing-->
-    <string name="billing_heading">Support</string>
-    <string name="billing_info">Pay as much as the app is worth to you. This will help me a lot.</string>
-    <string name="billing_zero">No problem. The Tea Memory is completly free.</string>
-    <string name="billing_support_me">Thank you for your support.</string>
-    <string-array name="billing_prices">
-        <item>0,00 €</item>
-        <item>1,00 €</item>
-        <item>2,00 €</item>
-        <item>3,00 €</item>
-        <item>5,00 €</item>
-        <item>10,00 €</item>
-    </string-array>
-    <string name="billing_pay">support</string>
     <!--Problems-->
     <string name="problems_heading">Problem</string>
     <string name="problems_question">Is the timer no longer running in the background?</string>

@@ -23,7 +23,7 @@ import coolpharaoh.tee.speicher.tea.timer.listadapter.ListRowItem;
 public class About extends AppCompatActivity {
 
     private enum ListItems {
-        Contact, Rating, Statistics, Translation, Problems, Software, Billing
+        Contact, Rating, Statistics, Translation, Problems, Software
     }
 
 
@@ -58,8 +58,6 @@ public class About extends AppCompatActivity {
         aboutList.add(itemProblems);
         ListRowItem itemSoftware = new ListRowItem(getResources().getString(R.string.about_software_heading),getResources().getString(R.string.about_software_description));
         aboutList.add(itemSoftware);
-        //ListRowItem itemBilling = new ListRowItem(getResources().getString(R.string.about_billing_heading),getResources().getString(R.string.about_billing_description));
-        //aboutList.add(itemBilling);
 
         //Liste mit Adapter verknüpfen
         AboutListAdapter adapter = new AboutListAdapter(this, aboutList);
@@ -103,10 +101,6 @@ public class About extends AppCompatActivity {
                     case Software:
                         Intent softwareScreen = new Intent(About.this, Software.class);
                         startActivity(softwareScreen);
-                        break;
-                    case Billing:
-                        Intent billingScreen = new Intent(About.this, Payment.class);
-                        startActivity(billingScreen);
                         break;
                 }
 

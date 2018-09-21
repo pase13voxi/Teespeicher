@@ -8,7 +8,7 @@ android {
         applicationId "coolpharaoh.tee.speicher.tea.timer"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 55
+        versionCode 56
         versionName "2.2"
     }
     buildTypes {
@@ -26,7 +26,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
-    //implementation 'com.anjlab.android.iab.v3:library:1.0.44'
     implementation 'com.github.attenzione:android-ColorPickerPreference:9cbe9e7757'
     implementation 'com.github.vihtarb:tooltip:0.1.9'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'

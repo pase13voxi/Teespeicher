@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- <uses-permission android:name="com.android.vending.BILLING" /> -->
 
     <supports-screens
         android:largeScreens="true"
@@ -89,14 +88,6 @@
         <activity
             android:name=".views.Software"
             android:label="Software"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="coolpharaoh.tee.speicher.tea.timer.views.About" />
-        </activity>
-        <activity
-            android:name=".views.Payment"
-            android:label="Payment"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

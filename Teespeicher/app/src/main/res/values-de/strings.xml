@@ -228,10 +228,10 @@
     <string name="software_heading">Software Lizenzen</string>
     <string name="software_colorpicker_heading">ColorPickerPreference</string>
     <string name="software_colorpicker_description">Der ColorPicker ist eine Open Source Software, welche die Auswahl einer Farbe ermöglicht.</string>
-    <string name="software_billing_heading">Android In-App Billing v3 Library</string>
-    <string name="software_billing_description">Die Android In-App Billing v3 Library ist eine Open Source Software, welche In-App-Käufe ermöglicht.</string>
     <string name="software_tooltip_heading">Android Tooltips</string>
     <string name="software_tooltip_description">Android Tooltips ist eine Open Source Software, welche schöne Kurzinfos zur Verfügung stellt.</string>
+    <string name="software_statistic_heading">Horizontal Bar Graph</string>
+    <string name="software_statistic_description">Horizontal Bar Graph ist eine Open-Source-Software, mit der Grafiken angezeigt werden können.</string>
     <!--Languages-->
     <string name="languages_heading">Sprachen</string>
     <string name="languages_info_top">Du kannst mir helfen, die App in eine andere Sprache zu übersetzen?</string>
@@ -244,20 +244,6 @@
     <string name="languages_email_address">pase.b@outlook.com</string>
     <string name="languages_email_subject">Tee Speicher Sprachen</string>
     <string name="languages_email_chooser">Sende eine E-Mail&#8230;</string>
-    <!--Billing-->
-    <string name="billing_heading">Unterstützung</string>
-    <string name="billing_info">Zahle so viel, wie dir die App wert ist. Du hilfst mir damit sehr.</string>
-    <string name="billing_zero">Das ist kein Problem. Der Teespeicher ist komplett kostenlos.</string>
-    <string name="billing_support_me">Viele Dank für deine Unterstützung.</string>
-    <string-array name="billing_prices">
-        <item>0,00 €</item>
-        <item>1,00 €</item>
-        <item>2,00 €</item>
-        <item>3,00 €</item>
-        <item>5,00 €</item>
-        <item>10,00 €</item>
-    </string-array>
-    <string name="billing_pay">unterstützen</string>
     <!--Problems-->
     <string name="problems_heading">Problem</string>
     <string name="problems_question">Läuft der Timer nicht mehr im Hintergrund?</string>
