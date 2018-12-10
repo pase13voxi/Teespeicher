@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/checkboxDialogSettingsRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/settings_show_hints_rating_checkbox"
+        android:textSize="17sp"
+        android:theme="@style/CheckBoxStyle"></CheckBox>
+
+    <CheckBox
+        android:id="@+id/checkboxDialogSettingsProblems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/settings_show_hints_problem_checkbox"
+        android:textSize="17sp"
+        android:theme="@style/CheckBoxStyle"></CheckBox>
+
+    <CheckBox
+        android:id="@+id/checkboxDialogSettingsDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/settings_show_hints_desciption_checkbox"
+        android:textSize="17sp"
+        android:theme="@style/CheckBoxStyle"></CheckBox>
+</LinearLayout>

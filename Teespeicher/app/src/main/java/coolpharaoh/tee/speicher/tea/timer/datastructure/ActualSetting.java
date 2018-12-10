@@ -1,6 +1,7 @@
 package coolpharaoh.tee.speicher.tea.timer.datastructure;
 
 import android.content.Context;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,8 +21,10 @@ public class ActualSetting {
     private boolean animation;
     private String temperatureUnit;
     private String language;
-    private boolean ocrAlert;
     private boolean showteaAlert;
+    private boolean mainProblemAlert;
+    private boolean mainRateAlert;
+    private int mainRatecounter;
     //0 = sort by Date, 1 = sort alphabethically, 2 = sort by variety
     private int sort;
 
@@ -61,15 +64,15 @@ public class ActualSetting {
         return animation;
     }
 
-    public void setAnimation(boolean animation){
+    public void setAnimation(boolean animation) {
         this.animation = animation;
     }
 
-    public String getTemperatureUnit(){
+    public String getTemperatureUnit() {
         return temperatureUnit;
     }
 
-    public void setTemperatureUnit(String temperatureUnit){
+    public void setTemperatureUnit(String temperatureUnit) {
         this.temperatureUnit = temperatureUnit;
     }
 
@@ -81,20 +84,40 @@ public class ActualSetting {
         this.language = language;
     }
 
-    public boolean isOcrAlert() {
-        return ocrAlert;
-    }
-
-    public void setOcrAlert(boolean ocrAlert){
-        this.ocrAlert = ocrAlert;
-    }
-
-    public boolean isShowteaAlert(){
+    public boolean isShowteaAlert() {
         return showteaAlert;
     }
 
-    public void setShowteaAlert(boolean showteaAlert){
+    public void setShowteaAlert(boolean showteaAlert) {
         this.showteaAlert = showteaAlert;
+    }
+
+    public boolean isMainProblemAlert() {
+        return mainProblemAlert;
+    }
+
+    public void setMainProblemAlert(boolean mainProblemAlert) {
+        this.mainProblemAlert = mainProblemAlert;
+    }
+
+    public boolean isMainRateAlert() {
+        return mainRateAlert;
+    }
+
+    public void setMainRateAlert(boolean mainRateAlert) {
+        this.mainRateAlert = mainRateAlert;
+    }
+
+    public int getMainRatecounter() {
+        return mainRatecounter;
+    }
+
+    public void incrementMainRatecounter() {
+        mainRatecounter++;
+    }
+
+    public void resetMainRatecounter() {
+        this.mainRatecounter = 0;
     }
 
     public int getSort() {
@@ -105,11 +128,11 @@ public class ActualSetting {
         this.sort = sort;
     }
 
-    public ActualSetting(){
+    public ActualSetting() {
         setDefault();
     }
 
-    public void setDefault(){
+    public void setDefault() {
         musicChoice = "content://settings/system/ringtone";
         musicName = "Default";
         vibration = false;
@@ -117,15 +140,17 @@ public class ActualSetting {
         animation = true;
         temperatureUnit = "Celsius";
         language = "de";
-        ocrAlert = true;
         showteaAlert = true;
+        mainProblemAlert = true;
+        mainRateAlert = true;
+        mainRatecounter = 0;
         sort = 0;
     }
 
     //Save and Load Data
-    public boolean saveSettings(Context context){
+    public boolean saveSettings(Context context) {
         try {
-            FileOutputStream fos = context.openFileOutput("ActualSetting", Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput("ActualSetting1.0", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(musicChoice);
             os.writeObject(musicName);
@@ -133,8 +158,10 @@ public class ActualSetting {
             os.writeBoolean(notification);
             os.writeBoolean(animation);
             os.writeObject(temperatureUnit);
-            os.writeBoolean(ocrAlert);
             os.writeBoolean(showteaAlert);
+            os.writeBoolean(mainProblemAlert);
+            os.writeBoolean(mainRateAlert);
+            os.writeInt(mainRatecounter);
             os.writeObject(language);
             os.writeInt(sort);
             os.close();
@@ -143,36 +170,7 @@ public class ActualSetting {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
-        }catch(IOException e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean loadSettings(Context context) {
-        try {
-            FileInputStream fis = context.openFileInput("ActualSetting");
-            ObjectInputStream is = new ObjectInputStream(fis);
-            musicChoice = (String) is.readObject();
-            musicName = (String) is.readObject();
-            vibration = is.readBoolean();
-            notification = is.readBoolean();
-            animation = is.readBoolean();
-            temperatureUnit = (String) is.readObject();
-            ocrAlert = is.readBoolean();
-            showteaAlert = is.readBoolean();
-            language = (String) is.readObject();
-            sort = is.readInt(); //muss noch angepasst
-            is.close();
-            fis.close();
-            return true;
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -188,24 +186,53 @@ public class ActualSetting {
             musicName = (String) is.readObject();
             vibration = is.readBoolean();
             notification = is.readBoolean();
+            animation = is.readBoolean();
             temperatureUnit = (String) is.readObject();
-            ocrAlert = is.readBoolean();
+            is.readBoolean();
             showteaAlert = is.readBoolean();
             language = (String) is.readObject();
-            if(is.readBoolean())
-                sort = 0;
-            else
-                sort = 2;
+            sort = is.readInt();
             is.close();
             fis.close();
             return true;
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
-        }catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return false;
-        }catch(IOException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean loadSettings(Context context) {
+        try {
+            FileInputStream fis = context.openFileInput("ActualSetting1.0");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            musicChoice = (String) is.readObject();
+            musicName = (String) is.readObject();
+            vibration = is.readBoolean();
+            notification = is.readBoolean();
+            animation = is.readBoolean();
+            temperatureUnit = (String) is.readObject();
+            showteaAlert = is.readBoolean();
+            mainProblemAlert = is.readBoolean();
+            mainRateAlert = is.readBoolean();
+            mainRatecounter = is.readInt();
+            language = (String) is.readObject();
+            sort = is.readInt();
+            is.close();
+            fis.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }

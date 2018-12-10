@@ -11,10 +11,13 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +48,7 @@ public class Settings extends AppCompatActivity {
         TextView mToolbarCustomTitle = findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.settings_heading);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
         }
 
@@ -68,7 +71,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListItems item = ListItems.values()[position];
-                switch(item){
+                switch (item) {
                     case Alarm:
                         settingAlarm();
                         break;
@@ -109,8 +112,11 @@ public class Settings extends AppCompatActivity {
 
         //Get CheckedItem
         int checkedItem;
-        if(MainActivity.settings.isVibration()){checkedItem = 0;
-        }else {checkedItem = 1;}
+        if (MainActivity.settings.isVibration()) {
+            checkedItem = 0;
+        } else {
+            checkedItem = 1;
+        }
 
         // Creating and Building the Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this,
@@ -118,8 +124,7 @@ public class Settings extends AppCompatActivity {
         builder.setTitle(R.string.settings_vibration);
         builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                switch(item)
-                {
+                switch (item) {
                     case 0:
                         MainActivity.settings.setVibration(true);
                         break;
@@ -142,8 +147,11 @@ public class Settings extends AppCompatActivity {
 
         //Get CheckedItem
         int checkedItem;
-        if(MainActivity.settings.isNotification()){checkedItem = 0;
-        }else {checkedItem = 1;}
+        if (MainActivity.settings.isNotification()) {
+            checkedItem = 0;
+        } else {
+            checkedItem = 1;
+        }
 
         // Creating and Building the Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this,
@@ -151,8 +159,7 @@ public class Settings extends AppCompatActivity {
         builder.setTitle(R.string.settings_notification);
         builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                switch(item)
-                {
+                switch (item) {
                     case 0:
                         MainActivity.settings.setNotification(true);
                         break;
@@ -175,8 +182,11 @@ public class Settings extends AppCompatActivity {
 
         //Get CheckedItem
         int checkedItem;
-        if(MainActivity.settings.isAnimation()){checkedItem = 0;
-        }else {checkedItem = 1;}
+        if (MainActivity.settings.isAnimation()) {
+            checkedItem = 0;
+        } else {
+            checkedItem = 1;
+        }
 
         // Creating and Building the Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this,
@@ -184,8 +194,7 @@ public class Settings extends AppCompatActivity {
         builder.setTitle(R.string.settings_animation);
         builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                switch(item)
-                {
+                switch (item) {
                     case 0:
                         MainActivity.settings.setAnimation(true);
                         break;
@@ -208,8 +217,11 @@ public class Settings extends AppCompatActivity {
 
         //Get CheckedItem
         int checkedItem;
-        if(MainActivity.settings.getTemperatureUnit().equals(items[0])){checkedItem = 0;
-        }else {checkedItem = 1;}
+        if (MainActivity.settings.getTemperatureUnit().equals(items[0])) {
+            checkedItem = 0;
+        } else {
+            checkedItem = 1;
+        }
 
         // Creating and Building the Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this,
@@ -229,17 +241,61 @@ public class Settings extends AppCompatActivity {
     }
 
     private void settingHints() {
-        MainActivity.settings.setShowteaAlert(true);
-        MainActivity.settings.saveSettings(getApplicationContext());
-        Toast toast = Toast.makeText(getApplicationContext(), R.string.settings_show_hints_text, Toast.LENGTH_SHORT);
-        toast.show();
+        ViewGroup parent = findViewById(R.id.settings_parent);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayoutDialogProblem = inflater.inflate(R.layout.dialogsettingshints, parent, false);
+        final CheckBox checkBoxRating = alertLayoutDialogProblem.findViewById(R.id.checkboxDialogSettingsRating);
+        if (MainActivity.settings.isMainRateAlert()) {
+            checkBoxRating.setChecked(true);
+        }
+        final CheckBox checkBoxProblems = alertLayoutDialogProblem.findViewById(R.id.checkboxDialogSettingsProblems);
+        if (MainActivity.settings.isMainProblemAlert()) {
+            checkBoxProblems.setChecked(true);
+        }
+        final CheckBox checkBoxDescription = alertLayoutDialogProblem.findViewById(R.id.checkboxDialogSettingsDescription);
+        if (MainActivity.settings.isShowteaAlert()) {
+            checkBoxDescription.setChecked(true);
+        }
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(alertLayoutDialogProblem);
+        adb.setTitle(R.string.settings_show_hints_header);
+        adb.setPositiveButton(R.string.settings_show_hints_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (checkBoxRating.isChecked()) {
+                    MainActivity.settings.setMainRateAlert(true);
+                }else {
+                    MainActivity.settings.setMainRateAlert(false);
+                }
+                if (checkBoxProblems.isChecked()) {
+                    MainActivity.settings.setMainProblemAlert(true);
+                }else {
+                    MainActivity.settings.setMainProblemAlert(false);
+                }
+                if (checkBoxDescription.isChecked()) {
+                    MainActivity.settings.setShowteaAlert(true);
+                }else {
+                    MainActivity.settings.setShowteaAlert(false);
+                }
+                MainActivity.settings.saveSettings(getApplicationContext());
+
+            }
+        });
+        adb.setNegativeButton(R.string.settings_show_hints_cancle, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        adb.show();
+
     }
 
     private void settingFactorySettings(View v) {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which){
+                switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         //Einstellungen zurücksetzen und Tees löschen
                         MainActivity.settings.setDefault();
@@ -267,10 +323,10 @@ public class Settings extends AppCompatActivity {
                 .setNegativeButton(R.string.settings_factory_settings_cancel, dialogClickListener).show();
     }
 
-    private void refreshWindow(){
+    private void refreshWindow() {
         settingList.clear();
 
-        ListRowItem itemSound = new ListRowItem(getResources().getString(R.string.settings_alarm),MainActivity.settings.getMusicName());
+        ListRowItem itemSound = new ListRowItem(getResources().getString(R.string.settings_alarm), MainActivity.settings.getMusicName());
         settingList.add(itemSound);
 
         //Decision for Animation, Vibration and Notification
@@ -278,47 +334,56 @@ public class Settings extends AppCompatActivity {
 
         //Get Option for the Vibration
         int vibrationOption;
-        if(MainActivity.settings.isVibration()){vibrationOption = 0;
-        }else {vibrationOption = 1;}
-        ListRowItem itemVibration = new ListRowItem(getResources().getString(R.string.settings_vibration),itemsOnOff[vibrationOption]);
+        if (MainActivity.settings.isVibration()) {
+            vibrationOption = 0;
+        } else {
+            vibrationOption = 1;
+        }
+        ListRowItem itemVibration = new ListRowItem(getResources().getString(R.string.settings_vibration), itemsOnOff[vibrationOption]);
         settingList.add(itemVibration);
 
         //Get Option for the Notification
         int notificationOption = -1;
-        if(MainActivity.settings.isNotification()){notificationOption = 0;
-        }else {notificationOption = 1;}
-        ListRowItem itemNotification = new ListRowItem(getResources().getString(R.string.settings_notification),itemsOnOff[notificationOption]);
+        if (MainActivity.settings.isNotification()) {
+            notificationOption = 0;
+        } else {
+            notificationOption = 1;
+        }
+        ListRowItem itemNotification = new ListRowItem(getResources().getString(R.string.settings_notification), itemsOnOff[notificationOption]);
         settingList.add(itemNotification);
 
         //Get Option for the Animation
         int animationOption = -1;
-        if(MainActivity.settings.isAnimation()){animationOption = 0;
-        }else {animationOption = 1;}
-        ListRowItem itemAnimation = new ListRowItem(getResources().getString(R.string.settings_animation),itemsOnOff[animationOption]);
+        if (MainActivity.settings.isAnimation()) {
+            animationOption = 0;
+        } else {
+            animationOption = 1;
+        }
+        ListRowItem itemAnimation = new ListRowItem(getResources().getString(R.string.settings_animation), itemsOnOff[animationOption]);
         settingList.add(itemAnimation);
 
         //TemperatureUnit
-        ListRowItem itemTemperatureUnit = new ListRowItem(getResources().getString(R.string.settings_temperature_unit),MainActivity.settings.getTemperatureUnit());
+        ListRowItem itemTemperatureUnit = new ListRowItem(getResources().getString(R.string.settings_temperature_unit), MainActivity.settings.getTemperatureUnit());
         settingList.add(itemTemperatureUnit);
 
         //Hints
-        ListRowItem itemHints = new ListRowItem(getResources().getString(R.string.settings_show_hints),getResources().getString(R.string.settings_show_hints_description));
+        ListRowItem itemHints = new ListRowItem(getResources().getString(R.string.settings_show_hints), getResources().getString(R.string.settings_show_hints_description));
         settingList.add(itemHints);
 
         //Factory Setting
-        ListRowItem itemFactorySettings = new ListRowItem(getResources().getString(R.string.settings_factory_settings),getResources().getString(R.string.settings_factory_settings_description));
+        ListRowItem itemFactorySettings = new ListRowItem(getResources().getString(R.string.settings_factory_settings), getResources().getString(R.string.settings_factory_settings_description));
         settingList.add(itemFactorySettings);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.home){
+        if (id == R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
         }
 
@@ -327,15 +392,14 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (resultCode == Activity.RESULT_OK && requestCode == 5)
-        {
+        if (resultCode == Activity.RESULT_OK && requestCode == 5) {
             Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
             Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
             String name = ringtone.getTitle(this);
             if (uri != null) {
                 MainActivity.settings.setMusicChoice(uri.toString());
                 MainActivity.settings.setMusicName(name);
-            }else {
+            } else {
                 MainActivity.settings.setMusicChoice(null);
                 MainActivity.settings.setMusicName("-");
             }

@@ -19,6 +19,17 @@
     <string name="main_error_deletion">Deletion could not be performed.</string>
     <string name="main_tooltip_search">Search</string>
     <string name="main_tooltip_newtea">Add tea</string>
+    <string name="main_dialog_problem_header">Problem</string>
+    <string name="main_dialog_problem">Hey, you are using Android 8 or higher. With these versions, Android has introduced new features that cause problems running this app.</string>
+    <string name="main_dialog_problem_checkbox">Do not show me again!</string>
+    <string name="main_dialog_problem_ok">Solve the problem</string>
+    <string name="main_dialog_problem_cancle">Not now</string>
+    <string name="main_dialog_rating_header">Rate this app</string>
+    <string name="main_dialog_rating">Do you like the app? I would look forward to a review.</string>
+    <string name="main_dialog_rating_checkbox">Do not show me again!</string>
+    <string name="main_dialog_rating_positive">Rate now</string>
+    <string name="main_dialog_rating_neutral">Later</string>
+    <string name="main_dialog_rating_negative">No, thanks</string>
     <!--showtea_en-->
     <string name="showtea_heading">Information</string>
     <string name="showtea_action_note">Note</string>
@@ -182,8 +193,13 @@
         <item>Fahrenheit</item>
     </array>
     <string name="settings_show_hints">Hints</string>
-    <string name="settings_show_hints_description">Activate all hints</string>
-    <string name="settings_show_hints_text">Hints are active again.</string>
+    <string name="settings_show_hints_description">Activate/Deactivate hints</string>
+    <string name="settings_show_hints_header">Hints</string>
+    <string name="settings_show_hints_ok">OK</string>
+    <string name="settings_show_hints_cancle">Cancle</string>
+    <string name="settings_show_hints_rating_checkbox">Rating hint</string>
+    <string name="settings_show_hints_problem_checkbox">Problem hint</string>
+    <string name="settings_show_hints_desciption_checkbox">Desciption in the information window</string>
     <string name="settings_factory_settings">Factory setting</string>
     <string name="settings_factory_settings_description">Reset everything to factory setting</string>
     <string name="settings_factory_settings_text">Every tea will be deleted and the settings will be reseted.</string>

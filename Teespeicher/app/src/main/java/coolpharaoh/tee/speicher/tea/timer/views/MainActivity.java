@@ -1,8 +1,12 @@
 package coolpharaoh.tee.speicher.tea.timer.views;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -11,12 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,10 +46,11 @@ import coolpharaoh.tee.speicher.tea.timer.datastructure.Time;
 import coolpharaoh.tee.speicher.tea.timer.datastructure.Variety;
 import coolpharaoh.tee.speicher.tea.timer.listadapter.TeaAdapter;
 
-public class MainActivity extends AppCompatActivity implements View.OnLongClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnLongClickListener {
 
     static public TeaCollection teaItems;
     static public ActualSetting settings;
+    static private boolean startApplication = true;
 
     private TextView mToolbarCustomTitle;
     private FloatingActionButton newTea;
@@ -62,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         mToolbarCustomTitle = findViewById(R.id.toolbar_title);
         mToolbarCustomTitle.setText(R.string.app_name);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
         }
 
@@ -70,11 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         tealist = findViewById(R.id.listViewTealist);
         //Liste aller Tees
         teaItems = new TeaCollection();
-        if(!teaItems.loadCollection(getApplicationContext())){
+        if (!teaItems.loadCollection(getApplicationContext())) {
             // TODO Auto-generated method stub
             //kann später entfernt werden
-            if(!teaItems.loadOld2Collection(getApplicationContext())) {
-                if(!teaItems.loadOldCollection(getApplicationContext())) {
+            if (!teaItems.loadOld2Collection(getApplicationContext())) {
+                if (!teaItems.loadOldCollection(getApplicationContext())) {
                     ArrayList<Temperature> tmpTemperature = new ArrayList<>();
                     tmpTemperature.add(new TemperatureCelsius(100));
                     ArrayList<Time> tmpCoolDownTime = new ArrayList<>();
@@ -107,11 +115,11 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                     teaItems.getTeaItems().add(teaExample3);
 
                     teaItems.saveCollection(getApplicationContext());
-                }else{
+                } else {
                     teaItems.convertCollectionToNew();
                     teaItems.saveCollection(getApplicationContext());
                 }
-            }else{
+            } else {
                 teaItems.convertCollection2ToNew();
                 teaItems.saveCollection(getApplicationContext());
             }
@@ -119,8 +127,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
         //Settings holen
         settings = new ActualSetting();
-        if(!settings.loadSettings(getApplicationContext())){
-            if(!settings.loadOldSettings(getApplicationContext())) {
+        if (!settings.loadSettings(getApplicationContext())) {
+            if (!settings.loadOldSettings(getApplicationContext())) {
                 //setzte Default wenn nicht vorhanden
                 settings.saveSettings(getApplicationContext());
             }
@@ -129,13 +137,15 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         //herausfinden welche Sprache gesetzt ist und Übersetztung der Liste starten
         String tmpLang = "";
         String language = getResources().getString(R.string.app_name);
-        switch(language){
+        switch (language) {
             case "Tee Speicher":
-                tmpLang = "de"; break;
+                tmpLang = "de";
+                break;
             case "Tea Memory":
-                tmpLang = "en"; break;
+                tmpLang = "en";
+                break;
         }
-        if(!tmpLang.equals(settings.getLanguage())){
+        if (!tmpLang.equals(settings.getLanguage())) {
             teaItems.translateSortOfTea(getApplicationContext(), settings.getLanguage(), tmpLang);
             teaItems.saveCollection(getApplicationContext());
             settings.setLanguage(tmpLang);
@@ -223,24 +233,41 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             }
         });
         newTea.setOnLongClickListener(this);
+
+        //Show theses Hints only on start of the application
+        if (startApplication) {
+            startApplication = false;
+            //show dialog problem
+            if (settings.isMainProblemAlert()) {
+                dialogMainProblem();
+            }
+            //show dialog rating
+            if (settings.isMainRateAlert() && settings.getMainRatecounter() >= 20) {
+                settings.resetMainRatecounter();
+                dialogMainRating();
+            } else {
+                settings.incrementMainRatecounter();
+            }
+            settings.saveSettings(getApplicationContext());
+        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-        public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.action_settings){
+        if (id == R.id.action_settings) {
             //Neues Intent anlegen
             Intent settingScreen = new Intent(MainActivity.this, Settings.class);
             // Intent starten und zur zweiten Activity wechseln
             startActivity(settingScreen);
-        }else if(id == R.id.action_about){
+        } else if (id == R.id.action_about) {
             //Neues Intent anlegen
             Intent aboutScreen = new Intent(MainActivity.this, About.class);
             // Intent starten und zur zweiten Activity wechseln
@@ -252,13 +279,13 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        if(v.getId() == R.id.listViewTealist){
+        if (v.getId() == R.id.listViewTealist) {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
             menu.setHeaderTitle(teaItems.getTeaItems().get(info.position).getName());
 
             //Übersetzung Englisch Deutsch
             String[] menuItems = getResources().getStringArray(R.array.itemMenu);
-            for(int i=0; i<menuItems.length; i++){
+            for (int i = 0; i < menuItems.length; i++) {
                 menu.add(Menu.NONE, i, i, menuItems[i]);
             }
         }
@@ -272,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         String menuItemName = menuItems[menuItemIndex];
         String editOption = menuItems[0], deleteOption = menuItems[1];
 
-        if(menuItemName.equals(editOption)){
+        if (menuItemName.equals(editOption)) {
             //Neues Intent anlegen
             Intent newteaScreen = new Intent(MainActivity.this, NewTea.class);
             newteaScreen.putExtra("elementId", teaItems.getTeaItems().get(info.position).getId());
@@ -280,10 +307,10 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
             // Intent starten und zur zweiten Activity wechseln
             startActivity(newteaScreen);
-        }else if(menuItemName.equals(deleteOption)){
+        } else if (menuItemName.equals(deleteOption)) {
             int position = info.position;
             teaItems.getTeaItems().remove(position);
-            if(!teaItems.saveCollection(getApplicationContext())){
+            if (!teaItems.saveCollection(getApplicationContext())) {
                 Toast toast = Toast.makeText(getApplicationContext(), R.string.main_error_deletion, Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -292,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         return true;
     }
 
-    private void askPermissions(){
+    private void askPermissions() {
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -319,6 +346,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -347,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     @Override
     public boolean onLongClick(View view) {
         if (view.getId() == R.id.newtea) {
-            showTooltip(view, Gravity.TOP,getResources().getString(R.string.main_tooltip_newtea));
+            showTooltip(view, Gravity.TOP, getResources().getString(R.string.main_tooltip_newtea));
         }
         return true;
     }
@@ -358,8 +386,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         adapter.notifyDataSetChanged();
     }
 
-    private void showTooltip(View v, int gravity, String text){
-        Tooltip tooltip = new Tooltip.Builder(v)
+    private void showTooltip(View v, int gravity, String text) {
+        new Tooltip.Builder(v)
                 .setText(text)
                 .setTextColor(getResources().getColor(R.color.white))
                 .setGravity(gravity)
@@ -367,5 +395,74 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 .setCancelable(true)
                 .setDismissOnClick(true)
                 .show();
+    }
+
+    private void dialogMainProblem() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ViewGroup parent = findViewById(R.id.main_parent);
+
+            LayoutInflater inflater = getLayoutInflater();
+            View alertLayoutDialogProblem = inflater.inflate(R.layout.dialogmainproblem, parent, false);
+            final CheckBox dontshowagain = alertLayoutDialogProblem.findViewById(R.id.checkboxDialogMainProblem);
+
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.setView(alertLayoutDialogProblem);
+            adb.setTitle(R.string.main_dialog_problem_header);
+            adb.setPositiveButton(R.string.main_dialog_problem_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dontshowagain.isChecked()) {
+                        MainActivity.settings.setMainProblemAlert(false);
+                        MainActivity.settings.saveSettings(getApplicationContext());
+                    }
+                    Intent problemsScreen = new Intent(MainActivity.this, Problems.class);
+                    startActivity(problemsScreen);
+                }
+            });
+            adb.setNegativeButton(R.string.main_dialog_problem_cancle, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dontshowagain.isChecked()) {
+                        MainActivity.settings.setMainProblemAlert(false);
+                        MainActivity.settings.saveSettings(getApplicationContext());
+                    }
+                }
+            });
+            adb.show();
+        }
+    }
+
+    private void dialogMainRating() {
+        ViewGroup parent = findViewById(R.id.main_parent);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayoutDialogProblem = inflater.inflate(R.layout.dialogmainrating, parent, false);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(alertLayoutDialogProblem);
+        adb.setTitle(R.string.main_dialog_rating_header);
+        adb.setPositiveButton(R.string.main_dialog_rating_positive, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.settings.setMainRateAlert(false);
+                MainActivity.settings.saveSettings(getApplicationContext());
+
+                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+            }
+        });
+        adb.setNeutralButton(R.string.main_dialog_rating_neutral, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        adb.setNegativeButton(R.string.main_dialog_rating_negative, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                MainActivity.settings.setMainRateAlert(false);
+                MainActivity.settings.saveSettings(getApplicationContext());
+            }
+        });
+        adb.show();
     }
 }

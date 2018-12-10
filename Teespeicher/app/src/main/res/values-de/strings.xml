@@ -19,6 +19,17 @@
     <string name="main_error_deletion">Löschung konnte nicht durchgeführt werden.</string>
     <string name="main_tooltip_search">Suchen</string>
     <string name="main_tooltip_newtea">Tee hinzufügen</string>
+    <string name="main_dialog_problem_header">Problem</string>
+    <string name="main_dialog_problem">Hey, du verwendest Android 8 oder höher. Mit diesen Versionen hat Android neue Funktionen eingeführt, die Probleme beim Ausführen dieser App verursachen.</string>
+    <string name="main_dialog_problem_checkbox">Bitte nicht mehr zeigen!</string>
+    <string name="main_dialog_problem_ok">Löse das Problem</string>
+    <string name="main_dialog_problem_cancle">Nicht jetzt</string>
+    <string name="main_dialog_rating_header">Bewerte die App</string>
+    <string name="main_dialog_rating">Gefällt dir die App? Ich würde mich über eine Bewertung freuen.</string>
+    <string name="main_dialog_rating_checkbox">Bitte nicht mehr zeigen!</string>
+    <string name="main_dialog_rating_positive">Bewerten</string>
+    <string name="main_dialog_rating_neutral">Später</string>
+    <string name="main_dialog_rating_negative">Nein, danke</string>
     <!--showtea_de-->
     <string name="showtea_heading">Information</string>
     <string name="showtea_action_note">Notiz</string>
@@ -182,8 +193,13 @@
         <item>Fahrenheit</item>
     </array>
     <string name="settings_show_hints">Hinweise</string>
-    <string name="settings_show_hints_description">Alle Hinweise aktivieren</string>
-    <string name="settings_show_hints_text">Hinweise sind wieder aktiv.</string>
+    <string name="settings_show_hints_description">Aktiviere/Deaktiviere Hinweise</string>
+    <string name="settings_show_hints_header">Hinweise</string>
+    <string name="settings_show_hints_ok">Ok</string>
+    <string name="settings_show_hints_cancle">Abbrechen</string>
+    <string name="settings_show_hints_rating_checkbox">Bewertungshinweis</string>
+    <string name="settings_show_hints_problem_checkbox">Problemhinweis</string>
+    <string name="settings_show_hints_desciption_checkbox">Hilfe im Informationsfenster</string>
     <string name="settings_factory_settings">Werkseinstellungen</string>
     <string name="settings_factory_settings_description">Zurücksetzen auf Werkseinstellungen</string>
     <string name="settings_factory_settings_text">Es werden alle Tees gelöscht und die Einstellungen zurückgesetzt.</string>
